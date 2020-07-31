@@ -234,7 +234,7 @@ StartTrainerBattle_DetermineWhichAnimation:
 	ld de, MON_LEVEL - MON_HP - 1
 	add hl, de
 	ld de, 0
-	ld a, [h1]
+	ld a, [hl]
 	add 3
 	ld hl, wCurPartyLevel
 	cp [hl]
