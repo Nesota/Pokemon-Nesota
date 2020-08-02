@@ -1,8 +1,9 @@
-	const_def 1
-	const PINK_PAGE  ; 1
-	const GREEN_PAGE ; 2
-	const BLUE_PAGE  ; 3
-NUM_STAT_PAGES EQU const_value - 1
+	const_def
+	const PINK_PAGE   ; 0
+	const GREEN_PAGE  ; 1
+	const BLUE_PAGE   ; 2
+	const ORANGE_PAGE ; 3
+NUM_STAT_PAGES EQU const_value
 
 STAT_PAGE_MASK EQU %00000011
 
@@ -62,12 +63,7 @@ StatsScreenInit_gotaddress:
 StatsScreenMain:
 	xor a
 	ld [wJumptableIndex], a
-; ???
-	ld [wcf64], a
-	ld a, [wcf64]
-	and $ff ^ STAT_PAGE_MASK
-	or PINK_PAGE ; first_page
-	ld [wcf64], a
+	ld [wcf64], a ; PINK_PAGE
 .loop
 	ld a, [wJumptableIndex]
 	and $ff ^ (1 << 7)
@@ -82,12 +78,7 @@ StatsScreenMain:
 StatsScreenMobile:
 	xor a
 	ld [wJumptableIndex], a
-; ???
-	ld [wcf64], a
-	ld a, [wcf64]
-	and $ff ^ STAT_PAGE_MASK
-	or PINK_PAGE ; first_page
-	ld [wcf64], a
+	ld [wcf64], a ; PINK_PAGE
 .loop
 	farcall Mobile_SetOverworldDelay
 	ld a, [wJumptableIndex]
@@ -336,20 +327,22 @@ StatsScreen_JoypadAction:
 
 .a_button
 	ld a, c
-	cp BLUE_PAGE ; last page
+	cp ORANGE_PAGE ; last page
 	jr z, .b_button
 .d_right
 	inc c
-	ld a, BLUE_PAGE ; last page
+	ld a, ORANGE_PAGE ; last page
 	cp c
 	jr nc, .set_page
 	ld c, PINK_PAGE ; first page
 	jr .set_page
 
 .d_left
+	ld a, c
 	dec c
+	and a ; cp PINK_PAGE ; first page
 	jr nz, .set_page
-	ld c, BLUE_PAGE ; last page
+	ld c, ORANGE_PAGE ; last page
 	jr .set_page
 
 .done
@@ -469,7 +462,7 @@ StatsScreen_PlaceHorizontalDivider:
 	ret
 
 StatsScreen_PlacePageSwitchArrows:
-	hlcoord 12, 6
+	hlcoord 10, 6
 	ld [hl], "◀"
 	hlcoord 19, 6
 	ld [hl], "▶"
@@ -525,7 +518,6 @@ StatsScreen_LoadGFX:
 .PageTilemap:
 	ld a, [wcf64]
 	maskbits NUM_STAT_PAGES
-	dec a
 	ld hl, .Jumptable
 	rst JumpTable
 	ret
@@ -535,6 +527,7 @@ StatsScreen_LoadGFX:
 	dw LoadPinkPage
 	dw LoadGreenPage
 	dw LoadBluePage
+	dw LoadOrangePage
 
 LoadPinkPage:
 	hlcoord 0, 9
@@ -776,6 +769,11 @@ LoadBluePage:
 	dw wOTPartyMonOT
 	dw sBoxMonOT
 	dw wBufferMonOT
+
+LoadOrangePage:
+	call TN_PrintDVs
+	ret
+
 
 IDNoString:
 	db "<ID>№.@"
@@ -1055,6 +1053,9 @@ StatsScreen_AnimateEgg:
 	ret
 
 StatsScreen_LoadPageIndicators:
+	hlcoord 11, 5
+	ld a, $36 ; " " " "
+	call .load_square
 	hlcoord 13, 5
 	ld a, $36 ; first of 4 small square tiles
 	call .load_square
@@ -1065,13 +1066,19 @@ StatsScreen_LoadPageIndicators:
 	ld a, $36 ; " " " "
 	call .load_square
 	ld a, c
+	cp PINK_PAGE
+	hlcoord 11, 5
+	jr z, .load_highlighted_square
 	cp GREEN_PAGE
+	hlcoord 13, 5
+	jr z, .load_highlighted_square
+	cp BLUE_PAGE
+	hlcoord 15, 5
+	jr z, .load_highlighted_square
+	; must be ORANGE_PAGE
+	hlcoord 17, 5
+.load_highlighted_square
 	ld a, $3a ; first of 4 large square tiles
-	hlcoord 13, 5 ; PINK_PAGE (< GREEN_PAGE)
-	jr c, .load_square
-	hlcoord 15, 5 ; GREEN_PAGE (= GREEN_PAGE)
-	jr z, .load_square
-	hlcoord 17, 5 ; BLUE_PAGE (> GREEN_PAGE)
 .load_square
 	push bc
 	ld [hli], a
@@ -1140,3 +1147,158 @@ CheckFaintedFrzSlp:
 .fainted_frz_slp
 	scf
 	ret
+
+; by Aurelio Mannara - BitBuilt 2017
+; ShockSlayer helped ( °v°)
+TN_PrintDVs:
+    ; print labels
+
+    hlcoord 15, 9
+    ld [wBuffer2], a
+    ld de, .label_DV ; DV
+    call PlaceString
+    
+    hlcoord 14, 10
+    ld [wBuffer2], a
+    ld de, .label_HP ; hp
+    call PlaceString
+    
+    hlcoord 14, 11
+    ld [wBuffer2], a
+    ld de, .label_ATK ; atk
+    call PlaceString
+    
+    hlcoord 14, 12
+    ld [wBuffer2], a
+    ld de, .label_DEF ; def
+    call PlaceString
+    
+    hlcoord 14, 13
+    ld [wBuffer2], a
+    ld de, .label_SPE ; spe
+    call PlaceString
+    
+    hlcoord 14, 14
+    ld [wBuffer2], a
+    ld de, .label_SPC ; spc
+    call PlaceString
+    
+    ; print 16 bit value of DVs
+
+    ld de,wTempMonDVs
+    ld a, [de]
+    ld b, a
+    inc de
+    ld a, [de]
+    ld c, a
+    push bc
+
+
+    ld de,wTempMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 18, 11 ; atk disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wTempMonDVs
+    call PrintNum
+
+    ld de,wTempMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f
+    ld [de], a
+    hlcoord 18, 12 ; def disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wTempMonDVs
+    call PrintNum
+
+    ld de,wTempMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 18, 13 ; spe disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wTempMonDVs
+    call PrintNum
+
+    ld de,wTempMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f
+    ld [de], a
+    hlcoord 18, 14 ; spc disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wTempMonDVs
+    call PrintNum
+
+    ld de,wTempMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    bit 4, b
+    jr z, .noAttackHP
+    set 3, a
+.noAttackHP
+    bit 0, b
+    jr z, .noDefenseHP
+    set 2, a
+.noDefenseHP
+    bit 4, c
+    jr z, .noSpeedHP
+    set 1, a
+.noSpeedHP
+    bit 0, c
+    jr z, .noSpecialHP
+    set 0, a
+.noSpecialHP
+    push bc
+    ld [de], a
+    hlcoord 18, 10 ; hp disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wTempMonDVs
+    call PrintNum
+
+    ld de,wTempMonDVs
+    pop bc
+    ld a, b
+    ld [de], a
+    inc de
+    ld a, c
+    ld [de], a
+
+.label_DV
+    db "DVs:@"
+.label_HP
+    db "HP@"
+.label_ATK
+    db "ATK@"
+.label_DEF
+    db "DEF@"
+.label_SPE
+    db "SPE@"
+.label_SPC
+    db "SPC@"
+    
+    ret
