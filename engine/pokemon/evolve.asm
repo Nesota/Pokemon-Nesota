@@ -70,24 +70,165 @@ EvolveAfterBattle_MasterLoop:
 
 	ld a, [wLinkMode]
 	and a
-	jp nz, .dont_evolve_2
+	jr nz, .skip_evolve
 
 	ld a, b
 	cp EVOLVE_ITEM
 	jp z, .item
 
+	cp EVOLVE_ITEM_GENDER
+	jp z, .item_gender
+
 	ld a, [wForceEvolution]
 	and a
-	jp nz, .dont_evolve_2
+	jp nz, .skip_evolve
 
 	ld a, b
 	cp EVOLVE_LEVEL
 	jp z, .level
+	
+	cp EVOLVE_LEVEL_GENDER
+	jp z, .level_gender
+
 
 	cp EVOLVE_HAPPINESS
-	jr z, .happiness
+	jp z, .happiness
 
-; EVOLVE_STAT
+	cp EVOLVE_MOVE
+	jp z, .move
+
+	cp EVOLVE_MOVE_TYPE
+	jp z, .move_type
+
+	cp EVOLVE_HOLD
+	jp z, .hold
+
+	cp EVOLVE_PARTY
+	jp z, .party
+
+.skip_evolve:
+	call SkipEvo
+	jr c, .loop
+
+	; Someone was an idiot and placed an unknown value here.
+	; Treat it as the end of the list.
+	jp EvolveAfterBattle_MasterLoop
+
+
+.trade
+	ld a, [wLinkMode]
+	and a
+	jp z, .dont_evolve_2
+
+
+	call IsMonHoldingEverstone
+		jp z, .dont_evolve_2
+
+	ld a, [hli]
+	ld b, a
+	inc a
+	jp z, .proceed
+
+	ld a, [wLinkMode]
+	cp LINK_TIMECAPSULE
+	jp z, .dont_evolve_3
+
+	ld a, [wTempMonItem]
+	cp b
+	jp nz, .dont_evolve_3
+
+	xor a
+	ld [wTempMonItem], a
+	jp .proceed
+
+
+.item
+	ld a, [hli]
+	ld b, a
+	ld a, [wCurItem]
+	cp b
+	jp nz, .dont_evolve_3
+
+	ld a, [wForceEvolution]
+	and a
+	jp z, .dont_evolve_3
+	jp .proceed
+
+
+.item_gender
+	; Get 'mon's gender
+	farcall GetGender
+	pop hl
+	jp c, .dont_evolve_1
+	
+	; Check gender (using the zero flag because a isn't returned afer a farcall)
+	ld a, [hli]
+	jr z, .item_gender_female
+	cp MON_MALE
+	jr .item_gender_check
+.item_gender_female
+	cp MON_FEMALE
+.item_gender_check
+	jp nz, .dont_evolve_2
+; Continue by checking for the item
+	jp .item
+
+.level_gender
+	; Get 'mon's gender
+	farcall GetGender
+	pop hl
+	jp c, .dont_evolve_1
+	
+	; Check gender (using the zero flag because a isn't returned afer a farcall)
+	ld a, [hli]
+	jr z, .item_gender_female
+	cp MON_MALE
+	jr .item_gender_check
+.level_gender_female
+	cp MON_FEMALE
+.level_gender_check
+	jp nz, .dont_evolve_2
+; Continue by checking for the level
+	jp .level
+	
+.level
+	ld a, [hli]
+	ld b, a
+	ld a, [wTempMonLevel]
+	cp b
+	jp c, .dont_evolve_3
+	call IsMonHoldingEverstone
+	jp z, .dont_evolve_3
+	jp .proceed
+
+
+.happiness
+	ld a, [wTempMonHappiness]
+	cp HAPPINESS_TO_EVOLVE
+	jp c, .dont_evolve_2
+
+	call IsMonHoldingEverstone
+	jp z, .dont_evolve_2
+
+	ld a, [hli]
+	cp TR_ANYTIME
+	jp z, .proceed
+	cp TR_MORNDAY
+	jr z, .happiness_daylight
+
+; TR_NITE
+	ld a, [wTimeOfDay]
+	cp NITE_F
+	jp nz, .dont_evolve_3
+	jp .proceed
+
+.happiness_daylight
+	ld a, [wTimeOfDay]
+	cp NITE_F
+	jp z, .dont_evolve_3
+	jp .proceed
+
+.stat
 	ld a, [wTempMonLevel]
 	cp [hl]
 	jp c, .dont_evolve_1
@@ -105,6 +246,7 @@ EvolveAfterBattle_MasterLoop:
 	ld a, ATK_LT_DEF
 	jr c, .got_tyrogue_evo
 	ld a, ATK_GT_DEF
+
 .got_tyrogue_evo
 	pop hl
 
@@ -113,82 +255,123 @@ EvolveAfterBattle_MasterLoop:
 	jp nz, .dont_evolve_2
 
 	inc hl
-	jr .proceed
+	jp .proceed
 
-.happiness
-	ld a, [wTempMonHappiness]
-	cp HAPPINESS_TO_EVOLVE
-	jp c, .dont_evolve_2
 
+.move
 	call IsMonHoldingEverstone
 	jp z, .dont_evolve_2
 
 	ld a, [hli]
+	ld b, a
+	ld de, wTempMonMoves
+	ld c, NUM_MOVES
+.move_loop
+	ld a, [de]
+	cp b
+	jp z, .proceed
+
+	inc de
+	dec c
+	jp nz, .move_loop
+
+	jp .dont_evolve_3
+
+
+.move_type
+	call IsMonHoldingEverstone
+	jp z, .dont_evolve_2
+
+	ld a, [hli]
+	push hl
+	
+	ld b, a
+	ld hl, wTempMonMoves
+	ld c, NUM_MOVES
+.move_type_loop
+	ld a, [hli]
+	and a
+	jr z, .move_type_next
+	dec a
+
+	push hl
+	push bc
+	ld hl, Moves + MOVE_TYPE
+	ld bc, MOVE_LENGTH
+	call AddNTimes
+	ld a, BANK(Moves)
+	call GetFarByte
+	pop bc
+	pop hl
+
+	cp b
+	jr z, .move_type_proceed
+
+	.move_type_next
+	dec c
+	jp nz, .move_type_loop
+
+	pop hl
+	jp .dont_evolve_3
+
+
+.move_type_proceed
+	pop hl
+	jp .proceed
+
+
+.hold
+	; Get current item
+	push hl
+	ld a, [wCurPartyMon]
+	ld hl, wPartyMon1Item
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+	ld a, [hl]
+	ld b, a
+		pop hl
+
+	; Check the item
+	ld a, [hli]
+	cp b
+	jp nz, .dont_evolve_2
+
+	; Check the time
+	ld a, [hli]
 	cp TR_ANYTIME
-	jr z, .proceed
+	jp z, .proceed
 	cp TR_MORNDAY
-	jr z, .happiness_daylight
+	jr z, .hold_daylight
 
 ; TR_NITE
 	ld a, [wTimeOfDay]
-	cp NITE_F
+	cp NITE
 	jp nz, .dont_evolve_3
-	jr .proceed
+	jp .proceed
 
-.happiness_daylight
+.hold_daylight
 	ld a, [wTimeOfDay]
-	cp NITE_F
+	cp NITE
+	
 	jp z, .dont_evolve_3
-	jr .proceed
+	jp .proceed
 
-.trade
-	ld a, [wLinkMode]
-	and a
-	jp z, .dont_evolve_2
-
+.party
 	call IsMonHoldingEverstone
 	jp z, .dont_evolve_2
 
+	; Check if any of the party mons are the requested one
 	ld a, [hli]
 	ld b, a
-	inc a
-	jr z, .proceed
+	push hl
+	farcall FindThatSpecies
+	pop hl
 
-	ld a, [wLinkMode]
-	cp LINK_TIMECAPSULE
 	jp z, .dont_evolve_3
+	
+	; fallthrough
 
-	ld a, [wTempMonItem]
-	cp b
-	jp nz, .dont_evolve_3
 
-	xor a
-	ld [wTempMonItem], a
-	jr .proceed
-
-.item
-	ld a, [hli]
-	ld b, a
-	ld a, [wCurItem]
-	cp b
-	jp nz, .dont_evolve_3
-
-	ld a, [wForceEvolution]
-	and a
-	jp z, .dont_evolve_3
-	ld a, [wLinkMode]
-	and a
-	jp nz, .dont_evolve_3
-	jr .proceed
-
-.level
-	ld a, [hli]
-	ld b, a
-	ld a, [wTempMonLevel]
-	cp b
-	jp c, .dont_evolve_3
-	call IsMonHoldingEverstone
-	jp z, .dont_evolve_3
 
 .proceed
 	ld a, [wTempMonLevel]

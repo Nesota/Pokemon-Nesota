@@ -17,6 +17,22 @@ SECTION "Evolutions and Attacks", ROMX
 
 INCLUDE "data/pokemon/evos_attacks_pointers.asm"
 
+; How many "parameters" each evolution type has
+EvoTypeSizes::
+	db 2 ; EVOLVE_LEVEL
+	db 3 ; EVOLVE_LEVEL_GENDER
+	db 2 ; EVOLVE_ITEM
+	db 3 ; EVOLVE_ITEM_GENDER
+	db 2 ; EVOLVE_TRADE
+	db 2 ; EVOLVE_HAPPINESS
+	db 3 ; EVOLVE_STAT
+	db 2 ; EVOLVE_MOVE
+	db 2 ; EVOLVE_MOVE_TYPE
+	db 3 ; EVOLVE_HOLD
+	db 2 ; EVOLVE_PARTY
+
+
+
 BulbasaurEvosAttacks:
 	db EVOLVE_LEVEL, 16, IVYSAUR
 	db 0 ; no more evolutions
