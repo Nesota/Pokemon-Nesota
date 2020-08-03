@@ -26,12 +26,13 @@ GoldenrodGameCorner_MapScripts:
 	callback MAPCALLBACK_OBJECTS, .MoveTutor
 
 .MoveTutor:
-	checkevent EVENT_BEAT_ELITE_FOUR
-	iffalse .finish
-	checkitem COIN_CASE
-	iffalse .move_tutor_inside
 	readvar VAR_WEEKDAY
+	ifequal SUNDAY, .move_tutor_outside
+	ifequal MONDAY, .move_tutor_outside
+	ifequal TUESDAY, .move_tutor_outside
 	ifequal WEDNESDAY, .move_tutor_outside
+	ifequal THURSDAY, .move_tutor_outside
+	ifequal FRIDAY, .move_tutor_outside
 	ifequal SATURDAY, .move_tutor_outside
 .move_tutor_inside
 	appear GOLDENRODGAMECORNER_MOVETUTOR
@@ -75,6 +76,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerPrizeVendor_CancelPurchaseScript
 
 .Thunder:
+	checkitem TM_THUNDER
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM25_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_THUNDER
@@ -86,6 +89,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerTMVendor_FinishScript
 
 .Blizzard:
+	checkitem TM_BLIZZARD
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM14_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_BLIZZARD
@@ -97,6 +102,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerTMVendor_FinishScript
 
 .FireBlast:
+	checkitem TM_FIRE_BLAST
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM38_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_FIRE_BLAST
@@ -116,6 +123,11 @@ GoldenrodGameCornerTMVendor_FinishScript:
 	waitsfx
 	playsound SFX_TRANSACTION
 	writetext GoldenrodGameCornerPrizeVendorHereYouGoText
+	waitbutton
+	sjump GoldenrodGameCornerTMVendor_LoopScript
+	
+GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript:
+	writetext GoldenrodGameCornerPrizeVendorAlreadyHaveTMText
 	waitbutton
 	sjump GoldenrodGameCornerTMVendor_LoopScript
 
@@ -340,6 +352,11 @@ GoldenrodGameCornerPrizeVendorConfirmPrizeText:
 
 GoldenrodGameCornerPrizeVendorHereYouGoText:
 	text "Here you go!"
+	done
+
+GoldenrodGameCornerPrizeVendorAlreadyHaveTMText:
+	text "But you already"
+	line "have that TM!"
 	done
 
 GoldenrodGameCornerPrizeVendorNeedMoreCoinsText:
