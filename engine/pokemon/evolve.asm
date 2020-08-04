@@ -76,6 +76,7 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_ITEM
 	jp z, .item
 
+	ld a, b
 	cp EVOLVE_ITEM_GENDER
 	jp z, .item_gender
 
@@ -87,9 +88,9 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_LEVEL
 	jp z, .level
 	
+	ld a, b
 	cp EVOLVE_LEVEL_GENDER
 	jp z, .level_gender
-
 
 	cp EVOLVE_HAPPINESS
 	jp z, .happiness
@@ -175,21 +176,19 @@ EvolveAfterBattle_MasterLoop:
 
 .level_gender
 	; Get 'mon's gender
+	push hl
 	farcall GetGender
 	pop hl
 	jp c, .dont_evolve_1
-	
-	; Check gender (using the zero flag because a isn't returned afer a farcall)
-	ld a, [hli]
-	jr z, .item_gender_female
-	cp MON_MALE
-	jr .item_gender_check
-.level_gender_female
-	cp MON_FEMALE
-.level_gender_check
-	jp nz, .dont_evolve_2
-; Continue by checking for the level
+
+	; Check gender
+	cp [hl]
+	jp nz, .dont_evolve_1
+
+	; Continue by checking for the level
+	inc hl
 	jp .level
+
 	
 .level
 	ld a, [hli]

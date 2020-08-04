@@ -143,7 +143,6 @@ NUM_HOF_TEAMS EQU 30
 	const EVOLVE_PARTY
 EVOLVE_TYPES EQU const_value
 
-
 ; EVOLVE_HAPPINESS triggers
 	const_def 1
 	const TR_ANYTIME

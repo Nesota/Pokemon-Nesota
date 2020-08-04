@@ -3375,10 +3375,9 @@ CelebiEvosAttacks:
 	db 50, PERISH_SONG
 	db 0 ; no more level-up moves
 	
-			
 MootleEvosAttacks:	
-	db EVOLVE_LEVEL_GENDER, MON_MALE, 25, TAUROS
-	db EVOLVE_LEVEL_GENDER, MON_FEMALE, 25, MILTANK	
+	db EVOLVE_HAPPINESS, TR_MORNDAY, MILTANK
+	db EVOLVE_HAPPINESS, TR_NITE, TAUROS
 	db 0 ; no more evolutions	
 	db 1, TACKLE	
 	db 3, TAIL_WHIP	
