@@ -1045,3 +1045,8 @@ BetaBlank_Blocks:
 
 GoldenrodDeptStoreRoof_Blocks:
 	INCBIN "maps/GoldenrodDeptStoreRoof.blk"
+	
+SECTION "Map Blocks 4", ROMX
+
+NewBarkPark_Blocks:
+	INCBIN "maps/NewBarkPark.blk"
