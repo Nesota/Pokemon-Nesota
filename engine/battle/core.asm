@@ -4908,7 +4908,7 @@ DrawEnemyHUD:
     call PrintNum
 
 
-    ld de,wTempMonDVs
+    ld de,wEnemyMonDVs
     pop bc
     ld a, b
     ld [de], a
