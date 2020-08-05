@@ -1939,7 +1939,6 @@ wPoisonStepPartyFlags:: ds PARTY_LENGTH
 wPoisonStepDataEnd::
 ENDU
 
-	ds 23
 ENDU
 
 wTMHMMoveNameBackup:: ds MOVE_NAME_LENGTH
@@ -1963,6 +1962,8 @@ wItemsPocketCursor::    db
 wKeyItemsPocketCursor:: db
 wBallsPocketCursor::    db
 wTMHMPocketCursor::     db
+wBerryPocketCursor::    db
+wFieldPocketCursor::    db
 
 wPCItemsScrollPosition::        db
 wPartyMenuScrollPosition::      db ; unused
@@ -1970,6 +1971,8 @@ wItemsPocketScrollPosition::    db
 wKeyItemsPocketScrollPosition:: db
 wBallsPocketScrollPosition::    db
 wTMHMPocketScrollPosition::     db
+wBerryPocketScrollPosition::    db
+wFieldPocketScrollPosition::    db
 
 wSwitchMon::
 wSwitchItem::
@@ -2358,6 +2361,8 @@ wDudeNumItems:: db
 wDudeItems:: ds 2 * 4
 wDudeItemsEnd:: db
 
+wDudeNumBerries::
+wDudeNumField::
 wDudeNumKeyItems:: db
 wDudeKeyItems:: ds 18
 wDudeKeyItemsEnd:: db
@@ -2519,8 +2524,6 @@ wObjectStructsEnd::
 
 wCmdQueue:: ds CMDQUEUE_CAPACITY * CMDQUEUE_ENTRY_SIZE
 
-	ds 40
-
 wMapObjects::
 wPlayerObject:: map_object wPlayer
 wMap1Object::   map_object wMap1
@@ -2608,6 +2611,14 @@ wNumBalls:: db
 wBalls:: ds MAX_BALLS * 2 + 1
 wBallsEnd::
 
+wNumBerries:: db
+wBerries:: ds MAX_BERRIES * 2 + 1
+wBerriesEnd::
+
+wNumField:: db
+wField:: ds MAX_FIELD + 1
+wFieldEnd::
+
 wNumPCItems:: db
 wPCItems:: ds MAX_PC_ITEMS * 2 + 1
 wPCItemsEnd::
@@ -2633,8 +2644,6 @@ wTradeFlags:: flag_array NUM_NPC_TRADES
 wMooMooBerries:: db
 wUndergroundSwitchPositions:: db
 wFarfetchdPosition:: db
-
-	ds 13
 
 ; map scene ids
 wPokecenter2FSceneID::                            db
@@ -2717,8 +2726,6 @@ wMountMoonSquareSceneID::                         db
 wMobileTradeRoomSceneID::                         db
 wMobileBattleRoomSceneID::                        db
 
-	ds 49
-
 ; fight counts
 wJackFightCount::    db
 wBeverlyFightCount:: db ; unused
@@ -2748,8 +2755,6 @@ wWiltonFightCount::  db
 wKenjiFightCount::   db ; unused
 wParryFightCount::   db
 wErinFightCount::    db
-
-	ds 100
 
 wEventFlags:: flag_array NUM_EVENTS
 
