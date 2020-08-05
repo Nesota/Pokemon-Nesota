@@ -4791,7 +4791,7 @@ DrawEnemyHUD:
 	ldh [hBGMapMode], a
 
 	hlcoord 1, 0
-	lb bc, 5, 11
+	lb bc, 4, 11
 	call ClearBox
 
 	farcall DrawEnemyHUDBorder
@@ -4908,7 +4908,7 @@ DrawEnemyHUD:
     call PrintNum
 
 
-    ld de,wEnemyMonDVs
+    ld de,wTempMonDVs
     pop bc
     ld a, b
     ld [de], a
