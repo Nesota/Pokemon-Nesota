@@ -24,7 +24,7 @@ ItemDescriptions:
 	dw FireStoneDesc
 	dw ThunderStoneDesc
 	dw WaterStoneDesc
-	dw TeruSama2Desc
+	dw HatchetDesc
 	dw HPUpDesc
 	dw ProteinDesc
 	dw IronDesc
@@ -89,7 +89,7 @@ ItemDescriptions:
 	dw BigMushroomDesc
 	dw SilverPowderDesc
 	dw BluApricornDesc
-	dw TeruSama6Desc
+	dw FlyWhistleDesc
 	dw AmuletCoinDesc
 	dw YlwApricornDesc
 	dw GrnApricornDesc
@@ -99,7 +99,7 @@ ItemDescriptions:
 	dw WhtApricornDesc
 	dw BlackbeltDesc
 	dw BlkApricornDesc
-	dw TeruSama7Desc
+	dw LaprasTubeDesc
 	dw PnkApricornDesc
 	dw BlackGlassesDesc
 	dw SlowpokeTailDesc
@@ -119,7 +119,7 @@ ItemDescriptions:
 	dw MiracleSeedDesc
 	dw ThickClubDesc
 	dw FocusBandDesc
-	dw TeruSama8Desc
+	dw CartDesc
 	dw EnergyPowderDesc
 	dw EnergyRootDesc
 	dw HealPowderDesc
@@ -134,9 +134,9 @@ ItemDescriptions:
 	dw StarPieceDesc
 	dw BasementKeyDesc
 	dw PassDesc
-	dw TeruSama9Desc
-	dw TeruSama10Desc
-	dw TeruSama11Desc
+	dw FlashLightDesc
+	dw PaddleDesc
+	dw RopeDesc
 	dw CharcoalDesc
 	dw BerryJuiceDesc
 	dw ScopeLensDesc
@@ -351,8 +351,9 @@ WaterStoneDesc:
 	db   "Evolves certain"
 	next "kinds of #MON.@"
 
-TeruSama2Desc:
-	db   "?@"
+HatchetDesc:
+	db   "Cuts down pesky"
+	next "plants.@"
 
 HPUpDesc:
 	db   "Raises the HP of"
@@ -605,8 +606,9 @@ SilverPowderDesc:
 BluApricornDesc:
 	db   "A blue APRICORN.@"
 
-TeruSama6Desc:
-	db   "?@"
+FlyWhistleDesc:
+	db   "Summon a Fearow"
+	next "to travel.@"
 
 AmuletCoinDesc:
 	db   "Doubles monetary"
@@ -641,8 +643,9 @@ BlkApricornDesc:
 	db   "A black APRICORN."
 	next "@"
 
-TeruSama7Desc:
-	db   "?@"
+LaprasTubeDesc:
+	db   "Float on the sea"
+	next "easily.@"
 
 PnkApricornDesc:
 	db   "A pink APRICORN."
@@ -720,8 +723,9 @@ FocusBandDesc:
 	db   "May prevent faint-"
 	next "ing. (HOLD)@"
 
-TeruSama8Desc:
-	db   "?@"
+CartDesc:
+	db   "Move heavy items"
+	next "more easily.@"
 
 EnergyPowderDesc:
 	db   "Restores #MON"
@@ -778,14 +782,17 @@ PassDesc:
 	db   "A ticket for the"
 	next "MAGNET TRAIN.@"
 
-TeruSama9Desc:
-	db   "?@"
+FlashLightDesc:
+	db   "A light in the"
+	next "darkness.@"
 
-TeruSama10Desc:
-	db   "?@"
+PaddleDesc:
+	db   "Use to get through"
+	next "dangerous waters.@"
 
-TeruSama11Desc:
-	db   "?@"
+RopeDesc:
+	db   "Scale the falls"
+	next "fast and safe.@"
 
 CharcoalDesc:
 	db   "Powers up fire-"

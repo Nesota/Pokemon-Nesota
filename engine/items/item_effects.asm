@@ -37,7 +37,7 @@ ItemEffects:
 	dw EvoStoneEffect      ; FIRE_STONE
 	dw EvoStoneEffect      ; THUNDERSTONE
 	dw EvoStoneEffect      ; WATER_STONE
-	dw NoEffect            ; ITEM_19
+	dw HatchetEffect      ; HATCHET
 	dw VitaminEffect       ; HP_UP
 	dw VitaminEffect       ; PROTEIN
 	dw VitaminEffect       ; IRON
@@ -102,7 +102,7 @@ ItemEffects:
 	dw NoEffect            ; BIG_MUSHROOM
 	dw NoEffect            ; SILVERPOWDER
 	dw NoEffect            ; BLU_APRICORN
-	dw NoEffect            ; ITEM_5A
+	dw FlyWhistleEffect      ; FLY_WHISTLE
 	dw NoEffect            ; AMULET_COIN
 	dw NoEffect            ; YLW_APRICORN
 	dw NoEffect            ; GRN_APRICORN
@@ -112,7 +112,7 @@ ItemEffects:
 	dw NoEffect            ; WHT_APRICORN
 	dw NoEffect            ; BLACKBELT_I
 	dw NoEffect            ; BLK_APRICORN
-	dw NoEffect            ; ITEM_64
+	dw LaprasTubeEffect           ; LAPRAS_TUBE
 	dw NoEffect            ; PNK_APRICORN
 	dw NoEffect            ; BLACKGLASSES
 	dw NoEffect            ; SLOWPOKETAIL
@@ -132,7 +132,7 @@ ItemEffects:
 	dw NoEffect            ; MIRACLE_SEED
 	dw NoEffect            ; THICK_CLUB
 	dw NoEffect            ; FOCUS_BAND
-	dw NoEffect            ; ITEM_78
+	dw CartEffect            ; CART
 	dw EnergypowderEffect  ; ENERGYPOWDER
 	dw EnergyRootEffect    ; ENERGY_ROOT
 	dw HealPowderEffect    ; HEAL_POWDER
@@ -147,9 +147,9 @@ ItemEffects:
 	dw NoEffect            ; STAR_PIECE
 	dw BasementKeyEffect   ; BASEMENT_KEY
 	dw NoEffect            ; PASS
-	dw NoEffect            ; ITEM_87
-	dw NoEffect            ; ITEM_88
-	dw NoEffect            ; ITEM_89
+	dw FlashLightEffect            ; FLASH_LIGHT
+	dw PaddleEffect            ; PADDLE
+	dw RopeEffect            ; Rope
 	dw NoEffect            ; CHARCOAL
 	dw RestoreHPEffect     ; BERRY_JUICE
 	dw NoEffect            ; SCOPE_LENS
@@ -2918,4 +2918,46 @@ GetMthMoveOfCurrentMon:
 	ld c, a
 	ld b, 0
 	add hl, bc
+	ret
+
+HatchetEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall CutFunction
+	ret
+
+LaprasTubeEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall SurfFunction
+	ret
+
+FlashLightEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall FlashFunction
+	ret
+
+FlyWhistleEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall FlyFunction
+	ret
+
+RopeEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall WaterfallFunction
+	ret
+
+PaddleEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall WhirlpoolFunction
+	ret
+
+CartEffect:
+	ld a, 1
+	ld [wUsingFieldItem], a
+	farcall StrengthFunction
 	ret

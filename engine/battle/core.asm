@@ -4810,112 +4810,7 @@ DrawEnemyHUD:
 
 	ld hl, wEnemyMonDVs
 	ld de, wTempMonDVs
-    
-    ; print 16 bit value of DVs
 
-    ld de,wEnemyMonDVs
-    ld a, [de]
-    ld b, a
-    inc de
-    ld a, [de]
-    ld c, a
-    push bc
-
-    ld de,wEnemyMonDVs
-    ld a, 0
-    ld [de], a
-    inc de
-    pop bc
-    ld a, b
-    push bc
-    and $f0
-    swap a
-    ld [de], a
-    hlcoord 3, 4 ; atk disp coords
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de,wEnemyMonDVs
-    call PrintNum
-
-    ld de,wEnemyMonDVs
-    ld a, 0
-    ld [de], a
-    inc de
-    pop bc
-    ld a, b
-    push bc
-    and $f
-    ld [de], a
-    hlcoord 5,4 ; def disp coords
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de,wEnemyMonDVs
-    call PrintNum
-
-    ld de,wEnemyMonDVs
-    ld a, 0
-    ld [de], a
-    inc de
-    pop bc
-    ld a, c
-    push bc
-    and $f0
-    swap a
-    ld [de], a
-    hlcoord 7,4 ; spe disp coords
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de,wEnemyMonDVs
-    call PrintNum
-
-    ld de,wEnemyMonDVs
-    ld a, 0
-    ld [de], a
-    inc de
-    pop bc
-    ld a, c
-    push bc
-    and $f
-    ld [de], a
-    hlcoord 9,4 ; spc disp coords
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de,wEnemyMonDVs
-    call PrintNum
-	
-	   ld de,wEnemyMonDVs
-    ld a, 0
-    ld [de], a
-    inc de
-    pop bc
-    bit 4, b
-    jr z, .noAttackHP
-    set 3, a
-.noAttackHP
-    bit 0, b
-    jr z, .noDefenseHP
-    set 2, a
-.noDefenseHP
-    bit 4, c
-    jr z, .noSpeedHP
-    set 1, a
-.noSpeedHP
-    bit 0, c
-    jr z, .noSpecialHP
-    set 0, a
-.noSpecialHP
-    push bc
-    ld [de], a
-    hlcoord 1,4 ; hp disp coords
-    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
-    ld de,wEnemyMonDVs
-    call PrintNum
-
-
-    ld de,wEnemyMonDVs
-    pop bc
-    ld a, b
-    ld [de], a
-    inc de
-    ld a, c
-    ld [de], a
-	
 	ld a, [wEnemySubStatus5]
 	bit SUBSTATUS_TRANSFORMED, a
 	jr z, .ok
@@ -8370,6 +8265,8 @@ InitEnemyWildmon:
 	hlcoord 12, 0
 	lb bc, 7, 7
 	predef PlaceGraphic
+	
+	call PrintEnemyDVs
 	ret
 
 Function3f662: ; unreferenced
@@ -9310,4 +9207,110 @@ BattleStartMessage:
 	ld c, $2 ; start
 	farcall Mobile_PrintOpponentBattleMessage
 
+	ret
+
+PrintEnemyDVs:
+; print 16 bit value of DVs
+    ld de,wEnemyMonDVs
+    ld a, [de]
+    ld b, a
+    inc de
+    ld a, [de]
+    ld c, a
+    push bc
+
+    ld de,wEnemyMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 3, 4 ; atk disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wEnemyMonDVs
+    call PrintNum
+
+    ld de,wEnemyMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, b
+    push bc
+    and $f
+    ld [de], a
+    hlcoord 5,4 ; def disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wEnemyMonDVs
+    call PrintNum
+
+    ld de,wEnemyMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f0
+    swap a
+    ld [de], a
+    hlcoord 7,4 ; spe disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wEnemyMonDVs
+    call PrintNum
+
+    ld de,wEnemyMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    ld a, c
+    push bc
+    and $f
+    ld [de], a
+    hlcoord 9,4 ; spc disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wEnemyMonDVs
+    call PrintNum
+	
+	ld de,wEnemyMonDVs
+    ld a, 0
+    ld [de], a
+    inc de
+    pop bc
+    bit 4, b
+    jr z, .noAttackHP
+    set 3, a
+.noAttackHP
+    bit 0, b
+    jr z, .noDefenseHP
+    set 2, a
+.noDefenseHP
+    bit 4, c
+    jr z, .noSpeedHP
+    set 1, a
+.noSpeedHP
+    bit 0, c
+    jr z, .noSpecialHP
+    set 0, a
+.noSpecialHP
+    push bc
+    ld [de], a
+    hlcoord 1,4 ; hp disp coords
+    lb bc, PRINTNUM_LEADINGZEROS | 2, 2
+    ld de,wEnemyMonDVs
+    call PrintNum
+
+
+    ld de,wEnemyMonDVs
+    pop bc
+    ld a, b
+    ld [de], a
+    inc de
+    ld a, c
+    ld [de], a
 	ret

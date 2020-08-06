@@ -1651,6 +1651,8 @@ wMinutesSince:: db
 wHoursSince:: db
 wDaysSince:: db
 
+wUsingFieldItem:: db
+
 
 SECTION "WRAM 1", WRAMX
 

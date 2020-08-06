@@ -449,7 +449,7 @@ PlacePartyMonEvoStoneCompatibility:
 
 	; Check gender
 	cp b
-	jr nz, .loop2_skip_2
+	jr nz, .loop2_skip_3
 
 	; Check item
 	inc hl
