@@ -64,6 +64,8 @@ SproutTower3FRivalScene:
 SageLiScript:
 	faceplayer
 	opentext
+	checkevent EVENT_BEAT_FALKNER
+	iffalse .NotYet
 	checkevent EVENT_GOT_HM05_FLASH
 	iftrue .GotFlash
 	writetext SageLiSeenText
@@ -77,7 +79,9 @@ SageLiScript:
 	writetext SageLiTakeThisFlashText
 	promptbutton
 	verbosegiveitem HM_FLASH
+	verbosegiveitem FLASH_LIGHT
 	setevent EVENT_GOT_HM05_FLASH
+	setevent EVENT_GOT_FLASH_LIGHT
 	setevent EVENT_BEAT_SAGE_LI
 	writetext SageLiFlashExplanationText
 	waitbutton
@@ -90,6 +94,12 @@ SageLiScript:
 	closetext
 	end
 
+.NotYet
+	writetext SageLiNotYet
+	waitbutton
+	closetext
+	end
+	
 TrainerSageJin:
 	trainer SAGE, JIN, EVENT_BEAT_SAGE_JIN, SageJinSeenText, SageJinBeatenText, 0, .Script
 
@@ -235,10 +245,11 @@ SageLiTakeThisFlashText:
 	line "MON should have"
 
 	para "no problem using"
-	line "this move."
+	line "these itmes."
 
 	para "Take this FLASH"
-	line "HM."
+	line "HM and Light."
+	
 	done
 
 SageLiFlashExplanationText:
@@ -246,11 +257,21 @@ SageLiFlashExplanationText:
 	line "even the darkest"
 	cont "of all places."
 
+	para "Flash Light does"
+	line "the same without"
+	cont "a #MON"
+	
 	para "But to use it out"
 	line "of battle, you"
 
 	para "need the BADGE"
 	line "from VIOLET's GYM."
+	done
+
+SageLiNotYet:
+	text "Return to me"
+	line "after you have"
+	cont "defeated Falkner."
 	done
 
 SageLiAfterBattleText:

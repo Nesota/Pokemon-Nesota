@@ -1459,4 +1459,13 @@
 ; Unused: next 48 events
 
 	const_next 2048
+	
+;Field Items
+	const EVENT_GOT_FLASH_LIGHT
+	const EVENT_GOT_LAPRAS_TUBE
+	const EVENT_GOT_ROPE
+	const EVENT_GOT_PADDLE
+	const EVENT_GOT_CART
+	const EVENT_GOT_FLY_WHISTLE
+	const EVENT_GOT_HATCHET
 NUM_EVENTS EQU const_value ; 800

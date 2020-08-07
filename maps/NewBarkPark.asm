@@ -7,8 +7,34 @@ NewBarkPark_MapScripts:
 	db 0 ; callbacks
 	
 NewBarkParkFisherScript:
-	jumptextfaceplayer Text_NewPond
+	faceplayer
+	opentext
+	checkevent EVENT_GOT_FLASH_LIGHT
+	iftrue .GotFlashLight
+	writetext Text_NewPond
+	waitbutton
+	writetext GiveFlashText
+	promptbutton
+	verbosegiveitem FLASH_LIGHT
+	setevent EVENT_GOT_FLASH_LIGHT
+	writetext FlashExplanationText
+	waitbutton
+	closetext
+	end
 	
+
+.GotFlashLight:
+	writetext Text_NewPond
+	waitbutton
+	closetext
+	end
+	
+FlashExplanationText:
+	text "FLASH illuminates"
+	line "even the darkest"
+	cont "of all places."
+	done
+
 NewBarkParkSign:
 	jumptext NewBarkParkSignText
 
@@ -18,6 +44,14 @@ Text_NewPond:
 	para "I'm glad you"
 	line "made it to"
 	cont "this pond."
+	done
+	
+GiveFlashText:
+	text "Yo, <PLAYER>!"
+
+	para "I'm glad you"
+	line "made it take"
+	cont "a Flash Light."
 	done
 	
 NewBarkParkSignText:
