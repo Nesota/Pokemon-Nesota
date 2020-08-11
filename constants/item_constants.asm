@@ -274,6 +274,7 @@ ENDM
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2
 	add_tm SPIRIT_BREAK ; f3
+	add_tm PLAY_ROUGH   ; f4
 NUM_TMS EQU __tmhm_value__ - 1
 
 add_hm: MACRO

@@ -466,7 +466,7 @@ NidoranMEvosAttacks:
 	db 17, POISON_STING
 	db 23, FOCUS_ENERGY
 	db 30, FURY_ATTACK
-	db 38, HORN_DRILL
+	db 38, MEGAHORN
 	db 0 ; no more level-up moves
 
 NidorinoEvosAttacks:
@@ -479,7 +479,7 @@ NidorinoEvosAttacks:
 	db 19, POISON_STING
 	db 27, FOCUS_ENERGY
 	db 36, FURY_ATTACK
-	db 46, HORN_DRILL
+	db 46, MEGAHORN
 	db 0 ; no more level-up moves
 
 NidokingEvosAttacks:
@@ -491,7 +491,7 @@ NidokingEvosAttacks:
 	db 21, POISON_STING
 	db 31, FOCUS_ENERGY
 	db 42, FURY_ATTACK
-	db 50, HORN_DRILL
+	db 50, MEGAHORN
 	db 0 ; no more level-up moves
 
 ClefairyEvosAttacks:
@@ -560,11 +560,13 @@ JigglypuffEvosAttacks:
 	db 29, REST
 	db 34, BODY_SLAM
 	db 39, DOUBLE_EDGE
+	db 40, PLAY_ROUGH
 	db 0 ; no more level-up moves
 
 WigglytuffEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, SING
+	db 1, PLAY_ROUGH
 	db 6, DEFENSE_CURL
 	db 11, POUND
 	db 16, DISABLE
@@ -573,6 +575,7 @@ WigglytuffEvosAttacks:
 	db 32, REST
 	db 38, BODY_SLAM
 	db 45, DOUBLE_EDGE
+	db 48, PLAY_ROUGH
 	db 0 ; no more level-up moves
 
 ZubatEvosAttacks:
@@ -714,7 +717,7 @@ DiglettEvosAttacks:
 	db 25, SAND_ATTACK
 	db 33, SLASH
 	db 41, EARTHQUAKE
-	db 49, FISSURE
+	db 49, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
 DugtrioEvosAttacks:
@@ -729,7 +732,7 @@ DugtrioEvosAttacks:
 	db 25, SAND_ATTACK
 	db 37, SLASH
 	db 49, EARTHQUAKE
-	db 61, FISSURE
+	db 61, ROCK_SLIDE
 	db 0 ; no more level-up moves
 
 MeowthEvosAttacks:
@@ -742,6 +745,7 @@ MeowthEvosAttacks:
 	db 28, FAINT_ATTACK
 	db 35, SCREECH
 	db 41, FURY_SWIPES
+	db 44, PLAY_ROUGH
 	db 46, SLASH
 	db 0 ; no more level-up moves
 
@@ -755,6 +759,7 @@ PersianEvosAttacks:
 	db 29, FAINT_ATTACK
 	db 38, SCREECH
 	db 46, FURY_SWIPES
+	db 50, PLAY_ROUGH
 	db 53, SLASH
 	db 0 ; no more level-up moves
 
@@ -829,12 +834,14 @@ GrowlitheEvosAttacks:
 	db 34, FLAME_WHEEL
 	db 42, AGILITY
 	db 45, FLAMETHROWER
+	db 48, PLAY_ROUGH
 	db 0 ; no more level-up moves
 
 ArcanineEvosAttacks:
 	db 0 ; no more evolutions
 	db 1, BITE
 	db 1, ROAR
+	db 1, PLAY_ROUGH
 	db 11, EMBER
 	db 20, LEER
 	db 28, TAKE_DOWN
@@ -842,6 +849,7 @@ ArcanineEvosAttacks:
 	db 45, AGILITY
 	db 48, FLAMETHROWER
 	db 50, EXTREMESPEED
+	db 55, PLAY_ROUGH
 	db 0 ; no more level-up moves
 
 PoliwagEvosAttacks:
@@ -1591,7 +1599,7 @@ RhyhornEvosAttacks:
 	db 13, STOMP
 	db 19, FURY_ATTACK
 	db 31, SCARY_FACE
-	db 37, HORN_DRILL
+	db 37, MEGAHORN
 	db 49, TAKE_DOWN
 	db 55, EARTHQUAKE
 	db 0 ; no more level-up moves
@@ -1605,7 +1613,7 @@ RhydonEvosAttacks:
 	db 13, STOMP
 	db 19, FURY_ATTACK
 	db 31, SCARY_FACE
-	db 37, HORN_DRILL
+	db 37, MEGAHORN
 	db 54, TAKE_DOWN
 	db 65, EARTHQUAKE
 	db 0 ; no more level-up moves
@@ -1690,7 +1698,7 @@ GoldeenEvosAttacks:
 	db 24, FLAIL
 	db 29, FURY_ATTACK
 	db 38, WATERFALL
-	db 43, HORN_DRILL
+	db 43, MEGAHORN
 	db 52, AGILITY
 	db 0 ; no more level-up moves
 
@@ -1704,7 +1712,7 @@ SeakingEvosAttacks:
 	db 24, FLAIL
 	db 29, FURY_ATTACK
 	db 41, WATERFALL
-	db 49, HORN_DRILL
+	db 49, MEGAHORN
 	db 61, AGILITY
 	db 0 ; no more level-up moves
 
@@ -2566,6 +2574,7 @@ MarillEvosAttacks:
 	db 6, TAIL_WHIP
 	db 10, WATER_GUN
 	db 15, ROLLOUT
+	db 20, PLAY_ROUGH
 	db 21, BUBBLEBEAM
 	db 28, DOUBLE_EDGE
 	db 36, RAIN_DANCE
@@ -2581,6 +2590,7 @@ AzumarillEvosAttacks:
 	db 6, TAIL_WHIP
 	db 10, WATER_GUN
 	db 15, ROLLOUT
+	db 23, PLAY_ROUGH
 	db 25, BUBBLEBEAM
 	db 36, DOUBLE_EDGE
 	db 48, RAIN_DANCE
@@ -3299,6 +3309,7 @@ MiltankEvosAttacks:
 	db 26, BIDE
 	db 34, ROLLOUT
 	db 43, BODY_SLAM
+	db 45, PLAY_ROUGH
 	db 53, HEAL_BELL
 	db 0 ; no more level-up moves
 
@@ -3458,6 +3469,7 @@ MootleEvosAttacks:
 	db 22, BIDE	
 	db 30, ROLLOUT	
 	db 34, REST
-	db 38, BODY_SLAM	
+	db 38, BODY_SLAM
+	db 42, PLAY_ROUGH	
 	db 48, HEAL_BELL
 	db 0 ; no more level-up moves

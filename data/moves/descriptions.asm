@@ -31,7 +31,7 @@ MoveDescriptions::
 	dw HeadbuttDescription
 	dw HornAttackDescription
 	dw FuryAttackDescription
-	dw HornDrillDescription
+	dw PlayRoughDescription
 	dw TackleDescription
 	dw BodySlamDescription
 	dw WrapDescription
@@ -89,7 +89,7 @@ MoveDescriptions::
 	dw ThunderDescription
 	dw RockThrowDescription
 	dw EarthquakeDescription
-	dw FissureDescription
+	dw MoonBlastDescription
 	dw DigDescription
 	dw ToxicDescription
 	dw ConfusionDescription
@@ -251,13 +251,12 @@ MoveDescriptions::
 	dw RockSmashDescription
 	dw WhirlpoolDescription
 	dw BeatUpDescription
-	dw MoveFCDescription
+	dw DrainKissDescription
 	dw MoveFDDescription
 	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description
 
-MoveFCDescription:
 MoveFDDescription:
 MoveFEDescription:
 MoveFFDescription:
@@ -388,9 +387,9 @@ FuryAttackDescription:
 	db   "Jabs the target"
 	next "2-5 times.@"
 
-HornDrillDescription:
-	db   "A one-hit KO,"
-	next "drill attack.@"
+PlayRoughDescription:
+	db   "An attack that,"
+	next "may lower attack.@"
 
 TackleDescription:
 	db   "A full-body charge"
@@ -620,9 +619,9 @@ EarthquakeDescription:
 	db   "Tough but useless"
 	next "vs. flying foes.@"
 
-FissureDescription:
-	db   "A ground-type,"
-	next "one-hit KO attack.@"
+MoonBlastDescription:
+	db   "Attacks with the,"
+	next "power of the MOON.@"
 
 DigDescription:
 	db   "1st turn: Burrow"
@@ -1267,3 +1266,7 @@ WhirlpoolDescription:
 BeatUpDescription:
 	db   "Party #MON join"
 	next "in the attack.@"
+	
+DrainKissDescription:
+	db   "Steals health,"
+	next "with a kiss.@"
