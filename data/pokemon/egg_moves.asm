@@ -104,6 +104,7 @@ VulpixEggMoves:
 	db FLAIL
 	db SPITE
 	db DISABLE
+	db MOONBLAST
 	db -1 ; end
 
 ZubatEggMoves:

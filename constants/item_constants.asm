@@ -275,6 +275,7 @@ ENDM
 	add_tm NIGHTMARE    ; f2
 	add_tm SPIRIT_BREAK ; f3
 	add_tm PLAY_ROUGH   ; f4
+	add_tm DRAIN_KISS   ; f5
 NUM_TMS EQU __tmhm_value__ - 1
 
 add_hm: MACRO

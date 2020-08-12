@@ -506,6 +506,7 @@ ClefairyEvosAttacks:
 	db 26, DEFENSE_CURL
 	db 34, METRONOME
 	db 43, MOONLIGHT
+	db 44, MOONBLAST
 	db 53, LIGHT_SCREEN
 	db 0 ; no more level-up moves
 
@@ -520,6 +521,7 @@ ClefableEvosAttacks:
 	db 29, DEFENSE_CURL
 	db 36, METRONOME
 	db 45, MOONLIGHT
+	db 48, MOONBLAST
 	db 55, LIGHT_SCREEN
 	db 0 ; no more level-up moves
 
@@ -613,6 +615,7 @@ OddishEvosAttacks:
 	db 16, STUN_SPORE
 	db 18, SLEEP_POWDER
 	db 23, ACID
+	db 28, MOONBLAST
 	db 32, MOONLIGHT
 	db 39, PETAL_DANCE
 	db 0 ; no more level-up moves
@@ -629,6 +632,7 @@ GloomEvosAttacks:
 	db 16, STUN_SPORE
 	db 18, SLEEP_POWDER
 	db 24, ACID
+	db 30, MOONBLAST
 	db 35, MOONLIGHT
 	db 44, PETAL_DANCE
 	db 0 ; no more level-up moves
@@ -643,6 +647,7 @@ VileplumeEvosAttacks:
 	db 18, STUN_SPORE
 	db 20, SLEEP_POWDER
 	db 27, ACID
+	db 33, MOONBLAST
 	db 39, MOONLIGHT
 	db 48, PETAL_DANCE
 	db 0 ; no more level-up moves
@@ -2320,6 +2325,7 @@ HoothootEvosAttacks:
 	db 16, HYPNOSIS
 	db 22, REFLECT
 	db 28, TAKE_DOWN
+	db 32, MOONBLAST
 	db 34, CONFUSION
 	db 48, DREAM_EATER
 	db 0 ; no more level-up moves
@@ -2335,6 +2341,7 @@ NoctowlEvosAttacks:
 	db 16, HYPNOSIS
 	db 25, REFLECT
 	db 33, TAKE_DOWN
+	db 39, MOONBLAST
 	db 41, CONFUSION
 	db 57, DREAM_EATER
 	db 0 ; no more level-up moves
@@ -2562,7 +2569,16 @@ BellossomEvosAttacks:
 	db 1, ABSORB
 	db 1, SWEET_SCENT
 	db 1, STUN_SPORE
+	db 1, POISONPOWDER
 	db 1, PETAL_DANCE
+	db 7, SWEET_SCENT
+	db 14, POISONPOWDER
+	db 16, STUN_SPORE
+	db 18, SLEEP_POWDER
+	db 24, ACID
+	db 30, MOONBLAST
+	db 35, MOONLIGHT
+	db 44, PETAL_DANCE
 	db 55, SOLARBEAM
 	db 0 ; no more level-up moves
 
