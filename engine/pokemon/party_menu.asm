@@ -440,7 +440,7 @@ PlacePartyMonEvoStoneCompatibility:
 	push hl
 	call GetGender
 	pop hl
-	jr c, .loop2_skip_3 ; Just ignore this if the mon is genderless
+	jp c, .loop2_skip_3 ; Just ignore this if the mon is genderless
 	ld b, a
 
 	; Get expected gender
@@ -449,7 +449,7 @@ PlacePartyMonEvoStoneCompatibility:
 
 	; Check gender
 	cp b
-	jr nz, .loop2_skip_3
+	jp nz, .loop2_skip_3
 
 	; Check item
 	inc hl
@@ -458,7 +458,7 @@ PlacePartyMonEvoStoneCompatibility:
 	ld b, a
 	ld a, [wCurItem]
 	cp b
-	jr nz, .loop2_skip_2
+	jp nz, .loop2_skip_2
 
 	ld de, .string_able
 	ret
@@ -468,7 +468,7 @@ PlacePartyMonEvoStoneCompatibility:
 .loop2_skip_2
 	inc hl
 	inc hl
-	jr .loop2
+	jp .loop2
 
 .nope
 	ld de, .string_not_able
@@ -490,7 +490,7 @@ PlacePartyMonGender:
 	push bc
 	push hl
 	call PartyMenuCheckEgg
-	jr z, .next
+	jp z, .next
 	ld [wCurPartySpecies], a
 	push hl
 	ld a, b
@@ -499,9 +499,9 @@ PlacePartyMonGender:
 	ld [wMonType], a
 	call GetGender
 	ld de, .unknown
-	jr c, .got_gender
+	jp c, .got_gender
 	ld de, .male
-	jr nz, .got_gender
+	jp nz, .got_gender
 	ld de, .female
 
 .got_gender
@@ -515,7 +515,7 @@ PlacePartyMonGender:
 	pop bc
 	inc b
 	dec c
-	jr nz, .loop
+	jp nz, .loop
 	ret
 
 .male
@@ -545,7 +545,7 @@ PlacePartyMonMobileBattleSelection:
 	pop bc
 	inc b
 	dec c
-	jr nz, .loop
+	jp nz, .loop
 	ld a, l
 	ld e, MON_NAME_LENGTH
 	sub e
@@ -565,11 +565,11 @@ PlacePartyMonMobileBattleSelection:
 	hlcoord 12, 1
 .loop3
 	and a
-	jr z, .done
+	jp z, .done
 	ld de, 2 * SCREEN_WIDTH
 	add hl, de
 	dec a
-	jr .loop3
+	jp .loop3
 
 .done
 	ld de, .String_Banme
@@ -593,7 +593,7 @@ PlacePartyMonMobileBattleSelection:
 	inc c
 	dec b
 	ret z
-	jr .loop2
+	jp .loop2
 
 .String_Banme:
 	db "　ばんめ　　@" ; Place

@@ -31,8 +31,6 @@ EvoTypeSizes::
 	db 3 ; EVOLVE_HOLD
 	db 2 ; EVOLVE_PARTY
 
-
-
 BulbasaurEvosAttacks:
 	db EVOLVE_LEVEL, 16, IVYSAUR
 	db 0 ; no more evolutions
@@ -3473,8 +3471,8 @@ CelebiEvosAttacks:
 	db 0 ; no more level-up moves
 	
 MootleEvosAttacks:	
-	db EVOLVE_HAPPINESS, TR_MORNDAY, MILTANK
-	db EVOLVE_HAPPINESS, TR_NITE, TAUROS
+	db EVOLVE_LEVEL_GENDER, 1, 3, MILTANK
+;	db EVOLVE_LEVEL_GENDER, 0, 3, TAUROS
 	db 0 ; no more evolutions	
 	db 1, TACKLE	
 	db 3, TAIL_WHIP	

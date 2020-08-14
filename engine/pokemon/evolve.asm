@@ -177,6 +177,7 @@ EvolveAfterBattle_MasterLoop:
 .level_gender
 	; Get 'mon's gender
 	push hl
+	ld [wTempMonSpecies], a
 	farcall GetGender
 	pop hl
 	jp c, .dont_evolve_1
