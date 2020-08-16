@@ -76,7 +76,6 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_ITEM
 	jp z, .item
 
-	ld a, b
 	cp EVOLVE_ITEM_GENDER
 	jp z, .item_gender
 
@@ -88,7 +87,6 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_LEVEL
 	jp z, .level
 	
-	ld a, b
 	cp EVOLVE_LEVEL_GENDER
 	jp z, .level_gender
 
@@ -109,7 +107,7 @@ EvolveAfterBattle_MasterLoop:
 
 .skip_evolve:
 	call SkipEvo
-	jr c, .loop
+	jp c, .loop
 
 	; Someone was an idiot and placed an unknown value here.
 	; Treat it as the end of the list.
@@ -123,7 +121,7 @@ EvolveAfterBattle_MasterLoop:
 
 
 	call IsMonHoldingEverstone
-		jp z, .dont_evolve_2
+	jp z, .dont_evolve_2
 
 	ld a, [hli]
 	ld b, a
@@ -158,27 +156,8 @@ EvolveAfterBattle_MasterLoop:
 
 .item_gender
 	; Get 'mon's gender
-	farcall GetGender
-	pop hl
-	jp c, .dont_evolve_1
-	
-	; Check gender (using the zero flag because a isn't returned afer a farcall)
-	ld a, [hli]
-	jr z, .item_gender_female
-	cp MON_MALE
-	jr .item_gender_check
-.item_gender_female
-	cp MON_FEMALE
-.item_gender_check
-	jp nz, .dont_evolve_2
-; Continue by checking for the item
-	jp .item
-
-.level_gender
-	; Get 'mon's gender
 	push hl
-	ld [wTempMonSpecies], a
-	farcall GetGender
+	sfarcall GetGender
 	pop hl
 	jp c, .dont_evolve_1
 
@@ -186,10 +165,9 @@ EvolveAfterBattle_MasterLoop:
 	cp [hl]
 	jp nz, .dont_evolve_1
 
-	; Continue by checking for the level
+	; Continue by checking for the item
 	inc hl
-	jp .level
-
+	jp .item
 	
 .level
 	ld a, [hli]
@@ -201,6 +179,20 @@ EvolveAfterBattle_MasterLoop:
 	jp z, .dont_evolve_3
 	jp .proceed
 
+.level_gender
+	; Get 'mon's gender
+	push hl
+	sfarcall GetGender
+	pop hl
+	jp c, .dont_evolve_1
+
+	; Check gender
+	cp [hl]
+	jp nz, .dont_evolve_1
+
+	; Continue by checking for the level
+	inc hl
+	jp .level
 
 .happiness
 	ld a, [wTempMonHappiness]
@@ -329,7 +321,7 @@ EvolveAfterBattle_MasterLoop:
 	call AddNTimes
 	ld a, [hl]
 	ld b, a
-		pop hl
+	pop hl
 
 	; Check the item
 	ld a, [hli]
