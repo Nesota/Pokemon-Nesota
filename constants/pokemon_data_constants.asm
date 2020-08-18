@@ -131,7 +131,8 @@ NUM_HOF_TEAMS EQU 30
 ; evolution types (used in data/pokemon/evos_attacks.asm)
 	const_def 1
 	const EVOLVE_LEVEL
-	const EVOLVE_LEVEL_GENDER
+	const EVOLVE_LEVEL_MALE
+	const EVOLVE_LEVEL_FEMALE
 	const EVOLVE_ITEM
 	const EVOLVE_ITEM_GENDER
 	const EVOLVE_TRADE

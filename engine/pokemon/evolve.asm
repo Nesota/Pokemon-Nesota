@@ -87,8 +87,10 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_LEVEL
 	jp z, .level
 	
-	cp EVOLVE_LEVEL_GENDER
-	jp z, .level_gender
+	cp EVOLVE_LEVEL_MALE
+	jp z, .level_m
+	cp EVOLVE_LEVEL_FEMALE
+	jp z, .level_f
 
 	cp EVOLVE_HAPPINESS
 	jp z, .happiness
@@ -157,7 +159,7 @@ EvolveAfterBattle_MasterLoop:
 .item_gender
 	; Get 'mon's gender
 	push hl
-	sfarcall GetGender
+	farcall GetGender
 	pop hl
 	jp c, .dont_evolve_1
 
@@ -169,6 +171,23 @@ EvolveAfterBattle_MasterLoop:
 	inc hl
 	jp .item
 	
+.level_f
+	ld a, 3
+	ld [wMonType], a
+	push hl
+	predef GetGender
+	pop hl
+	jr z, .level
+.notMale
+	jp .dont_evolve_2
+.level_m
+	ld a, 3
+	ld [wMonType], a
+	push hl
+	predef GetGender
+	pop hl
+	jr z, .notMale
+	
 .level
 	ld a, [hli]
 	ld b, a
@@ -179,20 +198,7 @@ EvolveAfterBattle_MasterLoop:
 	jp z, .dont_evolve_3
 	jp .proceed
 
-.level_gender
-	; Get 'mon's gender
-	push hl
-	sfarcall GetGender
-	pop hl
-	jp c, .dont_evolve_1
 
-	; Check gender
-	cp [hl]
-	jp nz, .dont_evolve_1
-
-	; Continue by checking for the level
-	inc hl
-	jp .level
 
 .happiness
 	ld a, [wTempMonHappiness]

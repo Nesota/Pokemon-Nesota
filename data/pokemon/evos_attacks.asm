@@ -3471,8 +3471,8 @@ CelebiEvosAttacks:
 	db 0 ; no more level-up moves
 	
 MootleEvosAttacks:	
-	db EVOLVE_LEVEL_GENDER, FEMALE, 3, MILTANK
-	db EVOLVE_LEVEL_GENDER, MALE, 3, TAUROS
+	db EVOLVE_LEVEL_FEMALE, 3, MILTANK
+	db EVOLVE_LEVEL_MALE, 3, TAUROS
 	db 0 ; no more evolutions	
 	db 1, TACKLE	
 	db 3, TAIL_WHIP	
