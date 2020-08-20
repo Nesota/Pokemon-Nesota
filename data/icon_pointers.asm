@@ -1,6 +1,6 @@
 IconPointers:
-
 ; entries correspond to ICON_* constants
+	dw NullIcon
 	dw BulbasaurIcon
 	dw IvysaurIcon
 	dw VenusaurIcon
@@ -29,10 +29,10 @@ IconPointers:
 	dw RaichuIcon
 	dw SandshrewIcon
 	dw SandslashIcon
-	dw NidoranFIcon
+	dw Nidoran_FIcon
 	dw NidorinaIcon
 	dw NidoqueenIcon
-	dw NidoranMIcon
+	dw Nidoran_MIcon
 	dw NidorinoIcon
 	dw NidokingIcon
 	dw ClefairyIcon
@@ -83,7 +83,7 @@ IconPointers:
 	dw SlowbroIcon
 	dw MagnemiteIcon
 	dw MagnetonIcon
-	dw FarfetchDIcon
+	dw Farfetch_dIcon
 	dw DoduoIcon
 	dw DodrioIcon
 	dw SeelIcon
@@ -108,7 +108,7 @@ IconPointers:
 	dw MarowakIcon
 	dw HitmonleeIcon
 	dw HitmonchanIcon
-	dw LickitungIcon
+	dw LickytungIcon
 	dw KoffingIcon
 	dw WeezingIcon
 	dw RhyhornIcon
@@ -122,7 +122,7 @@ IconPointers:
 	dw SeakingIcon
 	dw StaryuIcon
 	dw StarmieIcon
-	dw MrMimeIcon
+	dw Mr__MimeIcon
 	dw ScytherIcon
 	dw JynxIcon
 	dw ElectabuzzIcon

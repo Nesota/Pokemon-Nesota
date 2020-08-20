@@ -47,11 +47,8 @@ Text_NewPond:
 	done
 	
 GiveFlashText:
-	text "Yo, <PLAYER>!"
-
-	para "I'm glad you"
-	line "made it take"
-	cont "a Flash Light."
+	text "Here take this"
+	cont "Flash Light."
 	done
 	
 NewBarkParkSignText:
