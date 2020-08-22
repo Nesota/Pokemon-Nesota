@@ -76,9 +76,6 @@ EvolveAfterBattle_MasterLoop:
 	cp EVOLVE_ITEM
 	jp z, .item
 
-	cp EVOLVE_ITEM_GENDER
-	jp z, .item_gender
-
 	ld a, [wForceEvolution]
 	and a
 	jp nz, .skip_evolve
@@ -154,22 +151,6 @@ EvolveAfterBattle_MasterLoop:
 	and a
 	jp z, .dont_evolve_3
 	jp .proceed
-
-
-.item_gender
-	; Get 'mon's gender
-	push hl
-	farcall GetGender
-	pop hl
-	jp c, .dont_evolve_1
-
-	; Check gender
-	cp [hl]
-	jp nz, .dont_evolve_1
-
-	; Continue by checking for the item
-	inc hl
-	jp .item
 	
 .level_f
 	ld a, 3
@@ -477,6 +458,7 @@ EvolveAfterBattle_MasterLoop:
 	ld [wTempSpecies], a
 	xor a
 	ld [wMonType], a
+	call LearnEvolutionMove
 	call LearnLevelMoves
 	ld a, [wTempSpecies]
 	dec a
@@ -523,6 +505,46 @@ EvolveAfterBattle_MasterLoop:
 	ld a, [wMonTriedToEvolve]
 	and a
 	call nz, RestartMapMusic
+	ret
+
+LearnEvolutionMove:
+	ld a, [wTempSpecies]
+	ld [wCurPartySpecies], a
+	dec a
+	ld c, a
+	ld b, 0
+	ld hl, EvolutionMoves
+	add hl, bc
+	ld a, [hl]
+	and a
+	ret z
+
+	push hl
+	ld d, a
+	ld hl, wPartyMon1Moves
+	ld a, [wCurPartyMon]
+	ld bc, PARTYMON_STRUCT_LENGTH
+	call AddNTimes
+
+	ld b, NUM_MOVES
+.check_move
+	ld a, [hli]
+	cp d
+	jr z, .has_move
+	dec b
+	jr nz, .check_move
+
+	ld a, d
+	ld [wPutativeTMHMMove], a
+	ld [wNamedObjectIndexBuffer], a
+	call GetMoveName
+	call CopyName1
+	predef LearnMove
+	ld a, [wCurPartySpecies]
+	ld [wTempSpecies], a
+
+.has_move
+	pop hl
 	ret
 
 UpdateSpeciesNameIfNotNicknamed:
