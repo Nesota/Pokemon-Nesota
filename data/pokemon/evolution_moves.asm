@@ -54,28 +54,28 @@ EvolutionMoves::
 	db SWIFT        ; PERSIAN
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; MANKEY
 	db RAGE         ; PRIMEAPE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; GROWLITHE
+	db EXTREMESPEED ; ARCANINE
+	db NO_MOVE      ; poliwag
+	db NO_MOVE      ; poliwhirl
 	db SUBMISSION   ; POLIWRATH
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; abra
 	db KINESIS      ; KADABRA
 	db KINESIS      ; ALAKAZAM
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; machop
+	db NO_MOVE      ; machoke
 	db STRENGTH     ; MACHAMP
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; Bellsprout
+	db NO_MOVE      ; weepinbell
+	db PETAL_DANCE      ; victreebel
+	db NO_MOVE      ; tentacool
 	db WRAP         ; TENTACRUEL
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; GEODUDE
+	db NO_MOVE      ; GRAVELER
+	db IRON_TAIL      ; GOLEM
+	db NO_MOVE      ; ponyta
 	db FURY_ATTACK  ; RAPIDASH
 	db NO_MOVE      ; CATERPIE
 	db WITHDRAW     ; SLOWBRO

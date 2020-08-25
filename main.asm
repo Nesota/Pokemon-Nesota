@@ -168,14 +168,15 @@ SECTION "Battle Core", ROMX
 
 INCLUDE "engine/battle/core.asm"
 
-
 SECTION "bank10", ROMX
 
 INCLUDE "data/battle/effect_command_pointers.asm"
 INCLUDE "engine/pokedex/pokedex.asm"
+
+SECTION "bank99", ROMX
+
 INCLUDE "data/moves/moves.asm"
 INCLUDE "engine/pokemon/evolve.asm"
-
 
 SECTION "bank11", ROMX
 

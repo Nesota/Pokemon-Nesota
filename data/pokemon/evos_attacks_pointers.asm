@@ -1,4 +1,4 @@
-; Evolutions and attacks are grouped together since they're both checked at level-up.
+; Evolutions and attacks are grouped together since they're both checked at level-up. USED FOR evolution_moves.asm and evos_attacks.asm
 
 EvosAttacksPointers::
 	dw BulbasaurEvosAttacks
