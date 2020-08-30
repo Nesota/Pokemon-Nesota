@@ -77,15 +77,15 @@ EvolutionMoves::
 	db IRON_TAIL      ; GOLEM
 	db NO_MOVE      ; ponyta
 	db FURY_ATTACK  ; RAPIDASH
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; SLOWPOKE
 	db WITHDRAW     ; SLOWBRO
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; MAGNEMITE
 	db TRI_ATTACK   ; MAGNETON
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; FARFETCHED
+	db NO_MOVE      ; DODUE
 	db TRI_ATTACK   ; DODRIO
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; SEEL
+	db NO_MOVE      ; DEWGONG
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
