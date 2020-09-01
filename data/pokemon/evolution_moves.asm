@@ -195,7 +195,7 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db CONFUSION    ; ESPEON
-	db NO_MOVE      ; UMBREON
+	db PURSUIT      ; UMBREON
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE

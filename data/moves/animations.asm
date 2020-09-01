@@ -170,7 +170,7 @@ BattleAnimations::
 	dw BattleAnim_TripleKick
 	dw BattleAnim_Thief
 	dw BattleAnim_SpiderWeb
-	dw BattleAnim_MindReader
+	dw BattleAnim_ShadowClaw
 	dw BattleAnim_Nightmare
 	dw BattleAnim_FlameWheel
 	dw BattleAnim_Snore
@@ -178,7 +178,7 @@ BattleAnimations::
 	dw BattleAnim_Flail
 	dw BattleAnim_Conversion2
 	dw BattleAnim_Aeroblast
-	dw BattleAnim_CottonSpore
+	dw BattleAnim_NightSlash
 	dw BattleAnim_Reversal
 	dw BattleAnim_Spite
 	dw BattleAnim_PowderSnow
@@ -228,6 +228,7 @@ BattleAnimations::
 	dw BattleAnim_Dragonbreath
 	dw BattleAnim_BatonPass
 	dw BattleAnim_Encore
+	dw BattleAnim_Pursuit
 	dw BattleAnim_EarthPower
 	dw BattleAnim_RapidSpin
 	dw BattleAnim_SweetScent
@@ -1532,6 +1533,7 @@ BattleAnim_Cut:
 	anim_wait 32
 	anim_ret
 
+BattleAnim_NightSlash:
 BattleAnim_CrossPoison:
 BattleAnim_Slash:
 	anim_1gfx ANIM_GFX_CUT
@@ -2242,6 +2244,7 @@ BattleAnim_Smog:
 	anim_wait 96
 	anim_ret
 
+BattleAnim_ShadowClaw:
 BattleAnim_PoisonGas:
 	anim_1gfx ANIM_GFX_HAZE
 	anim_sound 16, 2, SFX_BUBBLEBEAM
@@ -4124,6 +4127,14 @@ BattleAnim_Encore:
 	anim_obj ANIM_OBJ_9A, 64, 72, $34
 	anim_wait 16
 	anim_ret
+	
+BattleAnim_Pursuit:	
+	anim_1gfx ANIM_GFX_HIT	
+	anim_if_param_equal $1, .pursued	
+	anim_sound 0, 1, SFX_COMET_PUNCH	
+	anim_obj ANIM_OBJ_01, 136, 56, $0	
+	anim_wait 16	
+	anim_ret	
 
 .pursued:
 	anim_bgeffect ANIM_BG_HIDE_MON, $0, $0, $0

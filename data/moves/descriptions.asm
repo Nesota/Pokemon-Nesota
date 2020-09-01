@@ -169,7 +169,7 @@ MoveDescriptions::
 	dw TripleKickDescription
 	dw ThiefDescription
 	dw SpiderWebDescription
-	dw MindReaderDescription
+	dw ShadowClawDescription
 	dw NightmareDescription
 	dw FlameWheelDescription
 	dw SnoreDescription
@@ -177,7 +177,7 @@ MoveDescriptions::
 	dw FlailDescription
 	dw Conversion2Description
 	dw AeroblastDescription
-	dw CottonSporeDescription
+	dw NightSlashDescription
 	dw ReversalDescription
 	dw SpiteDescription
 	dw PowderSnowDescription
@@ -227,6 +227,7 @@ MoveDescriptions::
 	dw DragonbreathDescription
 	dw BatonPassDescription
 	dw EncoreDescription
+	dw PursuitDescription
 	dw EarthPowerDescription
 	dw RapidSpinDescription
 	dw SweetScentDescription
@@ -939,9 +940,9 @@ SpiderWebDescription:
 	db   "Prevents fleeing"
 	next "or switching.@"
 
-MindReaderDescription:
-	db   "Ensures the next"
-	next "attack will hit.@"
+ShadowClawDescription:
+	db   "Attacks with"
+	next "solidified shadows@"
 
 NightmareDescription:
 	db   "A sleeper loses"
@@ -971,9 +972,9 @@ AeroblastDescription:
 	db   "Has a high criti-"
 	next "cal hit ratio.@"
 
-CottonSporeDescription:
-	db   "Sharply reduces"
-	next "the foe's SPEED.@"
+NightSlashDescription:
+	db   "Attacks from"
+	next "the darkness.@"
 
 ReversalDescription:
 	db   "Stronger if the"
@@ -1170,6 +1171,10 @@ BatonPassDescription:
 EncoreDescription:
 	db   "Makes the foe re-"
 	next "peat 2-6 times.@"
+
+PursuitDescription:
+	db   "Heavily strikes"
+	next "switching #MON.@"
 
 EarthPowerDescription:
 	db   "Ground erupts"

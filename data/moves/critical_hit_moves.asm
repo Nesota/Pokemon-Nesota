@@ -7,4 +7,6 @@ CriticalHitMoves:
 	db CROSS_CHOP
 	db CROSS_POISON
 	db PSYCHO_CUT
+	db NIGHT_SLASH
+	db SHADOW_CLAW
 	db -1

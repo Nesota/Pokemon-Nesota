@@ -369,6 +369,7 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_SAFEGUARD,        AI_Smart_Safeguard
 	dbw EFFECT_MAGNITUDE,        AI_Smart_Magnitude
 	dbw EFFECT_BATON_PASS,       AI_Smart_BatonPass
+	dbw EFFECT_PURSUIT,          AI_Smart_Pursuit
 	dbw EFFECT_RAPID_SPIN,       AI_Smart_RapidSpin
 	dbw EFFECT_MORNING_SUN,      AI_Smart_MorningSun
 	dbw EFFECT_SYNTHESIS,        AI_Smart_Synthesis
@@ -2263,6 +2264,24 @@ AI_Smart_BatonPass:
 	pop hl
 	ret c
 	inc [hl]
+	ret
+
+AI_Smart_Pursuit:	
+; 50% chance to greatly encourage this move if player's HP is below 25%.	
+; 80% chance to discourage this move otherwise.	
+
+	call AICheckPlayerQuarterHP	
+	jr nc, .encourage	
+	call AI_80_20	
+	ret c	
+	inc [hl]	
+	ret	
+
+.encourage	
+	call AI_50_50	
+	ret c	
+	dec [hl]	
+	dec [hl]	
 	ret
 
 AI_Smart_RapidSpin:
