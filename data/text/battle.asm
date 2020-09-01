@@ -466,12 +466,6 @@ WrappedByText:
 	cont "<USER>!"
 	prompt
 
-ClampedByText:
-	text "<TARGET>"
-	line "was CLAMPED by"
-	cont "<USER>!"
-	prompt
-
 StoringEnergyText:
 	text "<USER>"
 	line "is storing energy!"

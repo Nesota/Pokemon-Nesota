@@ -133,7 +133,7 @@
 	const BONE_CLUB    ; 7d
 	const FIRE_BLAST   ; 7e
 	const WATERFALL    ; 7f
-	const CLAMP        ; 80
+	const DRAGON_CLAW        ; 80
 	const SWIFT        ; 81
 	const DAZZLE_GLEAM   ; 82
 	const SPIKE_CANNON ; 83

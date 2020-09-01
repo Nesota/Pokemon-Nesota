@@ -127,7 +127,7 @@ MoveDescriptions::
 	dw BoneClubDescription
 	dw FireBlastDescription
 	dw WaterfallDescription
-	dw ClampDescription
+	dw DragonClawDescription
 	dw SwiftDescription
 	dw DazzleGleamDescription
 	dw SpikeCannonDescription
@@ -770,9 +770,9 @@ WaterfallDescription:
 	db   "An aquatic charge"
 	next "attack.@"
 
-ClampDescription:
-	db   "Traps the foe for"
-	next "2-5 turns.@"
+DragonClawDescription:
+	db   "Slashes the Target"
+	next "with sharp claws.@"
 
 SwiftDescription:
 	db   "An attack that"

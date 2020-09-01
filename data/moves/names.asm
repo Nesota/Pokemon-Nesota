@@ -126,7 +126,7 @@ MoveNames::
 	db "BONE CLUB@"
 	db "FIRE BLAST@"
 	db "WATERFALL@"
-	db "CLAMP@"
+	db "DRAGON CLAW@"
 	db "SWIFT@"
 	db "DAZZLE GLEAM@"
 	db "SPIKE CANNON@"

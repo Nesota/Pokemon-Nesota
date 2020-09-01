@@ -128,7 +128,7 @@ BattleAnimations::
 	dw BattleAnim_BoneClub
 	dw BattleAnim_FireBlast
 	dw BattleAnim_Waterfall
-	dw BattleAnim_Clamp
+	dw BattleAnim_DragonClaw
 	dw BattleAnim_Swift
 	dw BattleAnim_DazzleGleam
 	dw BattleAnim_SpikeCannon
@@ -1559,6 +1559,7 @@ BattleAnim_Cut:
 	anim_wait 32
 	anim_ret
 
+BattleAnim_DragonClaw:
 BattleAnim_NightSlash:
 BattleAnim_CrossPoison:
 BattleAnim_Slash:
