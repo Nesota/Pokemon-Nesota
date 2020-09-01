@@ -135,36 +135,36 @@
 	const WATERFALL    ; 7f
 	const CLAMP        ; 80
 	const SWIFT        ; 81
-	const SKULL_BASH   ; 82
+	const DAZZLE_GLEAM   ; 82
 	const SPIKE_CANNON ; 83
-	const CONSTRICT    ; 84
-	const AMNESIA      ; 85
-	const KINESIS      ; 86
+	const DARK_PULSE    ; 84
+	const CALM_MIND      ; 85
+	const BULK_UP      ; 86
 	const SOFTBOILED   ; 87
 	const HI_JUMP_KICK ; 88
 	const GLARE        ; 89
 	const DREAM_EATER  ; 8a
-	const POISON_GAS   ; 8b
-	const BARRAGE      ; 8c
+	const AVALANCHE    ; 8b
+	const AIR_SLASH    ; 8c
 	const LEECH_LIFE   ; 8d
 	const LOVELY_KISS  ; 8e
 	const SKY_ATTACK   ; 8f
 	const TRANSFORM    ; 90
-	const BUBBLE       ; 91
+	const SCALD        ; 91
 	const DIZZY_PUNCH  ; 92
 	const SPORE        ; 93
 	const FLASH        ; 94
-	const PSYWAVE      ; 95
+	const IRON_HEAD    ; 95
 	const SPLASH       ; 96
-	const ACID_ARMOR   ; 97
+	const SHOCK_WAVE   ; 97
 	const CRABHAMMER   ; 98
 	const EXPLOSION    ; 99
-	const FURY_SWIPES  ; 9a
+	const MAGICAL_LEAF ; 9a
 	const BONEMERANG   ; 9b
 	const REST         ; 9c
 	const ROCK_SLIDE   ; 9d
 	const HYPER_FANG   ; 9e
-	const SHARPEN      ; 9f
+	const AERIAL_ACE   ; 9f
 	const CONVERSION   ; a0
 	const TRI_ATTACK   ; a1
 	const SUPER_FANG   ; a2
@@ -174,7 +174,7 @@
 	const SKETCH       ; a6
 	const TRIPLE_KICK  ; a7
 	const THIEF        ; a8
-	const SPIDER_WEB   ; a9
+	const FEINT        ; a9
 	const SHADOW_CLAW  ; aa
 	const NIGHTMARE    ; ab
 	const FLAME_WHEEL  ; ac
@@ -202,7 +202,7 @@
 	const DESTINY_BOND ; c2
 	const PERISH_SONG  ; c3
 	const ICY_WIND     ; c4
-	const CROSS_POISON       ; c5
+	const CROSS_POISON ; c5
 	const BONE_RUSH    ; c6
 	const LOCK_ON      ; c7
 	const OUTRAGE      ; c8
@@ -233,8 +233,7 @@
 	const DRAGONBREATH ; e1
 	const BATON_PASS   ; e2
 	const ENCORE       ; e3
-	const PURSUIT
-	const EARTH_POWER  ; e4
+	const PURSUIT      ; e4
 	const RAPID_SPIN   ; e5
 	const SWEET_SCENT  ; e6
 	const IRON_TAIL    ; e7
@@ -257,8 +256,9 @@
 	const FUTURE_SIGHT ; f8
 	const ROCK_SMASH   ; f9
 	const WHIRLPOOL    ; fa
-	const DRAIN_PUNCH      ; fb
+	const DRAIN_PUNCH  ; fb
 	const DRAIN_KISS   ; fc
+	const EARTH_POWER  
 NUM_ATTACKS EQU const_value - 1
 
 ; Battle animations use the same constants as the moves up to this point

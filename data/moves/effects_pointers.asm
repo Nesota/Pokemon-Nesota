@@ -145,7 +145,7 @@ MoveEffectsPointers:
 	dw BellyDrum
 	dw PsychUp
 	dw MirrorCoat
-	dw SkullBash
+	dw NormalHit
 	dw Twister
 	dw Earthquake
 	dw FutureSight
@@ -160,3 +160,7 @@ MoveEffectsPointers:
 	dw IceFang
 	dw ThunderFang
 	dw Hex
+	dw Feint
+	dw Avalanche
+	dw BulkUp
+	dw CalmMind

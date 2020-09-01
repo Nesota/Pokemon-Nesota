@@ -380,7 +380,6 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_BELLY_DRUM,       AI_Smart_BellyDrum
 	dbw EFFECT_PSYCH_UP,         AI_Smart_PsychUp
 	dbw EFFECT_MIRROR_COAT,      AI_Smart_MirrorCoat
-	dbw EFFECT_SKULL_BASH,       AI_Smart_SkullBash
 	dbw EFFECT_TWISTER,          AI_Smart_Twister
 	dbw EFFECT_EARTHQUAKE,       AI_Smart_Earthquake
 	dbw EFFECT_FUTURE_SIGHT,     AI_Smart_FutureSight
@@ -390,6 +389,7 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_THUNDER,          AI_Smart_Thunder
 	dbw EFFECT_FLY,              AI_Smart_Fly
 	dbw EFFECT_HEX,              AI_Smart_Hex
+	dbw EFFECT_FEINT,            AI_Smart_Feint
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -704,6 +704,19 @@ AI_Smart_EvasionUp:
 	ret c
 
 	dec [hl]
+	ret
+
+AI_Smart_Feint:
+	ld a, [wPlayerProtectCount]
+	and a
+	jr nz, .encourage
+	ret
+	
+.encourage	
+	call AI_50_50	
+	ret c	
+	dec [hl]	
+	dec [hl]	
 	ret
 
 AI_Smart_AlwaysHit:
@@ -1587,13 +1600,6 @@ CallAIDiscourageMove: ; unreferenced
 
 AI_Smart_DestinyBond:
 AI_Smart_Reversal:
-AI_Smart_SkullBash:
-; Discourage this move if enemy's HP is above 25%.
-
-	call AICheckEnemyQuarterHP
-	ret nc
-	inc [hl]
-	ret
 
 AI_Smart_HealBell:
 ; Dismiss this move if none of the opponent's Pokemon is statused.

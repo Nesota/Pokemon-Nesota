@@ -26,12 +26,11 @@ StallMoves:
 	db REFLECT
 	db FOCUS_ENERGY
 	db BIDE
-	db AMNESIA
 	db TRANSFORM
 	db SPLASH
-	db ACID_ARMOR
-	db SHARPEN
 	db CONVERSION
 	db SUBSTITUTE
 	db FLAME_WHEEL
+	db BULK_UP
+	db CALM_MIND
 	db -1 ; end

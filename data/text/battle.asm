@@ -984,6 +984,11 @@ ProtectingItselfText:
 	text "<TARGET>'s"
 	line "PROTECTING itself!"
 	done
+	
+ProtectionBrokeText:
+	text "<TARGET>'s"
+	line "PROTECTION BROKE!"
+	done
 
 SpikesText:
 	text "SPIKES scattered"

@@ -21,4 +21,6 @@ UsefulMoves:
 	db SOFTBOILED
 	db SUPER_FANG
 	db FIRE_FANG
+	db FEINT
+	db AVALANCHE
 	db -1 ; end

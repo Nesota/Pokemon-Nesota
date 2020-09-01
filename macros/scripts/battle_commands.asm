@@ -179,7 +179,10 @@ ENDM
 	command startloop               ; ae
 	command curl                    ; af
 	command hex                     ; b0
-
+	command feint
+	command avalanche
+	command bulkup
+	command calmmind
 
 	const_def -1, -1
 	command endmove                 ; ff

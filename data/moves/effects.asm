@@ -2138,3 +2138,69 @@ Hex:
 	kingsrock
 	endmove
 	
+Feint:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	feint
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	endmove
+	
+Avalanche:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	avalanche
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	endmove
+	
+BulkUp:
+	checkobedience
+	usedmovetext
+	doturn
+	attackup
+	defenseup
+	lowersub
+	statupanim
+	raisesub
+	statupmessage
+	statupfailtext
+	endmove
+
+CalmMind:
+	checkobedience
+	usedmovetext
+	doturn
+	specialattackup
+	specialdefenseup
+	lowersub
+	statupanim
+	raisesub
+	statupmessage
+	statupfailtext
+	endmove

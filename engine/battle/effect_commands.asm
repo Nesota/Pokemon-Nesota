@@ -1084,7 +1084,6 @@ BattleCommand_DoTurn:
 .continuousmoves
 	db EFFECT_RAZOR_WIND
 	db EFFECT_SKY_ATTACK
-	db EFFECT_SKULL_BASH
 	db EFFECT_SOLARBEAM
 	db EFFECT_FLY
 	db EFFECT_ROLLOUT
@@ -1854,6 +1853,305 @@ BattleCommand_CheckHit:
 	ld [hl], a
 	ret
 
+BattleCommand_Feint:
+; checkhit
+
+	call .DreamEater
+	jp z, .Miss
+
+	call .Protect
+	jp nz, .Hit
+
+	call .DrainSub
+	jp z, .Miss
+
+	call .LockOn
+	ret nz
+
+	call .FlyDigMoves
+	jp nz, .Miss
+
+	call .ThunderRain
+	ret z
+
+	call .XAccuracy
+	ret nz
+
+	; Perfect-accuracy moves
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_ALWAYS_HIT
+	ret z
+
+	call .StatModifiers
+
+	ld a, [wPlayerMoveStruct + MOVE_ACC]
+	ld b, a
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .BrightPowder
+	ld a, [wEnemyMoveStruct + MOVE_ACC]
+	ld b, a
+
+.BrightPowder:
+	push bc
+	call GetOpponentItem
+	ld a, b
+	cp HELD_BRIGHTPOWDER
+	ld a, c ; % miss
+	pop bc
+	jr nz, .skip_brightpowder
+
+	ld c, a
+	ld a, b
+	sub c
+	ld b, a
+	jr nc, .skip_brightpowder
+	ld b, 0
+
+.skip_brightpowder
+	ld a, b
+	cp -1
+	jr z, .Hit
+
+	call BattleRandom
+	cp b
+	jr nc, .Miss
+
+.Hit:
+	ret
+
+.Miss:
+; Keep the damage value intact if we're using (Hi) Jump Kick.
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_JUMP_KICK
+	jr z, .Missed
+	call ResetDamage
+
+.Missed:
+	ld a, 1
+	ld [wAttackMissed], a
+	ret
+
+.DreamEater:
+; Return z if we're trying to eat the dream of
+; a monster that isn't sleeping.
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_DREAM_EATER
+	ret nz
+
+	ld a, BATTLE_VARS_STATUS_OPP
+	call GetBattleVar
+	and SLP
+	ret
+
+.Protect:
+; Return nz if the opponent is protected.
+	ld a, BATTLE_VARS_SUBSTATUS1_OPP
+	call GetBattleVar
+	bit SUBSTATUS_PROTECT, a
+	ret z
+
+	ld c, 40
+	call DelayFrames
+
+; 'protection broke!'
+	ld hl, ProtectionBrokeText
+	call StdBattleTextbox
+
+	ld c, 40
+	call DelayFrames
+
+	ld a, 1
+	and a
+	ret
+
+.LockOn:
+; Return nz if we are locked-on and aren't trying to use Earthquake,
+; Fissure or Magnitude on a monster that is flying.
+	ld a, BATTLE_VARS_SUBSTATUS5_OPP
+	call GetBattleVarAddr
+	bit SUBSTATUS_LOCK_ON, [hl]
+	res SUBSTATUS_LOCK_ON, [hl]
+	ret z
+
+	ld a, BATTLE_VARS_SUBSTATUS3_OPP
+	call GetBattleVar
+	bit SUBSTATUS_FLYING, a
+	jr z, .LockedOn
+
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+
+	cp EARTHQUAKE
+	ret z
+	cp MAGNITUDE
+	ret z
+
+.LockedOn:
+	ld a, 1
+	and a
+	ret
+
+.DrainSub:
+; Return z if using an HP drain move on a substitute.
+	call CheckSubstituteOpp
+	jr z, .not_draining_sub
+
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+
+	cp EFFECT_LEECH_HIT
+	ret z
+	cp EFFECT_DREAM_EATER
+	ret z
+
+.not_draining_sub
+	ld a, 1
+	and a
+	ret
+
+.FlyDigMoves:
+; Check for moves that can hit underground/flying opponents.
+; Return z if the current move can hit the opponent.
+
+	ld a, BATTLE_VARS_SUBSTATUS3_OPP
+	call GetBattleVar
+	and 1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND
+	ret z
+
+	bit SUBSTATUS_FLYING, a
+	jr z, .DigMoves
+
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+
+	cp GUST
+	ret z
+	cp THUNDER
+	ret z
+	cp TWISTER
+	ret
+
+.DigMoves:
+	ld a, BATTLE_VARS_MOVE_ANIM
+	call GetBattleVar
+
+	cp EARTHQUAKE
+	ret z
+	cp MAGNITUDE
+	ret
+
+.ThunderRain:
+; Return z if the current move always hits in rain, and it is raining.
+	ld a, BATTLE_VARS_MOVE_EFFECT
+	call GetBattleVar
+	cp EFFECT_THUNDER
+	ret nz
+
+	ld a, [wBattleWeather]
+	cp WEATHER_RAIN
+	ret
+
+.XAccuracy:
+	ld a, BATTLE_VARS_SUBSTATUS4
+	call GetBattleVar
+	bit SUBSTATUS_X_ACCURACY, a
+	ret
+
+.StatModifiers:
+	ldh a, [hBattleTurn]
+	and a
+
+	; load the user's accuracy into b and the opponent's evasion into c.
+	ld hl, wPlayerMoveStruct + MOVE_ACC
+	ld a, [wPlayerAccLevel]
+	ld b, a
+	ld a, [wEnemyEvaLevel]
+	ld c, a
+
+	jr z, .got_acc_eva
+
+	ld hl, wEnemyMoveStruct + MOVE_ACC
+	ld a, [wEnemyAccLevel]
+	ld b, a
+	ld a, [wPlayerEvaLevel]
+	ld c, a
+
+.got_acc_eva
+	cp b
+	jr c, .skip_foresight_check
+
+	; if the target's evasion is greater than the user's accuracy,
+	; check the target's foresight status
+	ld a, BATTLE_VARS_SUBSTATUS1_OPP
+	call GetBattleVar
+	bit SUBSTATUS_IDENTIFIED, a
+	ret nz
+
+.skip_foresight_check
+	; subtract evasion from 14
+	ld a, MAX_STAT_LEVEL + 1
+	sub c
+	ld c, a
+	; store the base move accuracy for math ops
+	xor a
+	ldh [hMultiplicand + 0], a
+	ldh [hMultiplicand + 1], a
+	ld a, [hl]
+	ldh [hMultiplicand + 2], a
+	push hl
+	ld d, 2 ; do this twice, once for the user's accuracy and once for the target's evasion
+
+.accuracy_loop
+	; look up the multiplier from the table
+	push bc
+	ld hl, AccuracyLevelMultipliers
+	dec b
+	sla b
+	ld c, b
+	ld b, 0
+	add hl, bc
+	pop bc
+	; multiply by the first byte in that row...
+	ld a, [hli]
+	ldh [hMultiplier], a
+	call Multiply
+	; ... and divide by the second byte
+	ld a, [hl]
+	ldh [hDivisor], a
+	ld b, 4
+	call Divide
+	; minimum accuracy is $0001
+	ldh a, [hQuotient + 3]
+	ld b, a
+	ldh a, [hQuotient + 2]
+	or b
+	jr nz, .min_accuracy
+	ldh [hQuotient + 2], a
+	ld a, 1
+	ldh [hQuotient + 3], a
+
+.min_accuracy
+	; do the same thing to the target's evasion
+	ld b, c
+	dec d
+	jr nz, .accuracy_loop
+
+	; if the result is more than 2 bytes, max out at 100%
+	ldh a, [hQuotient + 2]
+	and a
+	ldh a, [hQuotient + 3]
+	jr z, .finish_accuracy
+	ld a, $ff
+
+.finish_accuracy
+	pop hl
+	ld [hl], a
+	ret
+
 INCLUDE "data/battle/accuracy_multipliers.asm"
 
 BattleCommand_EffectChance:
@@ -1905,8 +2203,6 @@ BattleCommand_LowerSub:
 	cp EFFECT_RAZOR_WIND
 	jr z, .charge_turn
 	cp EFFECT_SKY_ATTACK
-	jr z, .charge_turn
-	cp EFFECT_SKULL_BASH
 	jr z, .charge_turn
 	cp EFFECT_SOLARBEAM
 	jr z, .charge_turn
@@ -3366,6 +3662,16 @@ INCLUDE "engine/battle/move_effects/conversion2.asm"
 INCLUDE "engine/battle/move_effects/lock_on.asm"
 
 INCLUDE "engine/battle/move_effects/sketch.asm"
+
+BattleCommand_Avalanche:
+;Avalanche
+
+	call CheckOpponentWentFirst
+	ret z
+
+; it's not 0, so double damage
+	jp DoubleDamage
+
 
 BattleCommand_DefrostOpponent:
 ; defrostopponent
@@ -5526,26 +5832,12 @@ BattleCommand_Charge:
 
 .dont_set_digging
 	call CheckUserIsCharging
-	jr nz, .mimic
 	ld a, BATTLE_VARS_LAST_COUNTER_MOVE
 	call GetBattleVarAddr
 	ld [hl], b
 	ld a, BATTLE_VARS_LAST_MOVE
 	call GetBattleVarAddr
 	ld [hl], b
-
-.mimic
-	call ResetDamage
-
-	ld hl, .UsedText
-	call BattleTextbox
-
-	ld a, BATTLE_VARS_MOVE_EFFECT
-	call GetBattleVar
-	cp EFFECT_SKULL_BASH
-	ld b, endturn_command
-	jp z, SkipToBattleCommand
-	jp EndMoveEffect
 
 .UsedText:
 	text_far Text_BattleUser ; "<USER>"
@@ -5555,10 +5847,6 @@ BattleCommand_Charge:
 
 	cp SOLARBEAM
 	ld hl, .BattleTookSunlightText
-	jr z, .done
-
-	cp SKULL_BASH
-	ld hl, .BattleLoweredHeadText
 	jr z, .done
 
 	cp SKY_ATTACK
@@ -5577,10 +5865,6 @@ BattleCommand_Charge:
 
 .BattleTookSunlightText:
 	text_far _BattleTookSunlightText
-	text_end
-
-.BattleLoweredHeadText:
-	text_far _BattleLoweredHeadText
 	text_end
 
 .BattleGlowingText:

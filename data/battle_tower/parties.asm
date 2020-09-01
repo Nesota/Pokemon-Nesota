@@ -1074,7 +1074,7 @@ BattleTowerMons2:
 
 	db QUAGSIRE
 	db QUICK_CLAW
-	db AMNESIA, EARTHQUAKE, SURF, RAIN_DANCE
+	db CALM_MIND, EARTHQUAKE, SURF, RAIN_DANCE
 	dw 0 ; OT ID
 	dt 8000 ; Exp
 	; Stat exp
@@ -2383,7 +2383,7 @@ BattleTowerMons5:
 
 	db SLOWKING
 	db MINT_BERRY
-	db REST, SURF, PSYCHIC_M, AMNESIA
+	db REST, SURF, PSYCHIC_M, CALM_MIND
 	dw 0 ; OT ID
 	dt 125000 ; Exp
 	; Stat exp
