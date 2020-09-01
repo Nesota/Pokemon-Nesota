@@ -1,23 +1,23 @@
 MoveDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
-	dw PoundDescription
+	dw FireFangDescription
 	dw KarateChopDescription
 	dw DoubleslapDescription
-	dw CometPunchDescription
-	dw MegaPunchDescription
+	dw IceFangDescription
+	dw ThunderFangDescription
 	dw PayDayDescription
 	dw FirePunchDescription
 	dw IcePunchDescription
 	dw ThunderpunchDescription
-	dw ScratchDescription
-	dw VicegripDescription
+	dw NastyPlotDescription
+	dw HexDescription
 	dw SpiritBreakDescription
-	dw RazorWindDescription
+	dw FlashCannonDescription
 	dw SwordsDanceDescription
 	dw CutDescription
 	dw GustDescription
 	dw WingAttackDescription
-	dw WhirlwindDescription
+	dw SignalBeamDescription
 	dw FlyDescription
 	dw BindDescription
 	dw SlamDescription
@@ -185,7 +185,7 @@ MoveDescriptions::
 	dw MachPunchDescription
 	dw ScaryFaceDescription
 	dw FaintAttackDescription
-	dw SweetKissDescription
+	dw PsychoCutDescription
 	dw BellyDrumDescription
 	dw SludgeBombDescription
 	dw MudSlapDescription
@@ -196,7 +196,7 @@ MoveDescriptions::
 	dw DestinyBondDescription
 	dw PerishSongDescription
 	dw IcyWindDescription
-	dw DetectDescription
+	dw CrossPoisonDescription
 	dw BoneRushDescription
 	dw LockOnDescription
 	dw OutrageDescription
@@ -217,7 +217,7 @@ MoveDescriptions::
 	dw HealBellDescription
 	dw ReturnDescription
 	dw PresentDescription
-	dw FrustrationDescription
+	dw EnergyBallDescription
 	dw SafeguardDescription
 	dw PainSplitDescription
 	dw SacredFireDescription
@@ -227,7 +227,7 @@ MoveDescriptions::
 	dw DragonbreathDescription
 	dw BatonPassDescription
 	dw EncoreDescription
-	dw PursuitDescription
+	dw EarthPowerDescription
 	dw RapidSpinDescription
 	dw SweetScentDescription
 	dw IronTailDescription
@@ -250,7 +250,7 @@ MoveDescriptions::
 	dw FutureSightDescription
 	dw RockSmashDescription
 	dw WhirlpoolDescription
-	dw BeatUpDescription
+	dw DrainPunchDescription
 	dw DrainKissDescription
 	dw MoveFDDescription
 	dw MoveFEDescription
@@ -263,9 +263,9 @@ MoveFFDescription:
 Move00Description:
 	db "?@"
 
-PoundDescription:
-	db   "Pounds with fore-"
-	next "legs or tail.@"
+FireFangDescription:
+	db   "Bites with a"
+	next "flaming jaw.@"
 
 KarateChopDescription:
 	db   "Has a high criti-"
@@ -275,13 +275,13 @@ DoubleslapDescription:
 	db   "Repeatedly slaps"
 	next "2-5 times.@"
 
-CometPunchDescription:
-	db   "Repeatedly punches"
-	next "2-5 times.@"
+IceFangDescription:
+	db   "Bites with a"
+	next "frozen jaw.@"
 
-MegaPunchDescription:
-	db   "A powerful punch"
-	next "thrown very hard.@"
+ThunderFangDescription:
+	db   "Bites with a"
+	next "sparking jaw.@"
 
 PayDayDescription:
 	db   "Throws coins. Gets"
@@ -299,21 +299,21 @@ ThunderpunchDescription:
 	db   "An electric punch."
 	next "It may paralyze.@"
 
-ScratchDescription:
-	db   "Scratches with"
-	next "sharp claws.@"
+NastyPlotDescription:
+	db   "Sharply increases"
+	next "user's SPCL.ATK.@"
 
-VicegripDescription:
-	db   "Grips with power-"
-	next "ful pincers.@"
+HexDescription:
+	db   "Doubles Damage if"
+	next "enemy suffering@"
 
 SpiritBreakDescription:
 	db   "The user breaks an"
 	next "enemies spirit@"
 
-RazorWindDescription:
-	db   "1st turn: Prepare"
-	next "2nd turn: Attack@"
+FlashCannonDescription:
+	db   "May lower Opp."
+	next "Sp. Defense@"
 
 SwordsDanceDescription:
 	db   "A dance that in-"
@@ -331,9 +331,9 @@ WingAttackDescription:
 	db   "Strikes the target"
 	next "with wings.@"
 
-WhirlwindDescription:
-	db   "Blows away the foe"
-	next "& ends battle.@"
+SignalBeamDescription:
+	db   "May Confuse the"
+	next "foe with light@"
 
 FlyDescription:
 	db   "1st turn: Fly"
@@ -1003,9 +1003,9 @@ FaintAttackDescription:
 	db   "An attack that"
 	next "never misses.@"
 
-SweetKissDescription:
-	db   "A move that causes"
-	next "confusion.@"
+PsychoCutDescription:
+	db   "Attacks with"
+	next "psyonic blades.@"
 
 BellyDrumDescription:
 	db   "Reduces own HP to"
@@ -1047,9 +1047,9 @@ IcyWindDescription:
 	db   "An icy attack that"
 	next "lowers SPEED.@"
 
-DetectDescription:
-	db   "Evades attack that"
-	next "turn. It may fail.@"
+CrossPoisonDescription:
+	db   "Attacks with"
+	next "posioned blades@"
 
 BoneRushDescription:
 	db   "An attack that"
@@ -1131,9 +1131,9 @@ PresentDescription:
 	db   "A bomb that may"
 	next "restore HP.@"
 
-FrustrationDescription:
-	db   "An attack based on"
-	next "lack of loyalty.@"
+EnergyBallDescription:
+	db   "A ball of Natural"
+	next "Energy.@"
 
 SafeguardDescription:
 	db   "Prevents all"
@@ -1171,9 +1171,9 @@ EncoreDescription:
 	db   "Makes the foe re-"
 	next "peat 2-6 times.@"
 
-PursuitDescription:
-	db   "Heavily strikes"
-	next "switching #MON.@"
+EarthPowerDescription:
+	db   "Ground erupts"
+	next "with sheer power@"
 
 RapidSpinDescription:
 	db   "A high-speed"
@@ -1263,9 +1263,9 @@ WhirlpoolDescription:
 	db   "Traps the foe for"
 	next "2-5 turns.@"
 
-BeatUpDescription:
-	db   "Party #MON join"
-	next "in the attack.@"
+DrainPunchDescription:
+	db   "Healed by the"
+	next "power of fists@"
 	
 DrainKissDescription:
 	db   "Steals health,"

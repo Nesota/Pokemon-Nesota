@@ -369,7 +369,6 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_SAFEGUARD,        AI_Smart_Safeguard
 	dbw EFFECT_MAGNITUDE,        AI_Smart_Magnitude
 	dbw EFFECT_BATON_PASS,       AI_Smart_BatonPass
-	dbw EFFECT_PURSUIT,          AI_Smart_Pursuit
 	dbw EFFECT_RAPID_SPIN,       AI_Smart_RapidSpin
 	dbw EFFECT_MORNING_SUN,      AI_Smart_MorningSun
 	dbw EFFECT_SYNTHESIS,        AI_Smart_Synthesis
@@ -389,6 +388,7 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_SOLARBEAM,        AI_Smart_Solarbeam
 	dbw EFFECT_THUNDER,          AI_Smart_Thunder
 	dbw EFFECT_FLY,              AI_Smart_Fly
+	dbw EFFECT_HEX,              AI_Smart_Hex
 	db -1 ; end
 
 AI_Smart_Sleep:
@@ -1514,6 +1514,17 @@ AI_Smart_DefrostOpponent:
 	dec [hl]
 	ret
 
+AI_Smart_Hex:
+; Greatly encourage this move if the player has a status condition.
+
+	ld a, [wBattleMonStatus]
+	and a
+	ret z
+	dec [hl]
+	dec [hl]
+	dec [hl]
+	ret
+
 AI_Smart_Spite:
 	ld a, [wLastPlayerCounterMove]
 	and a
@@ -2252,24 +2263,6 @@ AI_Smart_BatonPass:
 	pop hl
 	ret c
 	inc [hl]
-	ret
-
-AI_Smart_Pursuit:
-; 50% chance to greatly encourage this move if player's HP is below 25%.
-; 80% chance to discourage this move otherwise.
-
-	call AICheckPlayerQuarterHP
-	jr nc, .encourage
-	call AI_80_20
-	ret c
-	inc [hl]
-	ret
-
-.encourage
-	call AI_50_50
-	ret c
-	dec [hl]
-	dec [hl]
 	ret
 
 AI_Smart_RapidSpin:

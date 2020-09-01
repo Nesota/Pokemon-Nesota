@@ -1722,27 +1722,6 @@ BatonPass:
 	batonpass
 	endmove
 
-Pursuit:
-	checkobedience
-	usedmovetext
-	doturn
-	critical
-	damagestats
-	damagecalc
-	stab
-	damagevariation
-	pursuit
-	checkhit
-	moveanim
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	kingsrock
-	endmove
-
 RapidSpin:
 	checkobedience
 	usedmovetext
@@ -2035,33 +2014,6 @@ Teleport:
 	teleport
 	endmove
 
-BeatUp:
-	checkobedience
-	usedmovetext
-	movedelay
-	doturn
-	startloop
-	lowersub
-	checkhit
-	critical
-	beatup
-	damagecalc
-	damagevariation
-	clearmissdamage
-	moveanimnosub
-	failuretext
-	applydamage
-	criticaltext
-	cleartext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	endloop
-	beatupfailtext
-	raisesub
-	kingsrock
-	endmove
-
 DefenseCurl:
 	checkobedience
 	usedmovetext
@@ -2074,3 +2026,94 @@ DefenseCurl:
 	statupmessage
 	statupfailtext
 	endmove
+
+FireFang:
+    checkobedience    
+    usedmovetext
+	doturn
+    critical
+    damagestats    
+	damagecalc
+    stab    
+    damagevariation    
+    checkhit    
+    effectchance    
+    moveanim
+    failuretext
+    applydamage
+    criticaltext
+    supereffectivetext
+    checkfaint
+    buildopponentrage
+    burntarget
+    effectchance
+    flinchtarget
+    endmove
+	
+IceFang:
+    checkobedience    
+    usedmovetext
+	doturn
+    critical
+    damagestats    
+	damagecalc
+    stab    
+    damagevariation    
+    checkhit    
+    effectchance    
+    moveanim
+    failuretext
+    applydamage
+    criticaltext
+    supereffectivetext
+    checkfaint
+    buildopponentrage
+    freezetarget
+    effectchance
+    flinchtarget
+    endmove
+
+ThunderFang:
+    checkobedience    
+    usedmovetext
+	doturn
+    critical
+    damagestats    
+	damagecalc
+    stab    
+    damagevariation    
+    checkhit    
+    effectchance    
+    moveanim
+    failuretext
+    applydamage
+    criticaltext
+    supereffectivetext
+    checkfaint
+    buildopponentrage
+    paralyzetarget
+    effectchance
+    flinchtarget
+    endmove
+	
+Hex:
+	checkobedience
+	usedmovetext
+	doturn
+	critical
+	damagestats
+	damagecalc
+	stab
+	damagevariation
+	hex
+	checkhit
+	moveanim
+	failuretext
+	applydamage
+	criticaltext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	kingsrock
+	endmove
+	

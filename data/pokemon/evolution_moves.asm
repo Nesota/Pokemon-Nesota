@@ -62,8 +62,8 @@ EvolutionMoves::
 	db NO_MOVE      ; poliwhirl
 	db SUBMISSION   ; POLIWRATH
 	db NO_MOVE      ; abra
-	db KINESIS      ; KADABRA
-	db KINESIS      ; ALAKAZAM
+	db NO_MOVE      ; KADABRA
+	db NO_MOVE      ; ALAKAZAM
 	db NO_MOVE      ; machop
 	db NO_MOVE      ; machoke
 	db STRENGTH     ; MACHAMP
@@ -78,7 +78,7 @@ EvolutionMoves::
 	db NO_MOVE      ; ponyta
 	db FURY_ATTACK  ; RAPIDASH
 	db NO_MOVE      ; SLOWPOKE
-	db WITHDRAW     ; SLOWBRO
+	db NO_MOVE     ; SLOWBRO
 	db NO_MOVE      ; MAGNEMITE
 	db TRI_ATTACK   ; MAGNETON
 	db NO_MOVE      ; FARFETCHED
@@ -105,7 +105,7 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db DOUBLE_KICK  ; HITMONLEE
-	db COMET_PUNCH  ; HITMONCHAN
+	db NO_MOVE      ; HITMONCHAN
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
@@ -195,7 +195,7 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db CONFUSION    ; ESPEON
-	db PURSUIT      ; UMBREON
+	db NO_MOVE      ; UMBREON
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE

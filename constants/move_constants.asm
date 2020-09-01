@@ -6,24 +6,24 @@
 ; - BattleAnimations (see data/moves/animations.asm)
 	const_def
 	const NO_MOVE      ; 00
-	const POUND        ; 01
+	const FIRE_FANG    ; 01
 	const KARATE_CHOP  ; 02
 	const DOUBLESLAP   ; 03
-	const COMET_PUNCH  ; 04
-	const MEGA_PUNCH   ; 05
+	const ICE_FANG     ; 04
+	const THUNDER_FANG ; 05
 	const PAY_DAY      ; 06
 	const FIRE_PUNCH   ; 07
 	const ICE_PUNCH    ; 08
 	const THUNDERPUNCH ; 09
-	const SCRATCH      ; 0a
-	const VICEGRIP     ; 0b
+	const NASTY_PLOT   ; 0a
+	const HEX          ; 0b
 	const SPIRIT_BREAK ; 0c
-	const RAZOR_WIND   ; 0d
+	const FLASH_CANNON ; 0d
 	const SWORDS_DANCE ; 0e
 	const CUT          ; 0f
 	const GUST         ; 10
 	const WING_ATTACK  ; 11
-	const WHIRLWIND    ; 12
+	const SIGNAL_BEAM  ; 12
 	const FLY          ; 13
 	const BIND         ; 14
 	const SLAM         ; 15
@@ -191,7 +191,7 @@
 	const MACH_PUNCH   ; b7
 	const SCARY_FACE   ; b8
 	const FAINT_ATTACK ; b9
-	const SWEET_KISS   ; ba
+	const PSYCHO_CUT   ; ba
 	const BELLY_DRUM   ; bb
 	const SLUDGE_BOMB  ; bc
 	const MUD_SLAP     ; bd
@@ -202,7 +202,7 @@
 	const DESTINY_BOND ; c2
 	const PERISH_SONG  ; c3
 	const ICY_WIND     ; c4
-	const DETECT       ; c5
+	const CROSS_POISON       ; c5
 	const BONE_RUSH    ; c6
 	const LOCK_ON      ; c7
 	const OUTRAGE      ; c8
@@ -223,7 +223,7 @@
 	const HEAL_BELL    ; d7
 	const RETURN       ; d8
 	const PRESENT      ; d9
-	const FRUSTRATION  ; da
+	const ENERGY_BALL  ; da
 	const SAFEGUARD    ; db
 	const PAIN_SPLIT   ; dc
 	const SACRED_FIRE  ; dd
@@ -233,7 +233,7 @@
 	const DRAGONBREATH ; e1
 	const BATON_PASS   ; e2
 	const ENCORE       ; e3
-	const PURSUIT      ; e4
+	const EARTH_POWER  ; e4
 	const RAPID_SPIN   ; e5
 	const SWEET_SCENT  ; e6
 	const IRON_TAIL    ; e7
@@ -256,7 +256,7 @@
 	const FUTURE_SIGHT ; f8
 	const ROCK_SMASH   ; f9
 	const WHIRLPOOL    ; fa
-	const BEAT_UP      ; fb
+	const DRAIN_PUNCH      ; fb
 	const DRAIN_KISS   ; fc
 NUM_ATTACKS EQU const_value - 1
 

@@ -128,7 +128,6 @@ MoveEffectsPointers:
 	dw SacredFire
 	dw Magnitude
 	dw BatonPass
-	dw Pursuit
 	dw RapidSpin
 	dw NormalHit
 	dw NormalHit
@@ -154,6 +153,9 @@ MoveEffectsPointers:
 	dw Solarbeam
 	dw Thunder
 	dw Teleport
-	dw BeatUp
 	dw Fly
 	dw DefenseCurl
+	dw FireFang
+	dw IceFang
+	dw ThunderFang
+	dw Hex

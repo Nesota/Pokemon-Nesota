@@ -108,7 +108,6 @@ ENDM
 	command checksafeguard          ; 65
 	command getmagnitude            ; 66
 	command batonpass               ; 67
-	command pursuit                 ; 68
 	command clearhazards            ; 69
 	command healmorn                ; 6a
 	command healday                 ; 6b
@@ -165,14 +164,12 @@ ENDM
 	command skipsuncharge           ; 9e
 	command thunderaccuracy         ; 9f
 	command teleport                ; a0
-	command beatup                  ; a1
 	command ragedamage              ; a2
 	command resettypematchup        ; a3
 	command allstatsup              ; a4
 	command bidefailtext            ; a5
 	command raisesubnoanim          ; a6
 	command lowersubnoanim          ; a7
-	command beatupfailtext          ; a8
 	command clearmissdamage         ; a9
 	command movedelay               ; aa
 	command moveanim                ; ab
@@ -180,6 +177,8 @@ ENDM
 	command supereffectivelooptext  ; ad
 	command startloop               ; ae
 	command curl                    ; af
+	command hex                     ; b0
+
 
 	const_def -1, -1
 	command endmove                 ; ff

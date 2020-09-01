@@ -1732,8 +1732,6 @@ BattleCommand_CheckHit:
 
 	cp GUST
 	ret z
-	cp WHIRLWIND
-	ret z
 	cp THUNDER
 	ret z
 	cp TWISTER
@@ -2113,8 +2111,6 @@ BattleCommand_FailureText:
 	jr z, .multihit
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .multihit
-	cp EFFECT_BEAT_UP
-	jr z, .multihit
 	jp EndMoveEffect
 
 .multihit
@@ -2445,8 +2441,6 @@ BattleCommand_CheckFaint:
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .multiple_hit_raise_sub
 	cp EFFECT_TRIPLE_KICK
-	jr z, .multiple_hit_raise_sub
-	cp EFFECT_BEAT_UP
 	jr nz, .finish
 
 .multiple_hit_raise_sub
@@ -2907,8 +2901,6 @@ EnemyAttackDamage:
 	ld a, 1
 	and a
 	ret
-
-INCLUDE "engine/battle/move_effects/beat_up.asm"
 
 BattleCommand_ClearMissDamage:
 ; clearmissdamage
@@ -3600,8 +3592,6 @@ DoSubstituteDamage:
 	jr z, .ok
 	cp EFFECT_TRIPLE_KICK
 	jr z, .ok
-	cp EFFECT_BEAT_UP
-	jr z, .ok
 	xor a
 	ld [hl], a
 .ok
@@ -3654,8 +3644,6 @@ BattleCommand_SleepTarget:
 	jp nz, PrintDidntAffect2
 
 	ld hl, DidntAffect1Text
-	call .CheckAIRandomFail
-	jr c, .fail
 
 	ld a, [de]
 	and a
@@ -3696,34 +3684,6 @@ BattleCommand_SleepTarget:
 	pop hl
 	jp StdBattleTextbox
 
-.CheckAIRandomFail:
-	; Enemy turn
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .dont_fail
-
-	; Not in link battle
-	ld a, [wLinkMode]
-	and a
-	jr nz, .dont_fail
-
-	ld a, [wInBattleTowerBattle]
-	and a
-	jr nz, .dont_fail
-
-	; Not locked-on by the enemy
-	ld a, [wPlayerSubStatus5]
-	bit SUBSTATUS_LOCK_ON, a
-	jr nz, .dont_fail
-
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	ret c
-
-.dont_fail
-	xor a
-	ret
-
 BattleCommand_PoisonTarget:
 ; poisontarget
 
@@ -3758,7 +3718,9 @@ BattleCommand_PoisonTarget:
 
 	farcall UseHeldStatusHealingItem
 	ret
-
+BattleCommand_DoNothing:
+	;Do NOthing
+	ret
 BattleCommand_Poison:
 ; poison
 
@@ -3794,27 +3756,6 @@ BattleCommand_Poison:
 	and a
 	jr nz, .failed
 
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .dont_sample_failure
-
-	ld a, [wLinkMode]
-	and a
-	jr nz, .dont_sample_failure
-
-	ld a, [wInBattleTowerBattle]
-	and a
-	jr nz, .dont_sample_failure
-
-	ld a, [wPlayerSubStatus5]
-	bit SUBSTATUS_LOCK_ON, a
-	jr nz, .dont_sample_failure
-
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .failed
-
-.dont_sample_failure
 	call CheckSubstituteOpp
 	jr nz, .failed
 	ld a, [wAttackMissed]
@@ -4445,41 +4386,12 @@ BattleCommand_StatDown:
 ; Sharply lower the stat if applicable.
 	ld a, [wLoweredStat]
 	and $f0
-	jr z, .ComputerMiss
+	jr z, .GotAmountToLower
 	dec b
-	jr nz, .ComputerMiss
+	jr nz, .GotAmountToLower
 	inc b
 
-.ComputerMiss:
-; Computer opponents have a 25% chance of failing.
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .DidntMiss
-
-	ld a, [wLinkMode]
-	and a
-	jr nz, .DidntMiss
-
-	ld a, [wInBattleTowerBattle]
-	and a
-	jr nz, .DidntMiss
-
-; Lock-On still always works.
-	ld a, [wPlayerSubStatus5]
-	bit SUBSTATUS_LOCK_ON, a
-	jr nz, .DidntMiss
-
-; Attacking moves that also lower accuracy are unaffected.
-	ld a, BATTLE_VARS_MOVE_EFFECT
-	call GetBattleVar
-	cp EFFECT_ACCURACY_DOWN_HIT
-	jr z, .DidntMiss
-
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .Failed
-
-.DidntMiss:
+.GotAmountToLower:
 	call CheckSubstituteOpp
 	jr nz, .Failed
 
@@ -5343,8 +5255,6 @@ BattleCommand_EndLoop:
 	ld a, 1
 	jr z, .double_hit
 	ld a, [hl]
-	cp EFFECT_BEAT_UP
-	jr z, .beat_up
 	cp EFFECT_TRIPLE_KICK
 	jr nz, .not_triple_kick
 .reject_triple_kick_sample
@@ -5356,32 +5266,6 @@ BattleCommand_EndLoop:
 	ld a, 1
 	ld [bc], a
 	jr .done_loop
-
-.beat_up
-	ldh a, [hBattleTurn]
-	and a
-	jr nz, .check_ot_beat_up
-	ld a, [wPartyCount]
-	cp 1
-	jp z, .only_one_beatup
-	dec a
-	jr .double_hit
-
-.check_ot_beat_up
-	ld a, [wBattleMode]
-	cp WILD_BATTLE
-	jp z, .only_one_beatup
-	ld a, [wOTPartyCount]
-	cp 1
-	jp z, .only_one_beatup
-	dec a
-	jr .double_hit
-
-.only_one_beatup
-	ld a, BATTLE_VARS_SUBSTATUS3
-	call GetBattleVarAddr
-	res SUBSTATUS_IN_LOOP, [hl]
-	ret
 	
 .not_triple_kick
 	call BattleRandom
@@ -5422,15 +5306,7 @@ BattleCommand_EndLoop:
 	push bc
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
-	cp EFFECT_BEAT_UP
-	jr z, .beat_up_2
 	call StdBattleTextbox
-.beat_up_2
-
-	pop bc
-	xor a
-	ld [bc], a
-	ret
 
 .loop_back_to_critical
 	ld a, [wBattleScriptBufferAddress + 1]
@@ -5676,9 +5552,6 @@ BattleCommand_Charge:
 	text_asm
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	cp RAZOR_WIND
-	ld hl, .BattleMadeWhirlwindText
-	jr z, .done
 
 	cp SOLARBEAM
 	ld hl, .BattleTookSunlightText
@@ -5701,10 +5574,6 @@ BattleCommand_Charge:
 
 .done
 	ret
-
-.BattleMadeWhirlwindText:
-	text_far _BattleMadeWhirlwindText
-	text_end
 
 .BattleTookSunlightText:
 	text_far _BattleTookSunlightText
@@ -5979,27 +5848,6 @@ BattleCommand_Paralyze:
 	jp StdBattleTextbox
 
 .no_item_protection
-	ldh a, [hBattleTurn]
-	and a
-	jr z, .dont_sample_failure
-
-	ld a, [wLinkMode]
-	and a
-	jr nz, .dont_sample_failure
-
-	ld a, [wInBattleTowerBattle]
-	and a
-	jr nz, .dont_sample_failure
-
-	ld a, [wPlayerSubStatus5]
-	bit SUBSTATUS_LOCK_ON, a
-	jr nz, .dont_sample_failure
-
-	call BattleRandom
-	cp 25 percent + 1 ; 25% chance AI fails
-	jr c, .failed
-
-.dont_sample_failure
 	ld a, BATTLE_VARS_STATUS_OPP
 	call GetBattleVarAddr
 	and a
@@ -6091,6 +5939,8 @@ EndRechargeOpp:
 	ret
 
 INCLUDE "engine/battle/move_effects/rage.asm"
+
+INCLUDE "engine/battle/move_effects/hex.asm"
 
 BattleCommand_DoubleFlyingDamage:
 ; doubleflyingdamage
@@ -6551,8 +6401,6 @@ BattleCommand_CheckSafeguard:
 INCLUDE "engine/battle/move_effects/magnitude.asm"
 
 INCLUDE "engine/battle/move_effects/baton_pass.asm"
-
-INCLUDE "engine/battle/move_effects/pursuit.asm"
 
 INCLUDE "engine/battle/move_effects/rapid_spin.asm"
 
