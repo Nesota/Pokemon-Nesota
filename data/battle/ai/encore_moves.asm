@@ -28,4 +28,6 @@ EncoreMoves:
 	db POWDER_SNOW
 	db BULK_UP
 	db CALM_MIND
+	db DRAGON_DANCE
+	db HONE_CLAWS
 	db -1 ; end

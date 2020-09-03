@@ -20,13 +20,13 @@ BattleAnimations::
 	dw BattleAnim_WingAttack
 	dw BattleAnim_SignalBeam
 	dw BattleAnim_Fly
-	dw BattleAnim_Bind
-	dw BattleAnim_Slam
+	dw BattleAnim_DragonDance
+	dw BattleAnim_DragonPulse
 	dw BattleAnim_VineWhip
 	dw BattleAnim_Stomp
 	dw BattleAnim_DoubleKick
-	dw BattleAnim_MegaKick
-	dw BattleAnim_JumpKick
+	dw BattleAnim_FlameCharge
+	dw BattleAnim_GunkShot
 	dw BattleAnim_RollingKick
 	dw BattleAnim_SandAttack
 	dw BattleAnim_Headbutt
@@ -39,7 +39,7 @@ BattleAnimations::
 	dw BattleAnim_TakeDown
 	dw BattleAnim_Thrash
 	dw BattleAnim_DoubleEdge
-	dw BattleAnim_TailWhip
+	dw BattleAnim_HoneClaws
 	dw BattleAnim_PoisonSting
 	dw BattleAnim_Twineedle
 	dw BattleAnim_PinMissile
@@ -48,7 +48,7 @@ BattleAnimations::
 	dw BattleAnim_Growl
 	dw BattleAnim_Roar
 	dw BattleAnim_Sing
-	dw BattleAnim_Supersonic
+	dw BattleAnim_Hail
 	dw BattleAnim_Sonicboom
 	dw BattleAnim_Disable
 	dw BattleAnim_Acid
@@ -269,6 +269,7 @@ BattleAnimations::
 	dw BattleAnim_Par
 	dw BattleAnim_InLove
 	dw BattleAnim_InSandstorm
+	dw BattleAnim_InHail
 	dw BattleAnim_InNightmare
 	dw BattleAnim_InWhirlpool
 	dw BattleAnim_Miss
@@ -572,6 +573,20 @@ BattleAnim_InSandstorm:
 	anim_obj ANIM_OBJ_SANDSTORM, 72, 0, $1
 	anim_wait 8
 	anim_obj ANIM_OBJ_SANDSTORM, 56, 0, $2
+.loop
+	anim_sound 0, 1, SFX_MENU
+	anim_wait 8
+	anim_loop 6, .loop
+	anim_wait 8
+	anim_ret
+
+BattleAnim_InHail:
+	anim_1gfx ANIM_GFX_POWDER
+	anim_obj ANIM_OBJ_HAIL, 88, 0, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_HAIL, 72, 0, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_HAIL, 56, 0, $2
 .loop
 	anim_sound 0, 1, SFX_MENU
 	anim_wait 8
@@ -1904,6 +1919,7 @@ BattleAnim_Growl:
 	anim_wait 8
 	anim_ret
 
+BattleAnim_DragonPulse:
 BattleAnim_Roar:
 	anim_1gfx ANIM_GFX_NOISE
 	anim_bgeffect ANIM_BG_06, $0, $2, $0
@@ -2878,6 +2894,7 @@ BattleAnim_Meditate:
 	anim_call BattleAnim_ShowMon_0
 	anim_ret
 
+BattleAnim_HoneClaws:
 BattleAnim_Sharpen:
 	anim_1gfx ANIM_GFX_SHAPES
 	anim_obp0 $e4
@@ -2936,6 +2953,7 @@ BattleAnim_Rage:
 	anim_wait 16
 	anim_ret
 
+BattleAnim_DragonDance:
 BattleAnim_Agility:
 	anim_1gfx ANIM_GFX_WIND
 	anim_obp0 $fc
@@ -3022,6 +3040,7 @@ BattleAnim_Sludge:
 	anim_wait 56
 	anim_ret
 
+BattleAnim_GunkShot:
 BattleAnim_Toxic:
 	anim_1gfx ANIM_GFX_POISON
 	anim_bgeffect ANIM_BG_BLACK_HUES, $0, $8, $0
@@ -3227,6 +3246,7 @@ BattleAnim_Nightmare:
 	anim_wait 96
 	anim_ret
 
+BattleAnim_FlameCharge:
 BattleAnim_FlameWheel:
 	anim_1gfx ANIM_GFX_FIRE
 .loop
@@ -3727,6 +3747,20 @@ BattleAnim_Sandstorm:
 	anim_obj ANIM_OBJ_SANDSTORM, 72, 0, $1
 	anim_wait 8
 	anim_obj ANIM_OBJ_SANDSTORM, 56, 0, $2
+.loop
+	anim_sound 0, 1, SFX_MENU
+	anim_wait 8
+	anim_loop 16, .loop
+	anim_wait 8
+	anim_ret
+
+BattleAnim_Hail:
+	anim_1gfx ANIM_GFX_POWDER
+	anim_obj ANIM_OBJ_HAIL, 88, 0, $0
+	anim_wait 8
+	anim_obj ANIM_OBJ_HAIL, 72, 0, $1
+	anim_wait 8
+	anim_obj ANIM_OBJ_HAIL, 56, 0, $2
 .loop
 	anim_sound 0, 1, SFX_MENU
 	anim_wait 8

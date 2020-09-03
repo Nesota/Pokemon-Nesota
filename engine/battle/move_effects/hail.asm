@@ -1,21 +1,21 @@
-BattleCommand_StartSandstorm:
-; startsandstorm
+BattleCommand_StartHail:
+; starthail
 	ld a, [wBattleWeather]
-	cp WEATHER_HAIL
-	jr nz, .storm
+	cp WEATHER_SANDSTORM
+	jr nz, .hail
 	ld a, 0
 	ld [wWeatherCount], a
 	ld a, [wBattleWeather]
-.storm
-	cp WEATHER_SANDSTORM
+.hail
+	cp WEATHER_HAIL
 	jr z, .failed
 
-	ld a, WEATHER_SANDSTORM
+	ld a, WEATHER_HAIL
 	ld [wBattleWeather], a
 	ld a, 5
 	ld [wWeatherCount], a
 	call AnimateCurrentMove
-	ld hl, SandstormBrewedText
+	ld hl, HailStartedText
 	jp StdBattleTextbox
 
 .failed

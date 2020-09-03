@@ -3,7 +3,7 @@
 
 StallMoves:
 	db SWORDS_DANCE
-	db TAIL_WHIP
+	db HONE_CLAWS
 	db LEER
 	db GROWL
 	db DISABLE
@@ -33,4 +33,6 @@ StallMoves:
 	db FLAME_WHEEL
 	db BULK_UP
 	db CALM_MIND
+	db DRAGON_DANCE
+	db HONE_CLAWS
 	db -1 ; end

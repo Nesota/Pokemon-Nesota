@@ -181,9 +181,12 @@ ENDM
 	command hex                     ; b0
 	command feint
 	command avalanche
+	command starthail
 	command bulkup
 	command calmmind
-
+	command dragondance
+	command honeclaws
+	
 	const_def -1, -1
 	command endmove                 ; ff
 	command endturn                 ; fe

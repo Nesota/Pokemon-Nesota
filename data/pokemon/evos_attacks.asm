@@ -3629,6 +3629,8 @@ MootleEvosAttacks:
 	db 2, FIRE_FANG
 	db 5, DEFENSE_CURL	
 	db 8, RAGE
+	db 10, HAIL
+	db 10, SANDSTORM
 	db 11, STOMP	
 	db 17, MILK_DRINK	
 	db 30, ROLLOUT	

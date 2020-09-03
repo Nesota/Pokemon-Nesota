@@ -670,15 +670,17 @@ wBattleWeather::
 ; 01 rain
 ; 02 sun
 ; 03 sandstorm
+; 07 hail
 ; 04 rain stopped
 ; 05 sunliight faded
 ; 06 sandstorm subsided
+; 08 hail stopped
 	db
 
 wWeatherCount::
 ; # turns remaining
 	db
-
+wBattleWeatherTemp::db
 wLoweredStat:: db
 wEffectFailed:: db
 wFailedMessage:: db

@@ -2178,6 +2178,13 @@ Avalanche:
 	buildopponentrage
 	kingsrock
 	endmove
+
+Hail:
+	checkobedience
+	usedmovetext
+	doturn
+	starthail
+	endmove
 	
 BulkUp:
 	checkobedience
@@ -2204,3 +2211,30 @@ CalmMind:
 	statupmessage
 	statupfailtext
 	endmove
+
+DragonDance:
+	checkobedience
+	usedmovetext
+	doturn
+	attackup
+	speedup
+	lowersub
+	statupanim
+	raisesub
+	statupmessage
+	statupfailtext
+	endmove
+
+HoneClaws:
+	checkobedience
+	usedmovetext
+	doturn
+	attackup
+	accuracyup
+	lowersub
+	statupanim
+	raisesub
+	statupmessage
+	statupfailtext
+	endmove
+	

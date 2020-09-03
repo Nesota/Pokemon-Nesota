@@ -187,7 +187,7 @@ BattleTowerMons1:
 
 	db AERODACTYL
 	db LEFTOVERS
-	db HYPER_BEAM, SUPERSONIC, EARTHQUAKE, BITE
+	db HYPER_BEAM, EARTHQUAKE, BITE
 	dw 0 ; OT ID
 	dt 1000 ; Exp
 	; Stat exp
@@ -499,7 +499,7 @@ BattleTowerMons1:
 
 	db TAUROS
 	db KINGS_ROCK
-	db HEADBUTT, SWAGGER, TAIL_WHIP, ICY_WIND
+	db HEADBUTT, SWAGGER, ICY_WIND
 	dw 0 ; OT ID
 	dt 1000 ; Exp
 	; Stat exp
@@ -2932,7 +2932,7 @@ BattleTowerMons6:
 
 	db AERODACTYL
 	db LEFTOVERS
-	db HYPER_BEAM, SUPERSONIC, EARTHQUAKE, BITE
+	db HYPER_BEAM, EARTHQUAKE, BITE
 	dw 0 ; OT ID
 	dt 216000 ; Exp
 	; Stat exp
@@ -3715,7 +3715,7 @@ BattleTowerMons7:
 
 	db HITMONLEE
 	db FOCUS_BAND
-	db REVERSAL, ENDURE, BODY_SLAM, MEGA_KICK
+	db REVERSAL, ENDURE, BODY_SLAM
 	dw 0 ; OT ID
 	dt 343000 ; Exp
 	; Stat exp

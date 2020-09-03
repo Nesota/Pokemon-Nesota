@@ -25,13 +25,13 @@
 	const WING_ATTACK  ; 11
 	const SIGNAL_BEAM  ; 12
 	const FLY          ; 13
-	const BIND         ; 14
-	const SLAM         ; 15
+	const DRAGON_DANCE ; 14
+	const DRAGON_PULSE         ; 15
 	const VINE_WHIP    ; 16
 	const STOMP        ; 17
 	const DOUBLE_KICK  ; 18
-	const MEGA_KICK    ; 19
-	const JUMP_KICK    ; 1a
+	const FLAME_CHARGE    ; 19
+	const GUNK_SHOT    ; 1a
 	const ROLLING_KICK ; 1b
 	const SAND_ATTACK  ; 1c
 	const HEADBUTT     ; 1d
@@ -44,7 +44,7 @@
 	const TAKE_DOWN    ; 24
 	const THRASH       ; 25
 	const DOUBLE_EDGE  ; 26
-	const TAIL_WHIP    ; 27
+	const HONE_CLAWS    ; 27
 	const POISON_STING ; 28
 	const TWINEEDLE    ; 29
 	const PIN_MISSILE  ; 2a
@@ -53,7 +53,7 @@
 	const GROWL        ; 2d
 	const ROAR         ; 2e
 	const SING         ; 2f
-	const SUPERSONIC   ; 30
+	const HAIL   ; 30
 	const SONICBOOM    ; 31
 	const DISABLE      ; 32
 	const ACID         ; 33
@@ -276,6 +276,7 @@ NUM_ATTACKS EQU const_value - 1
 	const ANIM_PAR               ; 109
 	const ANIM_IN_LOVE           ; 10a
 	const ANIM_IN_SANDSTORM      ; 10b
+	const ANIM_IN_HAIL      	 ; 10b
 	const ANIM_IN_NIGHTMARE      ; 10c
 	const ANIM_IN_WHIRLPOOL      ; 10d
 ; battle anims

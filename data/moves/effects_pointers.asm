@@ -164,3 +164,6 @@ MoveEffectsPointers:
 	dw Avalanche
 	dw BulkUp
 	dw CalmMind
+	dw DragonDance
+	dw HoneClaws
+	dw Hail

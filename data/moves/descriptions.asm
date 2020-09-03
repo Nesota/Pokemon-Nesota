@@ -19,13 +19,13 @@ MoveDescriptions::
 	dw WingAttackDescription
 	dw SignalBeamDescription
 	dw FlyDescription
-	dw BindDescription
-	dw SlamDescription
+	dw DragonDanceDescription
+	dw DragonPulseDescription
 	dw VineWhipDescription
 	dw StompDescription
 	dw DoubleKickDescription
-	dw MegaKickDescription
-	dw JumpKickDescription
+	dw FlameChargeDescription
+	dw GunkShotDescription
 	dw RollingKickDescription
 	dw SandAttackDescription
 	dw HeadbuttDescription
@@ -38,7 +38,7 @@ MoveDescriptions::
 	dw TakeDownDescription
 	dw ThrashDescription
 	dw DoubleEdgeDescription
-	dw TailWhipDescription
+	dw HoneClawsDescription
 	dw PoisonStingDescription
 	dw TwineedleDescription
 	dw PinMissileDescription
@@ -47,7 +47,7 @@ MoveDescriptions::
 	dw GrowlDescription
 	dw RoarDescription
 	dw SingDescription
-	dw SupersonicDescription
+	dw HailDescription
 	dw SonicboomDescription
 	dw DisableDescription
 	dw AcidDescription
@@ -338,13 +338,13 @@ FlyDescription:
 	db   "1st turn: Fly"
 	next "2nd turn: Attack@"
 
-BindDescription:
-	db   "Binds the target"
-	next "for 2-5 turns.@"
+DragonDanceDescription:
+	db   "Raises the users"
+	next "Attack and Speed@"
 
-SlamDescription:
-	db   "Slams the foe with"
-	next "a tail, vine, etc.@"
+DragonPulseDescription:
+	db   "Attacks with a"
+	next "shockwave@"
 
 VineWhipDescription:
 	db   "Whips the foe with"
@@ -358,13 +358,13 @@ DoubleKickDescription:
 	db   "A double kicking"
 	next "attack.@"
 
-MegaKickDescription:
-	db   "A powerful kicking"
-	next "attack.@"
+FlameChargeDescription:
+	db   "Attacks then ups"
+	next "the users speed.@"
 
-JumpKickDescription:
-	db   "May miss, damaging"
-	next "the user.@"
+GunkShotDescription:
+	db   "Throws Trash that"
+	next "can PSN an enemy@"
 
 RollingKickDescription:
 	db   "A fast, spinning"
@@ -414,9 +414,9 @@ DoubleEdgeDescription:
 	db   "A tackle that also"
 	next "hurts the user.@"
 
-TailWhipDescription:
-	db   "Lowers the foe's"
-	next "DEFENSE.@"
+HoneClawsDescription:
+	db   "Raises the users"
+	next "ATK and accuracy.@"
 
 PoisonStingDescription:
 	db   "An attack that may"
@@ -450,9 +450,9 @@ SingDescription:
 	db   "May cause the foe"
 	next "to fall asleep.@"
 
-SupersonicDescription:
-	db   "Sound waves that"
-	next "cause confusion.@"
+HailDescription:
+	db   "Inflicts damage"
+	next "every turn.@"
 
 SonicboomDescription:
 	db   "Always inflicts"
