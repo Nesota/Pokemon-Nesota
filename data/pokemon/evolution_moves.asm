@@ -52,8 +52,8 @@ EvolutionMoves::
 	db TRI_ATTACK   ; DUGTRIO
 	db NO_MOVE      ; MEOWTH
 	db SWIFT        ; PERSIAN
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; PSYDUCK
+	db NO_MOVE      ; GOLDUCK
 	db NO_MOVE      ; MANKEY
 	db RAGE         ; PRIMEAPE
 	db NO_MOVE      ; GROWLITHE
