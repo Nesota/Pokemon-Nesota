@@ -366,30 +366,35 @@ SpearowEvosAttacks:
 	db 1, PECK
 	db 1, GROWL
 	db 4, LEER
+	db 8, PURSUIT
 	db 11, FURY_ATTACK
-	db 15, WING_ATTACK
-	db 22, FAINT_ATTACK
+	db 15, AERIAL_ACE
+	db 18, EXTREMESPEED ;MIRROR_MOVE
+	db 22, NIGHT_SLASH ;ASSURANCE
 	db 25, AGILITY
 	db 29, FOCUS_ENERGY
-	db 32, REST
+	db 32, REST ;ROOST
 	db 36, DRILL_PECK
 	db 0 ; no more level-up moves
 
 FearowEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, MAGNITUDE
+	db 1, EARTH_POWER ;DRILL RUN
+	db 1, WING_ATTACK ;PLUCK
 	db 1, PECK
 	db 1, GROWL
 	db 1, LEER
 	db 4, LEER
+	db 8, PURSUIT
 	db 11, FURY_ATTACK
-	db 15, WING_ATTACK
-	db 23, FAINT_ATTACK
+	db 15, AERIAL_ACE
+	db 18, EXTREMESPEED ;MIRROR_MOVE
+	db 23, NIGHT_SLASH ;ASSURANCE
 	db 27, AGILITY
 	db 32, FOCUS_ENERGY
-	db 36, REST
+	db 36, REST ;ROOST
 	db 41, DRILL_PECK
-	db 45, MAGNITUDE
+	db 45, EARTH_POWER ;DRILL RUN
 	db 0 ; no more level-up moves
 
 EkansEvosAttacks:
@@ -402,15 +407,21 @@ EkansEvosAttacks:
 	db 12, GLARE
 	db 17, SCREECH
 	db 20, ACID
-	db 28, SLUDGE
-	db 33, MAGNITUDE
-	db 38, TOXIC
+	db 25, BODY_SLAM ;STOCKPILE SWALLOW SPITUP
+	db 28, SLUDGE ;ACID APRAY
+	db 33, MAGNITUDE ;MUD BOMB
+	db 36, TOXIC ;GASTRO ACID
+	db 38, SLUDGE_BOMB;BELCH
 	db 41, HAZE
-	db 49, SLUDGE_BOMB
+	db 44, HONE_CLAWS ;COIL
+	db 49, GUNK_SHOT
 	db 0 ; no more level-up moves
 
 ArbokEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, ICE_FANG
+	db 1, THUNDER_FANG
+	db 1, FIRE_FANG
 	db 1, WRAP
 	db 1, LEER
 	db 1, POISON_STING
@@ -420,44 +431,53 @@ ArbokEvosAttacks:
 	db 12, GLARE
 	db 17, SCREECH
 	db 20, ACID
-	db 32, SLUDGE
-	db 39, MAGNITUDE
-	db 44, TOXIC
+	db 27, BODY_SLAM ;STOCKPILE SWALLOW SPITUP
+	db 32, SLUDGE ;ACID APRAY
+	db 39, MAGNITUDE ;MUD BOMB
+	db 44, TOXIC ;GASTRO ACID
+	db 48, SLUDGE_BOMB;BELCH
 	db 51, HAZE
-	db 63, SLUDGE_BOMB
+	db 56, HONE_CLAWS ;COIL
+	db 63, GUNK_SHOT
 	db 0 ; no more level-up moves
 
 PikachuEvosAttacks:
 	db EVOLVE_ITEM, THUNDERSTONE, RAICHU
 	db 0 ; no more evolutions
+	db 1, LEER; TAIL_WHIP
 	db 1, THUNDERSHOCK
-	db 5, GROWL
+	db 5, GROWL ;NO PLAY NICE AS REDUNDANT
 	db 10, QUICK_ATTACK
+	db 13, SHOCK_WAVE ;ELECTROBALL
 	db 18, THUNDER_WAVE
-	db 21, DOUBLE_KICK
+	db 21, FEINT
 	db 23, DOUBLE_TEAM
 	db 26, SPARK
-	db 32, THUNDERPUNCH
+	db 32, THUNDERPUNCH ;NUZZLE DISCHARGE
+	db 37, BODY_SLAM ;SLAM
 	db 42, THUNDERBOLT
 	db 45, AGILITY
-	db 50, ZAP_CANNON
+	db 50, ZAP_CANNON ;WILD CHARGE
 	db 53, LIGHT_SCREEN
 	db 58, THUNDER
 	db 0 ; no more level-up moves
 
 RaichuEvosAttacks:
 	db 0 ; no more evolutions
+	db 1, LEER; TAIL_WHIP
 	db 1, THUNDERSHOCK
-	db 5, GROWL
+	db 5, GROWL ;NO PLAY NICE AS REDUNDANT
 	db 10, QUICK_ATTACK
+	db 13, SHOCK_WAVE ;ELECTROBALL
 	db 18, THUNDER_WAVE
-	db 21, DOUBLE_KICK
+	db 21, FEINT
 	db 23, DOUBLE_TEAM
 	db 26, SPARK
-	db 32, THUNDERPUNCH
+	db 32, THUNDERPUNCH ;NUZZLE DISCHARGE
+	db 37, BODY_SLAM ;SLAM
 	db 42, THUNDERBOLT
 	db 45, AGILITY
-	db 50, ZAP_CANNON
+	db 50, ZAP_CANNON ;WILD CHARGE
 	db 53, LIGHT_SCREEN
 	db 58, THUNDER
 	db 0 ; no more level-up moves
