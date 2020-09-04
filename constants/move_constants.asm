@@ -101,34 +101,34 @@
 	const CONFUSION    ; 5d
 	const PSYCHIC_M    ; 5e
 	const HYPNOSIS     ; 5f
-	const MEDITATE     ; 60
+	const ICE_SHARD     ; 60
 	const AGILITY      ; 61
 	const QUICK_ATTACK ; 62
 	const RAGE         ; 63
 	const TELEPORT     ; 64
 	const NIGHT_SHADE  ; 65
-	const MIMIC        ; 66
+	const POISON_JAB        ; 66
 	const SCREECH      ; 67
 	const DOUBLE_TEAM  ; 68
 	const RECOVER      ; 69
 	const HARDEN       ; 6a
 	const MINIMIZE     ; 6b
-	const SMOKESCREEN  ; 6c
+	const SEED_BOMB  ; 6c
 	const CONFUSE_RAY  ; 6d
-	const WITHDRAW     ; 6e
+	const STONE_EDGE    ; 6e
 	const DEFENSE_CURL ; 6f
 	const BARRIER      ; 70
 	const LIGHT_SCREEN ; 71
 	const HAZE         ; 72
 	const REFLECT      ; 73
 	const FOCUS_ENERGY ; 74
-	const BIDE         ; 75
+	const WATER_PULSE         ; 75
 	const METRONOME    ; 76
-	const MIRROR_MOVE  ; 77
+	const WILL_O_WISP  ; 77
 	const SELFDESTRUCT ; 78
 	const EGG_BOMB     ; 79
 	const LICK         ; 7a
-	const SMOG         ; 7b
+	const XSCISSOR         ; 7b
 	const SLUDGE       ; 7c
 	const BONE_CLUB    ; 7d
 	const FIRE_BLAST   ; 7e
@@ -259,6 +259,7 @@
 	const DRAIN_PUNCH  ; fb
 	const DRAIN_KISS   ; fc
 	const EARTH_POWER  
+	const ZEN_HEADBUTT
 NUM_ATTACKS EQU const_value - 1
 
 ; Battle animations use the same constants as the moves up to this point

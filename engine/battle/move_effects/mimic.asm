@@ -31,7 +31,7 @@ BattleCommand_Mimic:
 	dec hl
 .find_mimic
 	ld a, [hld]
-	cp MIMIC
+	cp STRUGGLE
 	jr nz, .find_mimic
 	inc hl
 	ld a, BATTLE_VARS_LAST_COUNTER_MOVE_OPP

@@ -95,34 +95,34 @@ MoveDescriptions::
 	dw ConfusionDescription
 	dw PsychicMDescription
 	dw HypnosisDescription
-	dw MeditateDescription
+	dw IceShardDescription
 	dw AgilityDescription
 	dw QuickAttackDescription
 	dw RageDescription
 	dw TeleportDescription
 	dw NightShadeDescription
-	dw MimicDescription
+	dw PoisonJabDescription
 	dw ScreechDescription
 	dw DoubleTeamDescription
 	dw RecoverDescription
 	dw HardenDescription
 	dw MinimizeDescription
-	dw SmokescreenDescription
+	dw SeedBombDescription
 	dw ConfuseRayDescription
-	dw WithdrawDescription
+	dw StoneEdgeDescription
 	dw DefenseCurlDescription
 	dw BarrierDescription
 	dw LightScreenDescription
 	dw HazeDescription
 	dw ReflectDescription
 	dw FocusEnergyDescription
-	dw BideDescription
+	dw WaterPulseDescription
 	dw MetronomeDescription
-	dw MirrorMoveDescription
+	dw WillOWispDescription
 	dw SelfdestructDescription
 	dw EggBombDescription
 	dw LickDescription
-	dw SmogDescription
+	dw XScissorDescription
 	dw SludgeDescription
 	dw BoneClubDescription
 	dw FireBlastDescription
@@ -253,11 +253,10 @@ MoveDescriptions::
 	dw DrainPunchDescription
 	dw DrainKissDescription
 	dw EarthPowerDescription
-	dw MoveFEDescription
+	dw ZenHeadbuttDescription
 	dw MoveFFDescription
 	dw Move00Description
 
-MoveFEDescription:
 MoveFFDescription:
 Move00Description:
 	db "?@"
@@ -642,9 +641,9 @@ HypnosisDescription:
 	db   "May put the foe to"
 	next "sleep.@"
 
-MeditateDescription:
-	db   "Raises the user's"
-	next "ATTACK.@"
+IceShardDescription:
+	db   "Lets the user get"
+	next "in the first hit.@"
 
 AgilityDescription:
 	db   "Sharply increases"
@@ -666,9 +665,9 @@ NightShadeDescription:
 	db   "The user's level"
 	next "equals damage HP.@"
 
-MimicDescription:
-	db   "Copies a move used"
-	next "by the foe.@"
+PoisonJabDescription:
+	db   "Stabs with a limb"
+	next "coated in poison.@"
 
 ScreechDescription:
 	db   "Sharply reduces"
@@ -690,17 +689,17 @@ MinimizeDescription:
 	db   "Heightens evasive-"
 	next "ness.@"
 
-SmokescreenDescription:
-	db   "Lowers the foe's"
-	next "accuracy.@"
+SeedBombDescription:
+	db   "Hit's the foe with"
+	next "hardened seeds@"
 
 ConfuseRayDescription:
 	db   "A move that causes"
 	next "confusion.@"
 
-WithdrawDescription:
-	db   "Heightens the"
-	next "user's DEFENSE.@"
+StoneEdgeDescription:
+	db   "Has a high criti-"
+	next "cal hit ratio.@"
 
 DefenseCurlDescription:
 	db   "Heightens the"
@@ -726,17 +725,17 @@ FocusEnergyDescription:
 	db   "Raises the criti-"
 	next "cal hit ratio.@"
 
-BideDescription:
-	db   "Waits 2-3 turns &"
-	next "hits back double.@"
+WaterPulseDescription:
+	db   "An attack that may"
+	next "confuse the foe.@"
 
 MetronomeDescription:
 	db   "Randomly uses any"
 	next "#MON move.@"
 
-MirrorMoveDescription:
-	db   "Counters with the"
-	next "same move.@"
+WillOWispDescription:
+	db   "An attack that"
+	next "causes a burn.@"
 
 SelfdestructDescription:
 	db   "Powerful but makes"
@@ -750,9 +749,9 @@ LickDescription:
 	db   "An attack that may"
 	next "cause paralysis.@"
 
-SmogDescription:
-	db   "An attack that may"
-	next "poison the foe.@"
+XScissorDescription:
+	db   "Slashes with limbs"
+	next "like scissors.@"
 
 SludgeDescription:
 	db   "An attack that may"
@@ -1273,3 +1272,7 @@ DrainKissDescription:
 EarthPowerDescription:
 	db   "Ground erupts"
 	next "with sheer power@"
+
+ZenHeadbuttDescription:
+	db   "An attack that may"
+	next "cause flinching.@"

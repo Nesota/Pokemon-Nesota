@@ -9,4 +9,5 @@ CriticalHitMoves:
 	db PSYCHO_CUT
 	db NIGHT_SLASH
 	db SHADOW_CLAW
+	db STONE_EDGE
 	db -1

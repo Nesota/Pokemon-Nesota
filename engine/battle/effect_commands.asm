@@ -1048,12 +1048,12 @@ BattleCommand_DoTurn:
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	cp MIMIC
+	cp STRUGGLE
 	jr z, .mimic
 	ld hl, wWildMonMoves
 	add hl, bc
 	ld a, [hl]
-	cp MIMIC
+	cp STRUGGLE
 	ret z
 
 .mimic
@@ -1105,13 +1105,13 @@ CheckMimicUsed:
 
 	ld a, BATTLE_VARS_MOVE
 	call GetBattleVar
-	cp MIMIC
+	cp STRUGGLE
 	jr z, .mimic
 
 	ld b, 0
 	add hl, bc
 	ld a, [hl]
-	cp MIMIC
+	cp STRUGGLE
 	jr nz, .mimic
 
 	scf

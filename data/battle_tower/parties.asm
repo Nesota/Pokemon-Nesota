@@ -1597,7 +1597,7 @@ BattleTowerMons3:
 
 	db FEAROW
 	db BRIGHTPOWDER
-	db MIRROR_MOVE, PECK, SWIFT
+	db PECK, SWIFT
 	dw 0 ; OT ID
 	dt 27000 ; Exp
 	; Stat exp
