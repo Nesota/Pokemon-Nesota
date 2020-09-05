@@ -85,7 +85,7 @@ EvolutionMoves::
 	db NO_MOVE      ; DODUE
 	db TRI_ATTACK   ; DODRIO
 	db NO_MOVE      ; SEEL
-	db NO_MOVE      ; DEWGONG
+	db BLIZZARD      ; DEWGONG
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
@@ -100,17 +100,17 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; exeggcute
 	db STOMP        ; EXEGGUTOR
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db DOUBLE_KICK  ; HITMONLEE
-	db NO_MOVE      ; HITMONCHAN
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db MACH_PUNCH      ; HITMONCHAN
+	db NO_MOVE      ; lickitung
+	db NO_MOVE      ; koffing
+	db DOUBLE_EDGE      ; WEEZING
+	db NO_MOVE      ; rhyhorn
+	db CROSS_CHOP      ; rhydon
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
