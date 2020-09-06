@@ -136,22 +136,22 @@ EvolutionMoves::
 	db THUNDERSHOCK ; JOLTEON
 	db EMBER        ; FLAREON
 	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; omanyte
 	db SPIKE_CANNON ; OMASTAR
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; kabuto
 	db SLASH        ; KABUTOPS
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; AERODACTYL
+	db NO_MOVE      ; SNORLAX
+	db NO_MOVE      ; arcticuno
+	db NO_MOVE      ; zapdos
+	db NO_MOVE      ; moltres
+	db NO_MOVE      ; dratini
+	db NO_MOVE      ; dragonair
 	db WING_ATTACK  ; DRAGONITE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; mewtwo
+	db NO_MOVE      ; mew
+	db NO_MOVE      ; chikorita
+	db NO_MOVE      ; bayleef
     db PETAL_DANCE  ; MEGANIUM
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
@@ -159,13 +159,13 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; sentret
 	db AGILITY      ; FURRET
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; hoothoot
+	db NO_MOVE      ; noctowl
+	db NO_MOVE      ; ledyba
+	db NO_MOVE      ; ledian
+	db NO_MOVE      ; spinarak
 	db SWORDS_DANCE ; ARIADOS
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
@@ -175,12 +175,12 @@ EvolutionMoves::
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; NATU
+	db AIR_SLASH      ; XATU
+	db NO_MOVE      ; MAREEP
+	db NO_MOVE      ; FLAFFY
 	db THUNDERPUNCH ; AMPHAROS
-	db NO_MOVE      ; CATERPIE
+	db MAGICAL_LEAF      ; BELLOSOM
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
 	db NO_MOVE      ; CATERPIE
