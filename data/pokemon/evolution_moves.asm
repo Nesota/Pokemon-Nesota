@@ -27,14 +27,14 @@ EvolutionMoves::
 	db THUNDERBOLT  ; RAICHU
 	db NO_MOVE      ; SANDSHREW
 	db NO_MOVE      ; SANDSLASH
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; nidoranf
+	db NO_MOVE      ; nidorina
+	db NO_MOVE      ; nidoqueen
+	db NO_MOVE      ; nidoranm
+	db NO_MOVE      ; nidorano
+	db NO_MOVE      ; nidoking
+	db NO_MOVE      ; clefairy
+	db NO_MOVE      ; clefable
 	db NO_MOVE      ; VULPIX
 	db MOONBLAST    ; NINETALES
 	db NO_MOVE      ; JIGGLYPUFF
@@ -86,24 +86,24 @@ EvolutionMoves::
 	db TRI_ATTACK   ; DODRIO
 	db NO_MOVE      ; SEEL
 	db BLIZZARD      ; DEWGONG
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; grimer
+	db NO_MOVE      ; muk
+	db NO_MOVE      ; shellder
+	db NO_MOVE      ; cloyster
+	db NO_MOVE      ; gastly
+	db NO_MOVE      ; haunter
+	db NO_MOVE      ; gengar
+	db NO_MOVE      ; onix
+	db NO_MOVE      ; drowzee
+	db NO_MOVE      ; hypno
+	db NO_MOVE      ; krabby
+	db NO_MOVE      ; kingler
+	db NO_MOVE      ; voltorb
+	db NO_MOVE      ; electrode
 	db NO_MOVE      ; exeggcute
 	db STOMP        ; EXEGGUTOR
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; cubone
+	db NO_MOVE      ; marowak
 	db DOUBLE_KICK  ; HITMONLEE
 	db MACH_PUNCH      ; HITMONCHAN
 	db NO_MOVE      ; lickitung
@@ -111,27 +111,27 @@ EvolutionMoves::
 	db DOUBLE_EDGE      ; WEEZING
 	db NO_MOVE      ; rhyhorn
 	db CROSS_CHOP      ; rhydon
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; chansey
+	db NO_MOVE      ; tangela
+	db NO_MOVE      ; Kangaskhan
+	db NO_MOVE      ; horsea
+	db NO_MOVE      ; seadra
+	db NO_MOVE      ; goldeen
+	db NO_MOVE      ; seaking
+	db NO_MOVE      ; staryu
+	db NO_MOVE      ; starmie
+	db NO_MOVE      ; mr.mime
+	db NO_MOVE      ; scyther
+	db NO_MOVE      ; jynx
+	db NO_MOVE      ; electabuzz
+	db NO_MOVE      ; magmar
+	db NO_MOVE      ; pinsir
+	db NO_MOVE      ; tauros
+	db NO_MOVE      ; magikarp
 	db BITE         ; GYARADOS
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; lapras
+	db NO_MOVE      ; ditto
+	db NO_MOVE      ; eevee
 	db WATER_GUN    ; VAPOREON
 	db THUNDERSHOCK ; JOLTEON
 	db EMBER        ; FLAREON
@@ -153,12 +153,12 @@ EvolutionMoves::
 	db NO_MOVE      ; chikorita
 	db NO_MOVE      ; bayleef
     db PETAL_DANCE  ; MEGANIUM
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; cyndaquil
+	db NO_MOVE      ; quilava
+	db NO_MOVE      ; typhlosion
+	db NO_MOVE      ; totodile
+	db NO_MOVE      ; crocanaw
+	db NO_MOVE      ; feraligater
 	db NO_MOVE      ; sentret
 	db AGILITY      ; FURRET
 	db NO_MOVE      ; hoothoot
@@ -167,88 +167,88 @@ EvolutionMoves::
 	db NO_MOVE      ; ledian
 	db NO_MOVE      ; spinarak
 	db SWORDS_DANCE ; ARIADOS
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; crobat
+	db NO_MOVE      ; chinchou
+	db NO_MOVE      ; lanturn
+	db NO_MOVE      ; pichu
+	db NO_MOVE      ; cleffa
+	db NO_MOVE      ; igglybuff
+	db NO_MOVE      ; togepi
+	db NO_MOVE      ; togetic
 	db NO_MOVE      ; NATU
 	db AIR_SLASH      ; XATU
 	db NO_MOVE      ; MAREEP
 	db NO_MOVE      ; FLAFFY
 	db THUNDERPUNCH ; AMPHAROS
 	db MAGICAL_LEAF      ; BELLOSOM
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; marill
+	db NO_MOVE      ; azumarill
+	db NO_MOVE      ; sudowoodo
 	db PERISH_SONG  ; POLITOED
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; hoppip
+	db NO_MOVE      ; jumpluff
+	db NO_MOVE      ; sliploom
+	db NO_MOVE      ; aipom
+	db NO_MOVE      ; sunkern
+	db FIRE_SPIN      ; sunflora
+	db NO_MOVE      ; yanma
+	db NO_MOVE      ; wooper
+	db NO_MOVE      ; quagsire
 	db CONFUSION    ; ESPEON
 	db PURSUIT      ; UMBREON
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; murkrow
+	db NO_MOVE      ; slowking
+	db NO_MOVE      ; Misdreavus
+	db NO_MOVE      ; Unown
+	db NO_MOVE      ; Wobbuffet
+	db NO_MOVE      ; Girafarig
+	db NO_MOVE      ; Pineco
+	db FLASH_CANNON      ; Forretress
+	db NO_MOVE      ; Dunsparce
+	db NO_MOVE      ; GLigar
 	db IRON_TAIL    ; STEELIX
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; snubbull
+	db NO_MOVE      ; granbull
+	db NO_MOVE      ; Qwilfish
 	db METAL_CLAW   ; SCIZOR
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; shuckle
+	db NO_MOVE      ; heracross
+	db NO_MOVE      ; sneasel
+	db NO_MOVE      ; teddiursa
+	db NO_MOVE      ; ursaring
+	db NO_MOVE      ; slugma
+	db DRAGON_DANCE      ; magcargo
+	db NO_MOVE      ; swinub
 	db FURY_ATTACK  ; PILOSWINE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; corsola
+	db NO_MOVE      ; remoraid
 	db OCTAZOOKA    ; OCTILLERY
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; delibird
+	db NO_MOVE      ; mantine
+	db NO_MOVE      ; skarmory
+	db NO_MOVE      ; houndour
+	db NO_MOVE      ; houndoom
+	db NO_MOVE      ; kingdra
+	db NO_MOVE      ; phanphy
 	db FURY_ATTACK  ; DONPHAN
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; porygon2
+	db NO_MOVE      ; stantler
+	db NO_MOVE      ; smeargle
+	db NO_MOVE      ; tyrogue
 	db ROLLING_KICK ; HITMONTOP
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; smoochum
+	db NO_MOVE      ; elekid
+	db NO_MOVE      ; magby
+	db NO_MOVE      ; miltank
+	db NO_MOVE      ; blissey
+	db NO_MOVE      ; raikou
+	db NO_MOVE      ; entei
+	db NO_MOVE      ; suicune
+	db NO_MOVE      ; larvitar
+	db NO_MOVE      ; pupitar
+	db NO_MOVE      ; tyranitar
+	db NO_MOVE      ; lugia
+	db NO_MOVE      ; hooh
 	db NO_MOVE      ; CELEBI
-	db NO_MOVE      ; CATERPIE
+	db NO_MOVE      ; mootle
 	
