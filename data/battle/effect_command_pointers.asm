@@ -181,3 +181,4 @@ BattleCommandPointers:
 	dw BattleCommand_Feint
 	dw BattleCommand_Avalanche
 	dw BattleCommand_StartHail
+	dw BattleCommand_BeatUp

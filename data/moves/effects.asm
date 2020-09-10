@@ -3,24 +3,24 @@ INCLUDE "data/moves/effects_pointers.asm"
 MoveEffects: ; used only for BANK(MoveEffects)
 
 NormalHit:
-	checkobedience
+	checkobedience ;
 	usedmovetext
 	doturn
-	critical
-	damagestats
-	damagecalc
-	stab
-	damagevariation
+	critical ;
+	damagestats ;
+	damagecalc ;
+	stab ;
+	damagevariation ;
 	checkhit
 	moveanim
-	failuretext
-	applydamage
-	criticaltext
-	supereffectivetext
-	checkfaint
-	buildopponentrage
-	kingsrock
-	endmove
+	failuretext;
+	applydamage;
+	criticaltext ;
+	supereffectivetext ;
+	checkfaint ;
+	buildopponentrage ;
+	kingsrock ;
+	endmove ;
 
 DoSleep:
 	checkobedience
@@ -837,30 +837,30 @@ ForceSwitch:
 	endmove
 
 MultiHit:
-	checkobedience
-	usedmovetext
-	doturn
+	checkobedience ;
+	usedmovetext ;
+	doturn ;
 	startloop
-	lowersub
-	checkhit
-	critical
-	damagestats
-	damagecalc
-	stab
-	damagevariation
+	lowersub ;
+	checkhit ;
+	critical ;
+	damagestats ;
+	damagecalc ;
+	stab ;
+	damagevariation ;
 	clearmissdamage
 	moveanimnosub
-	failuretext
-	applydamage
-	criticaltext
+	failuretext;
+	applydamage;
+	criticaltext ;
 	cleartext
-	supereffectivelooptext
-	checkfaint
-	buildopponentrage
+	supereffectivelooptext ;
+	checkfaint ;
+	buildopponentrage ;
 	endloop
-	raisesub
-	kingsrock
-	endmove
+	raisesub ;
+	kingsrock ;
+	endmove ;
 
 PoisonMultiHit:
 	checkobedience
@@ -2185,7 +2185,34 @@ Hail:
 	doturn
 	starthail
 	endmove
-	
+
+BeatUp:
+	checkobedience
+	usedmovetext
+	movedelay
+	doturn
+	startloop
+	lowersub
+	checkhit
+	critical
+	beatup
+	damagecalc
+	damagevariation
+	clearmissdamage
+	moveanimnosub
+	failuretext
+	applydamage
+	criticaltext
+	cleartext
+	supereffectivetext
+	checkfaint
+	buildopponentrage
+	endloop
+	beatupfailtext
+	raisesub
+	kingsrock
+	endmove
+
 BulkUp:
 	checkobedience
 	usedmovetext

@@ -1856,20 +1856,11 @@ BattleCommand_CheckHit:
 BattleCommand_Feint:
 ; checkhit
 
-	call .DreamEater
-	jp z, .Miss
-
 	call .Protect
 	jp nz, .Hit
 
-	call .DrainSub
-	jp z, .Miss
-
 	call .LockOn
 	ret nz
-
-	call .FlyDigMoves
-	jp nz, .Miss
 
 	call .ThunderRain
 	ret z
@@ -1934,19 +1925,6 @@ BattleCommand_Feint:
 	ld [wAttackMissed], a
 	ret
 
-.DreamEater:
-; Return z if we're trying to eat the dream of
-; a monster that isn't sleeping.
-	ld a, BATTLE_VARS_MOVE_EFFECT
-	call GetBattleVar
-	cp EFFECT_DREAM_EATER
-	ret nz
-
-	ld a, BATTLE_VARS_STATUS_OPP
-	call GetBattleVar
-	and SLP
-	ret
-
 .Protect:
 ; Return nz if the opponent is protected.
 	ld a, BATTLE_VARS_SUBSTATUS1_OPP
@@ -1993,55 +1971,6 @@ BattleCommand_Feint:
 .LockedOn:
 	ld a, 1
 	and a
-	ret
-
-.DrainSub:
-; Return z if using an HP drain move on a substitute.
-	call CheckSubstituteOpp
-	jr z, .not_draining_sub
-
-	ld a, BATTLE_VARS_MOVE_EFFECT
-	call GetBattleVar
-
-	cp EFFECT_LEECH_HIT
-	ret z
-	cp EFFECT_DREAM_EATER
-	ret z
-
-.not_draining_sub
-	ld a, 1
-	and a
-	ret
-
-.FlyDigMoves:
-; Check for moves that can hit underground/flying opponents.
-; Return z if the current move can hit the opponent.
-
-	ld a, BATTLE_VARS_SUBSTATUS3_OPP
-	call GetBattleVar
-	and 1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND
-	ret z
-
-	bit SUBSTATUS_FLYING, a
-	jr z, .DigMoves
-
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-
-	cp GUST
-	ret z
-	cp THUNDER
-	ret z
-	cp TWISTER
-	ret
-
-.DigMoves:
-	ld a, BATTLE_VARS_MOVE_ANIM
-	call GetBattleVar
-
-	cp EARTHQUAKE
-	ret z
-	cp MAGNITUDE
 	ret
 
 .ThunderRain:
@@ -2738,6 +2667,7 @@ BattleCommand_CheckFaint:
 	jr z, .multiple_hit_raise_sub
 	cp EFFECT_TRIPLE_KICK
 	jr z, .multiple_hit_raise_sub
+	cp EFFECT_BEAT_UP
 	jr nz, .finish
 
 .multiple_hit_raise_sub
@@ -3198,6 +3128,8 @@ EnemyAttackDamage:
 	ld a, 1
 	and a
 	ret
+
+INCLUDE "engine/battle/move_effects/beat_up.asm"
 
 BattleCommand_ClearMissDamage:
 ; clearmissdamage
@@ -3898,6 +3830,8 @@ DoSubstituteDamage:
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .ok
 	cp EFFECT_TRIPLE_KICK
+	jr z, .ok
+	cp EFFECT_BEAT_UP
 	jr z, .ok
 	xor a
 	ld [hl], a
@@ -5561,7 +5495,9 @@ BattleCommand_EndLoop:
 	cp EFFECT_DOUBLE_HIT
 	ld a, 1
 	jr z, .double_hit
-	;ld a, [hl]
+	ld a, [hl]
+	cp EFFECT_BEAT_UP
+	jr z, .beat_up
 	cp EFFECT_TRIPLE_KICK
 	jr nz, .not_triple_kick
 .reject_triple_kick_sample
@@ -5573,7 +5509,34 @@ BattleCommand_EndLoop:
 	ld a, 1
 	ld [bc], a
 	jr .done_loop
-	
+
+.beat_up
+	ldh a, [hBattleTurn]
+	and a
+	jr nz, .check_ot_beat_up
+	ld a, [wPartyCount]
+	cp 1
+	jp z, .only_one_beatup
+	dec a
+	jr .double_hit
+
+.check_ot_beat_up
+	ld a, [wBattleMode]
+	cp WILD_BATTLE
+	jp z, .only_one_beatup
+	ld a, [wOTPartyCount]
+	cp 1
+	jp z, .only_one_beatup
+	dec a
+	jr .double_hit
+
+.only_one_beatup
+	ld a, BATTLE_VARS_SUBSTATUS3
+	call GetBattleVarAddr
+	res SUBSTATUS_IN_LOOP, [hl]
+	call BattleCommand_BeatUpFailText
+	jp EndMoveEffect
+
 .not_triple_kick
 	call BattleRandom
 	and $3
@@ -5613,7 +5576,16 @@ BattleCommand_EndLoop:
 	push bc
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
+	cp EFFECT_BEAT_UP
+	jr z, .beat_up_2
 	call StdBattleTextbox
+
+.beat_up_2
+
+	pop bc
+	xor a
+	ld [bc], a
+	ret
 
 .loop_back_to_critical
 	ld a, [wBattleScriptBufferAddress + 1]

@@ -182,6 +182,8 @@ ENDM
 	command feint
 	command avalanche
 	command starthail
+	command beatup
+	command beatupfailtext
 	command bulkup
 	command calmmind
 	command dragondance

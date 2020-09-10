@@ -167,3 +167,4 @@ MoveEffectsPointers:
 	dw DragonDance
 	dw HoneClaws
 	dw Hail
+	dw BeatUp
