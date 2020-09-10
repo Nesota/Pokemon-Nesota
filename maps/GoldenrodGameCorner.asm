@@ -18,6 +18,7 @@ GOLDENRODGAMECORNER_WOBBUFFET_COINS EQU 1500
 	const GOLDENRODGAMECORNER_GENTLEMAN
 	const GOLDENRODGAMECORNER_POKEFAN_M2
 	const GOLDENRODGAMECORNER_MOVETUTOR
+	const GOLDENRODGAMECORNER_VOLTORBGUY
 
 GoldenrodGameCorner_MapScripts:
 	db 0 ; scene scripts
@@ -303,6 +304,15 @@ GoldenrodGameCornerGentlemanScript:
 	turnobject GOLDENRODGAMECORNER_GENTLEMAN, RIGHT
 	end
 
+GoldenrodVoltorbFlipGuyScript:
+	faceplayer
+	opentext
+	writetext GoldenrodVoltorbFlipGuyText
+	waitbutton
+	closetext
+	turnobject GOLDENRODGAMECORNER_VOLTORBGUY, RIGHT
+	end
+
 GoldenrodGameCornerPokefanM2Script:
 	jumptextfaceplayer GoldenrodGameCornerPokefanM2Text
 
@@ -328,6 +338,44 @@ GoldenrodGameCornerLuckySlotsMachineScript:
 GoldenrodGameCornerCardFlipMachineScript:
 	refreshscreen
 	special CardFlip
+	closetext
+	end
+
+MapGoldenrodGameCornerSignpost30Script: ; 0x56e2e
+	loadfont
+	checkitem COIN_CASE
+	iffalse .NoCoinCase
+	checkcoins 3
+	if_equal $2, .NotEnoughCoins
+	writetext GoldenrodVoltorbFlipText
+	waitbutton
+	closetext
+	refreshscreen $0
+	special VoltorbFlip
+	closetext
+	if_equal 10, .ReachedLevel10
+	end
+; 0x56e31
+.NotEnoughCoins
+	writetext GoldenrodVoltorbFlipNotEnoughCoinsText
+	waitbutton
+	closetext
+	end
+.NoCoinCase
+	writetext GoldenrodVoltorbFlipNoCoinCaseText
+	waitbutton
+	closetext
+	end
+
+.ReachedLevel10
+	loadfont
+	writetext GoldenrodVoltorbFlipReachedHighestLevel
+	waitbutton
+	verbosegiveitem MASTER_BALL, 1
+	iffalse .nope
+	writetext GoldenrodVoltorbFlipReceivedMasterBallText
+.nope
+	waitbutton
 	closetext
 	end
 
@@ -493,6 +541,50 @@ GoldenrodGameCornerLeftTheirDrinkText:
 	para "It smells sweet."
 	done
 
+GoldenrodVoltorbFlipGuyText:
+	text "I'm trying out a"
+	line "fun new game here."
+
+	para "Sit across from me"
+	line "to play!"
+	done
+
+GoldenrodVoltorbFlipText:
+	text "Let's play some"
+	line "VOLTORB FLIP!"
+	done
+
+GoldenrodVoltorbFlipNotEnoughCoinsText:
+	text "You need 3 coins"
+	line "to play this game."
+	done
+
+GoldenrodVoltorbFlipReachedHighestLevel:
+	text "Splendid! Marve-"
+	line "lous!"
+
+	para "You've reached the"
+	line "highest possible"
+
+	para "level in VOLTORB"
+	line "FLIP!"
+
+	para "This deserves a"
+	line "special reward."
+
+	para "Here, take this."
+	done
+
+GoldenrodVoltorbFlipReceivedMasterBallText:
+	text "Come back and play"
+	line "again any time!"
+	done
+
+GoldenrodVoltorbFlipNoCoinCaseText:
+	text "You need to have a"
+	line "COIN CASE to play."
+	done
+
 GoldenrodGameCorner_MapEvents:
 	db 0, 0 ; filler
 
@@ -533,9 +625,10 @@ GoldenrodGameCorner_MapEvents:
 	bg_event 18,  9, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 18, 10, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 18, 11, BGEVENT_RIGHT, GoldenrodGameCornerCardFlipMachineScript
-	bg_event 12,  1, BGEVENT_LEFT, GoldenrodGameCornerLeftTheirDrinkScript
+	bg_event 12,  1, BGEVENT_LEFT, MapGoldenrodGameCornerSignpost30Script
+	
 
-	db 12 ; object events
+	db 13 ; object events
 	object_event  3,  2, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerCoinVendorScript, -1
 	object_event 16,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerTMVendorScript, -1
 	object_event 18,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPrizeMonVendorScript, -1
@@ -548,3 +641,4 @@ GoldenrodGameCorner_MapEvents:
 	object_event  5, 10, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerGentlemanScript, -1
 	object_event  2,  9, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPokefanM2Script, -1
 	object_event 17, 10, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MoveTutorInsideScript, EVENT_GOLDENROD_GAME_CORNER_MOVE_TUTOR
+	object_event 5, 14,  SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodVoltorbFlipGuyScript, -1

@@ -898,6 +898,21 @@ wDiscardPileEnd::
 wCardFlipEnd::
 
 NEXTU
+wVoltorbFlip::
+wVoltorbFlipBoard:: ds 5 * 5 ; c6d0
+wVoltorbFlipLevel:: ds 1 ; c6e9
+wVoltorbFlipHighestLevel:: ds 1
+wVoltorbFlipPayout:: ds 2 ; c6ea
+wVoltorbFlipCursor:: ds 1 ; c6ec lo: y | hi: x
+wVoltorbFlipMultiplier:: ds 1 ; c6ed
+wVoltorbFlipNum2s3s:: ds 1 ; c6ee
+wVoltorbFlipMinPayout:: ds 2
+wVoltorbFlipMaxPayout:: ds 2
+wVoltorbFlipPotentialPayout:: ds 2
+wVoltorbFlipEnd::
+	ds 100
+
+NEXTU
 ; dummy game
 wDummyGame::
 wDummyGameCards:: ds 9 * 5
@@ -1391,6 +1406,7 @@ wBattleTowerBattleEnded::
 
 UNION
 ; unidentified
+wcf63:: ds 1
 wcf64:: db
 wcf65:: db
 wcf66:: db
@@ -2460,6 +2476,15 @@ wd475:: ds 1
 wd476:: ds 1
 wd477:: ds 1
 wd478:: ds 1
+Options:: ; cfcc
+; bit 0-2: number of frames to delay when printing text
+;   fast 1; mid 3; slow 5
+; bit 3: ?
+; bit 4: no text delay
+; bit 5: stereo off/on
+; bit 6: battle style shift/set
+; bit 7: battle scene off/on
+	ds 1
 wCrystalDataEnd::
 
 wd479:: ds 2

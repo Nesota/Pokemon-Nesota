@@ -2737,6 +2737,7 @@ BattleCommand_CheckFaint:
 	cp EFFECT_POISON_MULTI_HIT
 	jr z, .multiple_hit_raise_sub
 	cp EFFECT_TRIPLE_KICK
+	jr z, .multiple_hit_raise_sub
 	jr nz, .finish
 
 .multiple_hit_raise_sub
@@ -5560,7 +5561,7 @@ BattleCommand_EndLoop:
 	cp EFFECT_DOUBLE_HIT
 	ld a, 1
 	jr z, .double_hit
-	ld a, [hl]
+	;ld a, [hl]
 	cp EFFECT_TRIPLE_KICK
 	jr nz, .not_triple_kick
 .reject_triple_kick_sample

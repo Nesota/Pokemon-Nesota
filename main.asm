@@ -99,6 +99,9 @@ SECTION "Clock Reset", ROMX
 
 INCLUDE "engine/rtc/restart_clock.asm"
 
+SECTION "Voltorb Flip", ROMX
+
+INCLUDE "engine/games/voltorb_flip.asm"
 
 SECTION "bank9", ROMX
 
@@ -496,7 +499,6 @@ INCBIN "gfx/splash/copyright.2bpp"
 
 INCLUDE "engine/menus/options_menu.asm"
 INCLUDE "engine/movie/intro.asm"
-
 
 SECTION "bank3E", ROMX
 

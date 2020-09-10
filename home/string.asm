@@ -33,3 +33,12 @@ _InitString::
 	pop bc
 	pop hl
 	ret
+
+StringCmp:: ; 31db
+	ret nz
+	inc de
+	inc hl
+	dec c
+	jr nz, StringCmp
+	ret
+	

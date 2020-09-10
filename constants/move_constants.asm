@@ -26,11 +26,11 @@
 	const SIGNAL_BEAM  ; 12
 	const FLY          ; 13
 	const DRAGON_DANCE ; 14
-	const DRAGON_PULSE         ; 15
+	const DRAGON_PULSE ; 15
 	const VINE_WHIP    ; 16
 	const STOMP        ; 17
 	const DOUBLE_KICK  ; 18
-	const FLAME_CHARGE    ; 19
+	const FLAME_CHARGE ; 19
 	const GUNK_SHOT    ; 1a
 	const ROLLING_KICK ; 1b
 	const SAND_ATTACK  ; 1c
@@ -44,7 +44,7 @@
 	const TAKE_DOWN    ; 24
 	const THRASH       ; 25
 	const DOUBLE_EDGE  ; 26
-	const HONE_CLAWS    ; 27
+	const HONE_CLAWS   ; 27
 	const POISON_STING ; 28
 	const TWINEEDLE    ; 29
 	const PIN_MISSILE  ; 2a
@@ -53,7 +53,7 @@
 	const GROWL        ; 2d
 	const ROAR         ; 2e
 	const SING         ; 2f
-	const HAIL   ; 30
+	const HAIL         ; 30
 	const SONICBOOM    ; 31
 	const DISABLE      ; 32
 	const ACID         ; 33
@@ -101,44 +101,44 @@
 	const CONFUSION    ; 5d
 	const PSYCHIC_M    ; 5e
 	const HYPNOSIS     ; 5f
-	const ICE_SHARD     ; 60
+	const ICE_SHARD    ; 60
 	const AGILITY      ; 61
 	const QUICK_ATTACK ; 62
 	const RAGE         ; 63
 	const TELEPORT     ; 64
 	const NIGHT_SHADE  ; 65
-	const POISON_JAB        ; 66
+	const POISON_JAB   ; 66
 	const SCREECH      ; 67
 	const DOUBLE_TEAM  ; 68
 	const RECOVER      ; 69
 	const HARDEN       ; 6a
 	const MINIMIZE     ; 6b
-	const SEED_BOMB  ; 6c
+	const SEED_BOMB    ; 6c
 	const CONFUSE_RAY  ; 6d
-	const STONE_EDGE    ; 6e
+	const STONE_EDGE   ; 6e
 	const DEFENSE_CURL ; 6f
 	const BARRIER      ; 70
 	const LIGHT_SCREEN ; 71
 	const HAZE         ; 72
 	const REFLECT      ; 73
 	const FOCUS_ENERGY ; 74
-	const WATER_PULSE         ; 75
+	const WATER_PULSE  ; 75
 	const METRONOME    ; 76
 	const WILL_O_WISP  ; 77
 	const SELFDESTRUCT ; 78
 	const EGG_BOMB     ; 79
 	const LICK         ; 7a
-	const XSCISSOR         ; 7b
+	const XSCISSOR     ; 7b
 	const SLUDGE       ; 7c
 	const BONE_CLUB    ; 7d
 	const FIRE_BLAST   ; 7e
 	const WATERFALL    ; 7f
-	const DRAGON_CLAW        ; 80
+	const DRAGON_CLAW  ; 80
 	const SWIFT        ; 81
-	const DAZZLE_GLEAM   ; 82
+	const DAZZLE_GLEAM ; 82
 	const SPIKE_CANNON ; 83
-	const DARK_PULSE    ; 84
-	const CALM_MIND      ; 85
+	const DARK_PULSE   ; 84
+	const CALM_MIND    ; 85
 	const BULK_UP      ; 86
 	const SOFTBOILED   ; 87
 	const HI_JUMP_KICK ; 88
