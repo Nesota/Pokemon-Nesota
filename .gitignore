@@ -36,14 +36,6 @@ pokecrystal.txt
 # used_space.py
 used_space.png
 
-# save game files
-*.sgm
-*.sav
-*.rtc
-*.sn*
-*.sa*
-*.sg1
-
 # vim configuration
 # http://www.vim.org/scripts/script.php?script_id=441
 .lvimrc
