@@ -2620,6 +2620,7 @@ wMomSavingMoney::
 	db
 
 wCoins:: dw
+wVFHighScore::dw
 
 wBadges::
 wJohtoBadges:: flag_array NUM_JOHTO_BADGES

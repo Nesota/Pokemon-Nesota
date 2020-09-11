@@ -1,1252 +1,1564 @@
-VFLIP_VOLTORB EQU 2
-VFLIP_FLIPPED EQU 3
-VFLIP_FLAGGED EQU 4
+;RAM:
+;c400-c418 Card Properties
+;c419 state
+;c41a level
+;c41b x
+;c41c y
+;c41d last x
+;c41e last y
+;c41f cards flipped this game
+;c440-c449 total numbers for row/col
+;c450-c459 total voltorb for row/col
+;c498 coins collected this game
 
-_VoltorbFlip:
-	ld hl, Options
-	set NO_TEXT_SCROLL, [hl]
-	call .InitAll
-	call DelayFrame
-.loop
-	callba PlaySpriteAnimationsAndDelayFrame
-	call VFlipLoop
-	jr nc, .loop
-	ld a, [wVoltorbFlipHighestLevel]
-	ld [wScriptVar], a
-	call WaitSFX
-	ld de, SFX_QUIT_SLOTS
-	call PlaySFX
-	call WaitSFX
+;Card Properties (Bits):
+;7-marked 0
+;6-marked 1
+;5-marked 2
+;4-marked 3
+;3-highlighted
+;2-Card Flipped
+;1,0-Card number
+
+;States:
+;sounds:
+;7 move cursor
+;157 game over
+;195 flip card
+;154 are you sure?
+;159 quit
+;148 level clear
+;34 coin
+;91 boom!
+
+VoltorbFlipGFX:
+INCBIN "gfx/voltorbflip/voltorb_flip.2bpp.lz"
+
+VoltorbFlipPalette:
+	dw $073f, $7fff, $26c4, $0000
+	dw $073f, $11ff, $26c4, $0000
+	dw $001f, $7fff, $26c4, $0000
+	dw $001f, $7fff, $073f, $0000
+	dw $001f, $7fff, $7680, $0000
+	dw $001f, $7fff, $5134, $0000
+	dw $001f, $7fff, $3B69, $0000
+	dw $001f, $11ff, $3B69, $0000
+	
+_VoltorbFlip::;this is where the magic happens
 	call ClearBGPalettes
-	ld hl, Options
-	res NO_TEXT_SCROLL, [hl]
-	ld hl, rLCDC
-	res 2, [hl]
-	ret
-
-.InitAll
-	call ClearBGPalettes
-	call ClearTilemap
-	call ClearSprites
-	ld de, MUSIC_NONE
-	call PlayMusic
-	call DelayFrame
-	call DisableLCD
-
-	callba ClearSpriteAnims
-	call LoadStandardFont
-	call LoadFontsExtra
-
-	ld hl, wVoltorbFlip
-	ld bc, wVoltorbFlipEnd - wVoltorbFlip
+	ld a, $d
+	ld [$ffff], a
+	call VFLoadGFX
+	call VFLoadPalette
+	call VFInitRAM
+	call VFInitMap
+	ld hl, $ff40
+	set 7, [hl]
 	xor a
-	call ByteFill
-
-	ld hl, VoltorbFlipObjTiles
-	ld de, vTiles0
-	ld bc, $10
-	call CopyBytes
-
-	ld hl, VoltorbFlipBGTiles
-	ld de, vTiles2
-	ld bc, $250
-	call CopyBytes
-
-	call VoltorbFlip_InitLayout
-	call EnableLCD
-	call WaitBGMap2
-	ld a, %11100100
-	call DmgToCgbBGPals
-	lb de, %11100100, %11100100
-	call DmgToCgbObjPals
-	call DelayFrame
-
-	ld hl, wcf63
+	ld [hBGMapMode], a
+	ld a, 1
+	ld [$ffd8], a ;disable sprite update
+	ld [$c41a], a
+	call VFInitLevel
+	jp VFMainLoop
+	
+VFInitLevel:
+	ld hl, $c440
+	ld b, $20
 	xor a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-	inc a
-	ld [wVoltorbFlipLevel], a
-
-	ld de, MUSIC_GAME_CORNER
-	call PlayMusic
-	ret
-
-VoltorbFlip_InitLayout:
-	call VoltorbFlip_InitBoardPals
-	hlcoord 0, 0
-	ld bc, $0168
-	ld a, $23
-	call ByteFill
-
-	hlcoord 8, 2
-	ld b, 5
-.row
-	ld c, 5
-	ld de, $14
-	push hl
-.col
-	push hl
-	xor a
-	ld [hli], a
-	inc a
-	ld [hld], a
-	inc a
-	add hl, de
-	ld [hli], a
-	inc a
-	ld [hl], a
-	pop hl
-	inc hl
-	inc hl
-	dec c
-	jr nz, .col
-	pop hl
-	ld de, $28
-	add hl, de
+	ld [$c41f], a
+	ld [$c498], a
+	ld [$c499], a
+.clearrowcol
+	ldi [hl], a
 	dec b
-	jr nz, .row
-
-	hlcoord 8, 0
-	ld b, 5
-	ld de, $14
-.loop
-	call .LoadCounters
-	inc hl
-	inc hl
+	jr nz, .clearrowcol
+	ld a, 1
+	ld hl, $c400 ;card start
+	ld b, 25 ; because there are 25 cars
+.set1
+	ldi [hl], a ;starts off every card as a 1
 	dec b
-	jr nz, .loop
-
-	hlcoord 18, 2
-	ld b, 5
-	ld de, $14
-.loop2
-	call .LoadCounters
-	add hl, de
-	add hl, de
-	dec b
-	jr nz, .loop2
-
-	hlcoord 0, 0
-	lb bc, 1, 6
-	call Textbox
-
-	hlcoord 0, 3
-	lb bc, 1, 6
-	call Textbox
-
-	hlcoord 0, 12
-	lb bc, 4, 18
-	call Textbox
-	ret
-
-.LoadCounters
-	push hl
-	ld a, $22
-	ld [hli], a
-	ld a, $18
-	ld [hld], a
-	add hl, de
-	ld [hli], a
+	jr nz, .set1
+	ld a, [$c41a] ;level
+	cp 5
+	jr nc, .highlevel
+	add a
+	add a, 7 ;calculate the "base"
+	ld c, a
+	jr .retry23
+.highlevel ;base is calculated differently starting at level 6
+	add a, 12
+	ld c, a
+.retry23
+	ld hl, $c400 ;card start
+	ld b, 25 ; because there are 25 cars
+.loop23
+	call Random
+	ld a, [hRandomSub]
+	xor $f
+	jr z, .generate2
+	dec a
+	jr nz, .continue23
+.generate3
+	ld a, [hl]
+	cp 1
+	jr nz, .continue23 ;only write it if it's a 1
+	ld a, 3
 	ld [hl], a
-	pop hl
-	ret
-
-VoltorbFlip_InitStrings:
-	hlcoord 1, 0
-	ld de, .Coins
-	call PlaceString
-
-	call VoltorbFlip_PrintCoins
-
-	hlcoord 1, 3
-	ld de, .Payout
-	call PlaceString
-
-	call VoltorbFlip_PrintPayout
-
-	jp VoltorbFlip_PrintLevel
-
-.Coins
-	db "COINS@"
-.Payout
-	db "PAYOUT@"
-
-VoltorbFlip_InitBoardPals:
-	ld a, [rSVBK]
-	push af
-	ld a, $5
-	ld [rSVBK], a
-
-	ld hl, VoltorbFlipBG0Pal
-	ld de, wBGPals1
-	ld bc, $8
-	call CopyBytes
-
-	ld hl, VoltorbFlipBG7Pal
-	ld de, wBGPals1 + $38
-	ld bc, $8
-	call CopyBytes
-
-	ld hl, VoltorbFlipOBPal
-	ld de, wOBPals1
-	ld bc, $8
-	call CopyBytes
-
-	pop af
-	ld [rSVBK], a
-
-	hlcoord 0, 0, wAttrmap
-	ld bc, $0168
-	xor a
-	call ByteFill
-	ret
-
-VoltorbFlip_PrintLevel:
-	hlcoord 1, 7
-	ld a, $24
-	ld [hli], a
-	ld a, [wVoltorbFlipLevel]
-	ld b, a
-	cp 10
-	jr nc, .load_10
-	ld a, $23
-.finish
-	ld [hli], a
-	ld a, b
-	add $18
-	ld [hl], a
-	ret
-
-.load_10
-	ld a, b
-	ld c, 0
-.loop
-	inc c
-	sub 10
-	jr nc, .loop
-	add 10
-	dec c
-	ld b, a
 	ld a, c
-	add $18
-	jr .finish
-
-VoltorbFlip_PrintPayout:
-	hlcoord 2, 4
-	ld de, wVoltorbFlipPayout
-	jr continue_printing_amount
-
-VoltorbFlip_PrintCoins:
-	hlcoord 2, 1
-	ld de, wCoins
-
-continue_printing_amount:
-	push de
-	push hl
-	ld a, " "
-	ld bc, 3
-	call ByteFill
-	pop hl
-	pop de
-	lb bc, $c0 | 2, 5
-	jp PrintNum
-
-VFlipLoop:
-	ld a, [wcf63]
-	bit 7, a
-	jr nz, .Quit
-	ld e, a
-	ld d, 0
-	ld hl, .Jumptable
-	add hl, de
-	add hl, de
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld de, .return
-	push de
-	jp .Jumptable ;jp [hl]
-
-.return
-	and a
-	ret
-
-.Quit
-	scf
-	ret
-
-.Jumptable
-	dw VoltorbFlip_AskPlayWithThreeCoins ; 0
-	dw VoltorbFlip_StartGame             ; 1
-	dw VoltorbFlip_HandleJoypad          ; 2
-	dw VoltorbFlip_CheckTile             ; 3
-	dw VoltorbFlip_HandleOutcome         ; 4
-	dw VoltorbFlip_PlayAgain             ; 5
-	dw VoltorbFlip_QuitGame              ; 6
-
-VoltorbFlip_QuitGame:
-	ld hl, wcf63
+	sub a, 3
+	ld c, a
+	jr c, .done
+	jr z, .done
+	jr .continue23
+.generate2
+	ld a, [hl]
+	cp 1
+	jr nz, .continue23 ;only write it if it's a 1
+	ld a, 2
+	ld [hl], a
+	ld a, c
+	sub a, 2
+	ld c, a
+	jr c, .done
+	jr z, .done
+	jr .continue23
+.continue23
+	inc hl
+	dec b
+	jr nz, .loop23
+	jr .retry23
+.done
+	ld a, [$c41a]
+	add a, 5 ;number of voltorb
+	cp 10
+	ld c, a
+	jr nc, .retryv
+	ld c, 10 ;max of 10 voltorb
+.retryv
+	ld hl, $c400 ;card start
+	ld b, 25 ; because there are 25 cars
+.loopv
+	call Random
+	ld a, [hRandomSub]
+	xor $f
+	jr z, .generatev
+	dec a
+	jr nz, .continuev
+.generatev
+	ld a, [hl]
+	cp 1
+	jr nz, .continuev ;only write it if it's a 1
+	xor a
+	ld [hl], a
+	dec c
+	jr z, .donev
+	jr .continuev
+.continuev
+	inc hl
+	dec b
+	jr nz, .loopv
+	jr .retryv
+.donev
+	ld de, $c400
+	ld b, $5
+	ld hl, $c445
+.addrowstart
+	ld c, $5
+.addrow
+	ld a, [de]
+	and 3
+	push bc
+	ld b, a
+	ld a, [hl]
+	add a, b
+	ld [hl], a
+	pop bc
+	inc de
+	dec c
+	jr nz, .addrow
+	inc hl
+	dec b
+	jr nz, .addrowstart
+	ld de, $c400
+	ld b, $5
+	ld hl, $c440
+.addcolstart
+	ld c, $5
+.addcol
+	ld a, [de]
+	and 3
+	push bc
+	ld b, a
+	ld a, [hl]
+	add a, b
+	ldi [hl], a
+	pop bc
+	inc de
+	dec c
+	jr nz, .addcol
+	ld hl, $c440
+	dec b
+	jr nz, .addcolstart
+	ld de, $c400
+	ld b, $5
+	ld hl, $c455
+.voltrowstart
+	ld c, $5
+.voltrow
+	ld a, [de]
+	and 3
+	jr nz, .rowskip
+	inc [hl]
+.rowskip
+	inc de
+	dec c
+	jr nz, .voltrow
+	inc hl
+	dec b
+	jr nz, .voltrowstart
+	ld de, $c400
+	ld b, $5
+	ld hl, $c450
+.voltcolstart
+	ld c, $5
+.voltcol
+	ld a, [de]
+	and 3
+	jr nz, .colskip
+	inc [hl]
+.colskip
+	inc hl
+	inc de
+	dec c
+	jr nz, .voltcol
+	ld hl, $c450
+	dec b
+	jr nz, .voltcolstart
+	ld hl, $ff41
+	ld a, 1
+.wait
+	ld a, [hl]
+	and 3
+	cp a,1
+	jr nz, .wait
+	dec hl
+	res 7, [hl]
+	call VFInitMap
+	ld hl, $ff40
 	set 7, [hl]
 	ret
 
-VoltorbFlip_Next:
-	ld hl, wcf63
-	inc [hl]
+VFMainLoop:
+	call VFRefreshMap
+	call VFInput
+	jr VFMainLoop
+	ld a, $f
+	ld [$ffff], a
 	ret
 
-VoltorbFlip_AskPlayWithThreeCoins:
-	call VoltorbFlip_InitStrings
-	xor a
-	ld [$ffc3], a
-	ld a, 3
-	ld [$ffc4], a
-	ld bc, $ffc3
-	callba CheckCoins ; CheckCoins
-	jr c, VoltorbFlip_NotEnoughCoins
-	ld hl, VoltorbFlip_PlayWithThreeCoinsText
-VoltorbFlip_AskPlayAgain:
-	call PrintText
-	call YesNoBox
-	jr c, VoltorbFlip_QuitGame
-	xor a
-	ld [$ffc3], a
-	ld a, 3
-	ld [$ffc4], a
-	ld bc, $ffc3
-	callba TakeCoins ; TakeCoins
-	call VoltorbFlip_PrintCoins
-	call VoltorbFlip_ClearBoard
-	call VoltorbFlip_SampleBoard
-	ld hl, wVoltorbFlipPayout
-	xor a
-	ld [hli], a
-	inc a
-	ld [hl], a
-	ld de, SFX_SLOT_MACHINE_START
-	call PlaySFX
-	call WaitSFX
-	ld hl, wcf63
-	ld [hl], $1
-	ret
-
-VoltorbFlip_NotEnoughCoins:
-	ld hl, .NotEnoughCoinsText
-	call PrintText
-	ld hl, wcf63
-	ld [hl], $6
-	ret
-
-.NotEnoughCoinsText
-	text "You don't have"
-	line "enough coins."
-	done
-
-VoltorbFlip_PlayWithThreeCoinsText:
-	text "Play with 3 coins?"
-	done
-
-VoltorbFlip_StartGame:
-	call VoltorbFlip_InitLayout
-	call VoltorbFlip_InitStrings
-	call VoltorbFlip_PlaceCounts
-	ld hl, wVoltorbFlipCursor
-	xor a
-	ld [hl], a
-	lb de, $20, $48
-	ld a, $2d
-	call InitSpriteAnimStruct
-	ld hl, .PickACardText
-	call PrintText
-	jp VoltorbFlip_Next
-
-.PickACardText
-	text "A: Choose"
-	line "SELECT: Flag"
-	done
-
-VoltorbFlip_HandleJoypad:
-	call JoyTextDelay
-	ld hl, $ffa9
-	ld a, [hl]
-	and A_BUTTON
-	jp nz, VoltorbFlip_Next
-	ld a, [hl]
-	and SELECT
-	jr nz, .select
-	ld a, [hl]
-	and D_DOWN
-	jr nz, .d_down
-	ld a, [hl]
-	and D_UP
-	jr nz, .d_up
-	ld a, [hl]
-	and D_LEFT
-	jr nz, .d_left
-	ld a, [hl]
-	and D_RIGHT
-	jr nz, .d_right
-	ret
-
-.d_down
-	ld hl, wVoltorbFlipCursor
-	ld a, [hl]
-	and $f
-	cp 4
-	jr nz, .okay_down
-	ld a, -1
-.okay_down
-	inc a
-	jr .finish_vertical
-
-.d_up
-	ld hl, wVoltorbFlipCursor
-	ld a, [hl]
-	and $f
-	jr nz, .okay_up
-	ld a, 5
-.okay_up
-	dec a
-.finish_vertical
-	ld b, a
-	ld a, [hl]
-	and $f0
-	or b
-	ld [hl], a
-	ret
-
-.d_right
-	ld hl, wVoltorbFlipCursor
-	ld a, [hl]
-	and $f0
-	cp $40
-	jr nz, .okay_right
-	ld a, $f0
-.okay_right
-	add $10
-	jr .finish_horizontal
-
-.d_left
-	ld hl, wVoltorbFlipCursor
-	ld a, [hl]
-	and $f0
-	jr nz, .okay_left
-	ld a, $50
-.okay_left
-	sub $10
-.finish_horizontal
-	ld b, a
-	ld a, [hl]
-	and $f
-	or b
-	ld [hl], a
-	ret
-
-.select
-	ld hl, wVoltorbFlipCursor
-	ld a, [hl]
-	and $f
-	ld c, a
-	ld a, [hl]
-	and $f0
-	swap a
-	ld b, a
-	push bc
-	ld a, c
-	ld bc, 5
-	ld hl, wVoltorbFlipBoard
-	call AddNTimes
-	pop bc
-	ld c, b
-	ld b, 0
-	add hl, bc
-	bit VFLIP_FLIPPED, [hl]
-	ret nz
-	bit VFLIP_FLAGGED, [hl]
-	jr z, .flag
-	res VFLIP_FLAGGED, [hl]
-	xor a
-	jr .continue_select
-
-.flag
-	set VFLIP_FLAGGED, [hl]
-	ld a, $14
-.continue_select
-	push af
-	hlcoord 8, 2
-	ld a, [wVoltorbFlipCursor]
-	and $f
-	ld bc, $28
-	call AddNTimes
-	ld a, [wVoltorbFlipCursor]
-	srl a
-	srl a
-	srl a
-	ld c, a
-	ld b, 0
-	add hl, bc
-	pop af
-	ld [hli], a
-	inc a
-	ld [hld], a
-	inc a
-	ld de, $14
-	add hl, de
-	ld [hli], a
-	inc a
-	ld [hl], a
-	ret
-
-VoltorbFlip_CheckTile:
-	call VoltorbFlip_CheckSquare
-	jr c, .fail
-	cp 2
-	jp z, VoltorbFlip_Next
-	ld hl, wcf63
-	ld [hl], $2
-	ret
-
-.fail
-	ld hl, wVoltorbFlipLevel
-	ld a, [hl]
-	cp 1
-	jr z, .skip
-	dec a
-	ld [hl], a
-	ld hl, .BummerText
-	call PrintText
-	call VoltorbFlip_PrintLevel
-	ld c, 64
-	call DelayFrames
-	ld c, 64
-	call DelayFrames
-.skip
-	ld hl, wcf63
-	ld [hl], $5
-	ret
-
-.BummerText
-	text "Bummer! Dropped"
-	line "to level @"
-	deciram wVoltorbFlipLevel, $12, $12
-	text "."
-	done
-
-VoltorbFlip_HandleOutcome:
-	ld hl, .EndRoundText
-	call PrintText
-	ld de, SFX_2ND_PLACE
-	call PlaySFX
-	call WaitSFX
-
-	ld a, -1
-	ld [wcf64], a
-	inc a
-	ld [$ffc3], a
-	inc a
-	ld [$ffc4], a
-.payout_loop
-	ld hl, wVoltorbFlipPayout
+VFInput:
+	ld hl, $c41b
 	ld a, [hli]
-	or [hl]
-	jr z, .RevealTiles
-	ld a, [hl]
-	dec [hl]
-	dec hl
-	and a
-	jr nz, .dont_dec
-	dec [hl]
-.dont_dec
-	ld bc, $ffc3
-	callba GiveCoins ; GiveCoins
-	call VoltorbFlip_PrintPayout
-	call VoltorbFlip_PrintCoins
-	ld a, [wcf64]
-	inc a
-	ld [wcf64], a
-	and $7
-	jr nz, .delay_frame
-	ld de, SFX_GET_COIN_FROM_SLOTS
-	call PlaySFX
-.delay_frame
-	call DelayFrame
-	jr .payout_loop
-
-.RevealTiles
-	call VoltorbFlip_RevealBoard
-	ld hl, wVoltorbFlipLevel
+	ld b, a
 	ld a, [hli]
-	cp [hl]
-	jr c, .dont_load_max
-	ld [hl], a
-.dont_load_max
-	dec hl
-	cp 10
-	jr nc, .okay
-	inc a
-	ld [hl], a
-	ld hl, .AdvancedLevelText
-	call PrintText
-	call VoltorbFlip_PrintLevel
-	ld de, SFX_1ST_PLACE
-	call PlaySFX
-	call WaitSFX
-	ld c, 64
-	call DelayFrames
-.okay
-	jp VoltorbFlip_Next
-
-.EndRoundText
-	text "You found all the"
-	line "coins this round!"
-	done
-
-.AdvancedLevelText
-	text "Yes! Advanced to"
-	line "level @"
-	deciram wVoltorbFlipLevel, $12, $12
-	text "!"
-	done
-
-VoltorbFlip_RevealTile:
-	ld a, [de]
-	and $3
-	inc a
-	sla a
-	sla a
-	push hl
-	ld [hli], a
-	inc a
-	ld [hld], a
-	inc a
-	push de
-	ld de, $14
-	add hl, de
-	pop de
-	ld [hli], a
-	inc a
-	ld [hl], a
-	pop hl
-	ret
-
-VoltorbFlip_PlayAgain:
-	callba ClearSpriteAnims
-	xor a
-	ld [$ffc3], a
-	ld a, 3
-	ld [$ffc4], a
-	ld bc, $ffc3
-	callba CheckCoins ; CheckCoins
-	jr c, .NotEnoughCoins
-	ld hl, wcf63
-	ld [hl], 0
-	ld hl, .PlayAgainText
-	jp VoltorbFlip_AskPlayAgain
-
-.NotEnoughCoins
-	ld hl, .NotEnoughCoinsText
-	call PrintText
-	ld hl, wcf63
-	ld [hl], $6
-	ret
-
-.PlayAgainText
-	text "Play again?"
-	done
-
-.NotEnoughCoinsText
-	text "You've run out of"
-	line "coins."
-	done
-
-VoltorbFlip_RevealBoard:
-	ld c, 24
-	call DelayFrames
-	ld de, wVoltorbFlipBoard
-	hlcoord 8, 2
-	lb bc, 5, 5
-.row
-	push bc
-.col
-	call VoltorbFlip_RevealTile
-	inc de
-	inc hl
-	inc hl
-	dec c
-	jr nz, .col
-	ld bc, 30
-	add hl, bc
-	pop bc
-	dec b
-	jr nz, .row
-	ld c, 64
-	call DelayFrames
-	ld c, 64
-	jp DelayFrames
-
-VoltorbFlip_PlaceCounts:
-	ld c, 0
-	hlcoord 9, 0
-.col
-	push hl
-	ld a, c
-	push bc
-	call VoltorbFlip_CountVoltorbInCol
-	pop bc
-	add $18
-	pop hl
-	ld [hl], a
-	push hl
-	ld de, $13
-	add hl, de
-	push hl
-	ld a, c
-	push bc
-	call VoltorbFlip_SumCoinsInCol
-	pop bc
-	ld e, a
-	ld d, 0
-	cp 10
-	jr c, .units_only
-.subtract
-	sub 10
-	inc d
-	jr nc, .subtract
-	add 10
-	dec d
-	ld e, a
-.units_only
-	pop hl
-	ld a, d
-	add $18
-	ld [hli], a
-	ld a, e
-	add $18
-	ld [hl], a
-	pop hl
-	inc hl
-	inc hl
-	inc c
-	ld a, c
-	cp 5
-	jr nz, .col
-
-	ld c, 0
-	hlcoord 19, 2
-.row
-	push hl
-	ld a, c
-	push bc
-	call VoltorbFlip_CountVoltorbInRow
-	pop bc
-	add $18
-	pop hl
-	ld [hl], a
-	push hl
-	ld de, $13
-	add hl, de
-	push hl
-	ld a, c
-	push bc
-	call VoltorbFlip_SumCoinsInRow
-	pop bc
-	ld e, a
-	ld d, 0
-	cp 10
-	jr c, .units_only_row
-.subtract_row
-	sub 10
-	inc d
-	jr nc, .subtract_row
-	add 10
-	dec d
-	ld e, a
-.units_only_row
-	pop hl
-	ld a, d
-	add $18
-	ld [hli], a
-	ld a, e
-	add $18
-	ld [hl], a
-	pop hl
-	ld de, $28
-	add hl, de
-	inc c
-	ld a, c
-	cp 5
-	jr nz, .row
-	ret
-
-VoltorbFlip_ClearBoard:
-	ld hl, wVoltorbFlipBoard
-	ld c, 25
-	xor a
-.loop
-	ld [hli], a
-	dec c
-	jr nz, .loop
-	ret
-
-VoltorbFlip_SampleBoard:
-	ld a, [wVoltorbFlipLevel]
-	dec a
-	ld e, a
-	ld d, 0
-	ld hl, .MinMax
-	add hl, de
-	add hl, de
-	ld de, wVoltorbFlipMinPayout
-	ld bc, 4
-	call CopyBytes
-.TryAgain
-	ld a, [wVoltorbFlipLevel]
-	srl a
-	add 6
-	ld b, a
-.loop
-	call Random
-	and $1f
-	cp 25
-	jr nc, .loop
-	ld e, a
-	ld d, 0
-	ld hl, wVoltorbFlipBoard
-	add hl, de
-	ld a, [hl]
-	and a
-	jr nz, .loop
-	ld a, 1 << VFLIP_VOLTORB
-	ld [hl], a
-	dec b
-	jr nz, .loop
-	ld a, [wVoltorbFlipLevel]
-	dec a
-	ld e, a
-	ld d, 0
-	ld hl, .Odds
-	add hl, de
-	add hl, de
-	ld de, wVoltorbFlipBoard
-	ld b, 25
-.loop2
-	ld a, [de]
-	and a
-	jr nz, .next
-	push bc
-	push hl
-	ld c, 1
-	call Random
-	ld b, a
-.loop3
-	ld a, b
-	cp [hl]
-	jr c, .okay
-	jr z, .okay
-	inc hl
-	inc c
-	ld a, c
-	cp 3
-	jr nz, .loop3
-.okay
-	pop hl
-	ld a, [de]
-	or c
-	ld [de], a
-	pop bc
-.next
-	inc de
-	dec b
-	jr nz, .loop2
-	call VoltorbFlip_CountTotalNumberOfCoins
-	jr c, .resample
-	call VoltorbFlip_Count2sAnd3s
-	ret nz
-.resample
-	call VoltorbFlip_ClearBoard
-	jp .TryAgain
-
-.Odds
-	db  80 percent,  96 percent
-	db  75 percent,  92 percent
-	db  70 percent,  88 percent
-	db  65 percent,  84 percent
-	db  60 percent,  80 percent
-	db  55 percent,  76 percent
-	db  50 percent,  72 percent
-	db  45 percent,  68 percent
-	db  40 percent,  64 percent
-	db  35 percent,  60 percent
-
-.MinMax
-	bigdw    20
-	bigdw    50
-	bigdw   100
-	bigdw   200
-	bigdw   500
-	bigdw  1000
-	bigdw  2000
-	bigdw  3000
-	bigdw  5000
-	bigdw  7000
-	bigdw 10000
-
-VoltorbFlip_CountVoltorbInRow:
-	ld hl, wVoltorbFlipBoard
-	ld bc, 5
-	call AddNTimes
-	xor a
-	ld c, 5
-.loop
-	bit VFLIP_VOLTORB, [hl]
-	jr z, .next
-	inc a
-.next
-	inc hl
-	dec c
-	jr nz, .loop
-	ret
-
-VoltorbFlip_CountVoltorbInCol:
-	ld hl, wVoltorbFlip
 	ld c, a
-	ld b, 0
-	add hl, bc
-	ld c, 5
-	push de
-	ld de, 5
-	xor a
-.loop
-	bit VFLIP_VOLTORB, [hl]
-	jr z, .next
-	inc a
-.next
-	add hl, de
-	dec c
-	jr nz, .loop
-	pop de
-	ret
-
-VoltorbFlip_SumCoinsInRow:
-	ld hl, wVoltorbFlipBoard
-	ld bc, 5
-	call AddNTimes
-	lb bc, 0, 5
-.loop
+	di
+	push hl
+	call VFRefreshScreen
+	pop hl
 	ld a, [hli]
-	and $3
+	ld b, a
+	ld a, [hli]
+	ld c, a
+	call VFRefreshScreen
+	ei
+	ld d, $c4
+	ld a, [$c41b]
+	ld b, a
+	ld a, [$c41c]
+	ld c, a
+	add a
+	add a
+	add c
 	add b
-	ld b, a
-	dec c
-	jr nz, .loop
-	ld a, b
-	ret
-
-VoltorbFlip_SumCoinsInCol:
-	ld hl, wVoltorbFlipBoard
-	ld c, a
-	ld b, 0
-	add hl, bc
-	lb bc, 0, 5
-	ld de, 5
-.loop
-	ld a, [hl]
-	and $3
-	add b
-	ld b, a
-	add hl, de
-	dec c
-	jr nz, .loop
-	ld a, b
-	ret
-
-VoltorbFlip_Count2sAnd3s:
-	ld hl, wVoltorbFlipBoard
-	ld b, 0
-	ld c, 25
-.loop
-	ld a, [hli]
-	and $3
-	jr z, .next
-	dec a
-	jr z, .next
-	inc b
-.next
-	dec c
-	jr nz, .loop
-	ld a, b
-	ld [wVoltorbFlipNum2s3s], a
-	and a
-	ret
-
-UpdateVoltorbFlipCursor:
-	ld a, [wcf63]
-	and a
-	jr z, .deinit
-	cp 5
-	jr nc, .deinit
-	ld hl, 7 ; SPRITEANIMSTRUCT_YOFFSET
-	add hl, bc
-	ld a, [wVoltorbFlipCursor]
-	and $f
-	swap a
-	ld [hld], a ; SPRITEANIMSTRUCT_XOFFSET
-	ld a, [wVoltorbFlipCursor]
-	and $f0
-	ld [hl], a
-	ret
-
-.deinit
-	xor a
-	ld [bc], a
-	call ClearSprites
-	ret
-
-VoltorbFlip_CountTotalNumberOfCoins:
-	ld de, wVoltorbFlipBoard
-	ld c, 25
-	ld hl, 1
-.loop
-	ld a, [de]
-	inc de
-	and $3
-	jr z, .next
-	dec a
-	jr z, .next
-	push de
-	ld d, h
-	ld e, l
-.loop2
-	add hl, de
-	jr c, .pop_fail
-	dec a
-	jr nz, .loop2
-	pop de
-.next
-	ld a, 50000 / $100
-	cp h
-	jr c, .fail
-	jr nz, .okay
-	ld a, 50000 % $100
-	cp l
-	jr c, .fail
-.okay
-	dec c
-	jr nz, .loop
-	ld d, h
-	ld e, l
-	ld hl, wVoltorbFlipPotentialPayout
-	ld [hl], d
-	inc hl
-	ld [hl], e
-	dec hl
-	ld de, wVoltorbFlipMinPayout
-	push hl
-	ld c, 2
-	call StringCmp
-	pop hl
-	jr z, .check_max
-	jr nc, .fail
-.check_max
-	ld de, wVoltorbFlipMaxPayout
-	ld c, 2
-	call StringCmp
-	ret c
-	and a
-	ret
-
-.pop_fail
-	pop de
-.fail
-	scf
-	ret
-
-VoltorbFlip_CheckSquare:
-	ld a, [wVoltorbFlipNum2s3s]
-	cp 1
-	jr nz, .skip_sfx
-	call Random
-	ld a, [hRandomAdd]
-	and a
-	jr nz, .skip_sfx
-	ld a, [hRandomSub]
-	cp $20
-	jr nz, .skip_sfx
-	ld de, SFX_CHOOSE_A_CARD
-	call PlaySFX
-	call WaitSFX
-.skip_sfx
-	ld hl, wVoltorbFlipBoard
-	ld a, [wVoltorbFlipCursor]
-	and $f
-	jr z, .first_row
-	ld bc, 5
-	call AddNTimes
-.first_row
-	ld a, [wVoltorbFlipCursor]
-	and $f0
-	jr z, .first_col
-	swap a
 	ld e, a
-	ld d, 0
-	add hl, de
-.first_col
-	ld a, [hl]
-	bit VFLIP_FLIPPED, a
-	jr nz, .already_upturned
-	push af
-	call .RevealTile
-	ld de, SFX_STOP_SLOT
-	call PlaySFX
-	call WaitSFX
-	pop af
-	bit VFLIP_VOLTORB, a
-	jr nz, .voltorb
-	and $3
-	cp 1
-	jr z, .no_multiplier
-	ld [wVoltorbFlipMultiplier], a
-	ld [hMultiplier], a
-	ld hl, wVoltorbFlipPayout
-	xor a
-	ld [hMultiplicand], a
-	ld a, [hli]
-	ld [hMultiplicand + 1], a
-	ld a, [hl]
-	ld [hMultiplicand + 2], a
-	push hl
-	call Multiply
-	pop hl
-	ld a, [hProduct + 3]
-	ld [hld], a
-	ld a, [hProduct + 2]
-	ld [hl], a
-	ld hl, .MultiplierText
-	call PrintText
-	ld de, SFX_3RD_PLACE
-	call PlaySFX
-	call WaitSFX
-	ld hl, wVoltorbFlipPayout
-	ld a, [hli]
-	cp 50000 / $100
-	jr nc, .max_out
-	jr c, .okay
-	ld a, [hl]
-	cp 50000 % $100
-	jr c, .okay
-	jr z, .okay
-.max_out
-	ld a, 50000 % $100
-	ld [hld], a
-	ld a, 50000 / $100
-	ld [hl], a
-.okay
-	call VoltorbFlip_PrintPayout
-	ccf
-	ld hl, wVoltorbFlipNum2s3s
-	dec [hl]
-	ld a, 2
+	ld a, [$ffa4]
+	bit 1, a
+	jp nz, .bbutton
+	ld a, [$ffa3]
+	and a
 	ret z
-.no_multiplier
-	xor a
+	bit 0, a
+	jr nz, .abutton
+	bit 2, a
+	jp nz, VFKeepCoins
+	bit 3, a
+	jp nz, VFExit
+	push af
+	ld a, [$c41b]
+	ld [$c41d], a
+	ld a, [$c41c]
+	ld [$c41e], a
+	push de
+	ld de, 7
+	call PlaySFX
+	pop de
+	pop af
+	bit 4, a
+	jp nz, .rightbutton
+	bit 5, a
+	jp nz, .leftbutton
+	bit 6, a
+	jp nz, .upbutton
+	bit 7, a
+	jp nz, .downbutton
+	
 	ret
 
-.already_upturned
-	ld a, 1
+.abutton
+	ld a, [de]
+	bit 2, a
+	ret nz
+	set 2, a
+	ld [de], a
+	and 3
+	cp 1
+	jr z, .skipintense
+	ld a, [$c420]
+	cp 1
+	jr nz, .skipintense
+	call Random
+	ld a, [hRandomSub]
+	and 3
+	jr nz, .skipintense
+	push de
+	ld de, 154
+	call WaitPlaySFX
+	pop de
+	push bc
+	ld c, 120 ;2 seconds
+	call DelayFrames
+	pop bc
+.skipintense
+	call VFFlipAnimation
+	ld a, [de]
+	and 3
+	jp z, VFBoom
+	call VFMultiplyCoins
+	ld hl, $c41f
+	ld a, [$c41a]
+	cp [hl]
+	jr z, .skipcardinc
+	inc [hl]
+.skipcardinc
+	ld hl, $c400
+	ld bc, 25
+.check23left
+	ld a, [hli]
+	and 7
+	cp 2
+	jr nz, .skip2add
+	inc b
+.skip2add
+	cp 3
+	jr nz, .skip3add
+	inc b
+.skip3add
+	dec c
+	jr nz, .check23left
+	ld a, b
+	ld [$c420], a ;for the are you sure song
 	and a
-	ret
-
-.voltorb
-	ld hl, wc314
-	xor a
-	ld [hl], a
-	callba PlaySpriteAnimationsAndDelayFrame
-	ld hl, .KAPOW
-	call PrintText
-	xor a
-	ld hl, wVoltorbFlipPayout
-	ld [hli], a
-	ld [hl], a
-	call VoltorbFlip_PrintPayout
-	ld de, SFX_EGG_BOMB
-	call PlaySFX
-	call WaitSFX
-	ld c, 64
-	call DelayFrames
-	ld hl, .NotThisTime
-	call PrintText
-	ld de, SFX_WRONG
-	call PlaySFX
-	call WaitSFX
-	ld c, 64
-	call DelayFrames
-	call VoltorbFlip_RevealBoard
-	scf
-	ret
-
-.RevealTile
-	set VFLIP_FLIPPED, [hl]
-	push hl
-	ld d, h
-	ld e, l
-	call VoltorbFlip_Cursor2Tile
-	call VoltorbFlip_RevealTile
-	pop hl
-	ret
-
-.MultiplierText
-	text "×@"
-	deciram wVoltorbFlipMultiplier, $11, $12
-	text "! Won @"
-	deciram wVoltorbFlipPayout, $24, $12
-	text ""
-	line "coins!"
-	done
-
-.KAPOW
-	text "KAPOW!!"
-	done
-
-.NotThisTime
-	text "Not this time."
-	done
-
-VoltorbFlip_Cursor2Tile:
-	hlcoord 8, 2
-	ld a, [wVoltorbFlipCursor]
-	and $f
-	jr z, .okay
-	ld bc, $28
-	call AddNTimes
-.okay
-	ld a, [wVoltorbFlipCursor]
-	and $f0
-	swap a
-	sla a
+	ret nz
+	call VFRefreshMap
+	ld hl, $c41b
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
 	ld c, a
-	ld b, 0
-	add hl, bc
+	di
+	call VFRefreshScreen
+	ei
+	ld de, 148 ;level clear
+	call WaitPlaySFX
+	ld c, 60 ;1 seconds
+	call DelayFrames
+	ld a, [$c41a]
+	inc a
+	cp 9
+	call z, .caplevel
+	ld [$c41a], a
+	ld d, a
+	ld a, [wVFHighScore]
+	cp d
+	jr nc, .noUpdate
+	ld a, d
+	ld [wVFHighScore], a
+.noUpdate
+	ld de, 34
+	call WaitPlaySFX
+	ld hl, $c498
+	ld a, [hli]
+	ld d, a
+	ld a, [hld]
+	ld e, a
+	push hl
+	ld a, [wCoins]
+	ld h, a
+	ld a, [wCoins + 1]
+	ld l, a
+	add hl, de
+	push hl
+	pop de
+	pop hl
+	ld a, d
+	cp $27
+	jr nc, .maybecap
+.totalcoins
+	ld a, d
+	ld [wCoins], a
+	ld a, e
+	ld [wCoins + 1], a
+	jp VFInitLevel
+
+.caplevel
+	dec a
+	ret
+.maybecap
+	cp $27
+	jr nz, .capcoins
+	ld a, e
+	cp $f
+	jr nc, .capcoins
+	jr .totalcoins
+.capcoins
+	ld de, $270f
+	jr .totalcoins
+
+.bbutton
+	and $f0
+	ret z
+	ld b, a
+	ld a, [$ffa3]
+	ld c, a
+	ld a, [de]
+	bit 7, b
+	call nz, .bdown
+	bit 6, b
+	call nz, .bup
+	bit 5, b
+	jr nz, .bleft
+	bit 4, b
+	ret z
+.bright
+	bit 7, c
+	jr nz, .toggle3
+	bit 6, c
+	jr nz, .toggle1
+	ret
+.bleft
+	bit 7, c
+	jr nz, .toggle2
+	bit 6, c
+	jr nz, .toggle0
+	ret
+.bup
+	bit 5, c
+	jr nz, .toggle0
+	bit 4, c
+	jr nz, .toggle1
+	ret
+.bdown
+	bit 5, c
+	jr nz, .toggle2
+	bit 4, c
+	jr nz, .toggle3
+	ret
+.toggle0
+	xor $80
+	ld [de], a
+	ret
+.toggle1
+	xor $40
+	ld [de], a
+	ret
+.toggle2
+	xor $20
+	ld [de], a
+	ret
+.toggle3
+	xor $10
+	ld [de], a
 	ret
 
-VoltorbFlipObjTiles: INCBIN "gfx/voltorbflip/ObjTiles.2bpp"
-VoltorbFlipBGTiles:  INCBIN "gfx/voltorbflip/BGTiles.2bpp"
+.rightbutton
+	ld a, b
+	inc a
+	cp 5
+	jr nz, .norowwrap
+	xor a
+.norowwrap
+	ld [$c41b], a
+	ret
+.leftbutton
+	ld a, b
+	dec a
+	cp $ff
+	jr nz, .norowwrap
+	ld a, 4
+	jr .norowwrap
+	
+.upbutton
+	ld a, c
+	dec a
+	cp $ff
+	jr nz, .nocolwrap
+	ld a, 4
+.nocolwrap
+	ld [$c41c], a
+	ret
+.downbutton
+	ld a, c
+	inc a
+	cp 5
+	jr nz, .nocolwrap
+	xor a
+	jr .nocolwrap
 
-VoltorbFlipBG0Pal:
-	RGB 31, 31, 31
-	RGB 11, 31,  8
-	RGB 31,  0,  0
-	RGB  0,  0,  0
+VFLoadGFX:
+	ld hl, $ff41
+	ld a, 1
+.wait
+	ld a, [hl]
+	and 3
+	cp a,1
+	jr nz, .wait
+	dec hl
+	res 7, [hl]
 
-VoltorbFlipBG7Pal:
-	RGB 31, 31, 31
-	RGB 21, 21, 21
-	RGB 10, 10, 10
-	RGB  0,  0,  0
+	ld a, [rSVBK]
+	push af
+	ld a, $6
+	ld [rSVBK], a
+	
+	ld hl, VoltorbFlipGFX
+	ld a, BANK(VoltorbFlipGFX)
+	ld de, wDecompressScratch
+	call FarDecompress ; Decompress graphics data from a:hl to de.
 
-VoltorbFlipOBPal:
-	RGB 31,  0,  0
-	RGB 31,  0,  0
-	RGB 31,  0,  0
-	RGB  0,  0,  0
+	ld de, wDecompressScratch
+	ld hl, vTiles2
+	lb bc, BANK(VoltorbFlipGFX), 16 * 8
+	call Get2bpp
+
+	pop af
+	ld [rSVBK], a
+	ret
+
+
+VFLoadPalette:	
+	ld a, [rSVBK] ; $ff00+$70
+	push af
+	ld a, 5
+	ld [rSVBK], a
+	ld bc, $e408
+	ld hl, wBGPals1
+	ld de, VoltorbFlipPalette
+	call CopyPals
+	pop af
+	ld [rSVBK], a
+	jp ForceUpdateCGBPals
+
+VFInitRAM:
+	ld hl,$c400
+	ld bc, $00a0
+	xor a
+	call ByteFill
+	ld hl, $c419
+	ldi [hl], a ;state
+	ld a, 1
+	ldi [hl], a ;level
+	ld a, 2
+	ldi [hl], a ;x
+	ldi [hl], a ;y
+	ret
+
+VFInitMap:
+	ld hl,$c4a0 ;blank the screen
+	ld bc, $0168
+	ld a, 17
+	call ByteFill
+	ld hl,$cdd9 ;blank the screen
+	ld bc, $0168
+	ld a, 0
+	call ByteFill
+	ld b, 10
+	di
+	xor a
+	ld [$ff4f], a
+	hlcoord 0, 15
+	call .redcounter
+	hlcoord 3, 15
+	ld a, 6
+	call .drawcounter
+	hlcoord 6, 15
+	ld a, 3
+	call .drawcounter
+	hlcoord 9, 15
+	ld a, 4
+	call .drawcounter
+	hlcoord 12, 15
+	ld a, 5
+	call .drawcounter
+	hlcoord 15, 0
+	call .redcounter
+	hlcoord 15, 3
+	ld a, 6
+	call .drawcounter
+	hlcoord 15, 6
+	ld a, 3
+	call .drawcounter
+	hlcoord 15, 9
+	ld a, 4
+	call .drawcounter
+	hlcoord 15, 12
+	ld a, 5
+	call .drawcounter
+	hlcoord 15, 15
+	ld de, .coinstring
+	call PlaceString
+	hlcoord 15, 16
+	ld de, .blank
+	call PlaceString
+	hlcoord 15, 17
+	ld de, .blank
+	call PlaceString
+	ei
+	call VFRefreshMap
+	di
+	xor a
+	ld [$ff4f], a
+	ld a, 41
+	ld [$c503], a
+	inc a
+	ld [$c517], a
+	inc a
+	ld [$c52b], a
+	inc a
+	ld [$c53f], a
+	inc a
+	ld [$c553], a
+	ld a, [$c41a]
+	add 102
+	ld [$c57b], a
+	ld b, 0
+.loopa
+	ld c, 0
+.loopb
+	call VFRefreshScreen1
+	inc c
+	ld a, c
+	cp a, 6
+	jr nz, .loopb
+	inc b
+	ld a, b
+	cp a, 7
+	jr nz, .loopa
+	ei
+	ret
+.coinstring
+	db "COINS@"
+.blank
+	db "     @"
+	
+.drawcounter
+	push bc
+	push hl
+	ld bc, $0939
+	add hl,bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a	
+	pop hl
+	pop bc
+	ld a, 23
+	ldi [hl], a
+	ld a, 246
+	ld [hl], a
+	ld de, $c44a ;$c440 is start of total numbers in row
+	ld a, e
+	sub a, b
+	ld e, a ;load the correct row
+	push bc
+	ld bc, $0102
+	call PrintNum
+	pop bc
+	dec hl
+	dec hl
+	ld a, [hl]
+	sub a, $90
+	ldi [hl], a
+	ld a, [hl]
+	sub a, $90
+	ld [hl], a
+	ld de, $0012
+	add hl, de
+	ld a, 9
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	ld a, 23
+	add hl, de ;should move us to the bottom row of the counter
+	ld a, 25
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	ld de, $c45a ;$c450 is start of total voltorb in row
+	ld a, e
+	sub a, b
+	ld e, a ;load the correct row
+	ld a, [de]
+	add 102
+	ld [hl], a
+	dec b
+	ret
+	
+.redcounter
+	ld a, 2
+	push bc
+	push hl
+	ld bc, $0939
+	add hl,bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a	
+	pop hl
+	pop bc
+	ld a, 7
+	ldi [hl], a
+	ld a, 246
+	ld [hl], a
+	ld de, $c44a ;$c440 is start of total numbers in row
+	ld a, e
+	sub a, b
+	ld e, a ;load the correct row
+	push bc
+	ld bc, $0102
+	call PrintNum
+	pop bc
+	ld de, $0011
+	add hl, de
+	ld a, 11
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	ld a, 7
+	ld [hl], a
+	inc de
+	add hl, de ;should move us to the bottom row of the counter
+	ld a, 27
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	ld de, $c45a ;$c450 is start of total voltorb in row
+	ld a, e
+	sub a, b
+	ld e, a ;load the correct row
+	ld a, [de]
+	add $f6
+	ld [hl], a
+	dec b
+	ret
+
+VFRefreshMap:
+	ld de, $c400 ;start of card properties
+	ld bc, $0505 ;5x5 board
+	ld hl, $c4a0 ;tiles on screen
+.g1x1
+	push bc
+	ld a, [$c41b]
+	ld b, a
+	ld a, [$c41c]
+	ld c, a
+	add a
+	add a
+	add a, c
+	add a, b
+	pop bc
+	cp a, e
+	ld a, [de]
+	jr z, .highlighted
+	res 3, a
+	jr .checkflip
+.highlighted
+	set 3, a
+.checkflip
+	ld [de], a
+	bit 2, a ;is the card flipped
+	jp nz, .flipped
+	bit 7, a ;is 0 marked?
+	jp nz, .marked0
+	ld a, 0 ;upper left corner blank
+	ldi [hl], a
+.g2x1
+	push bc
+	push hl
+	ld bc, $0938
+	add hl,bc
+	xor a
+	ldi [hl], a
+	ld a, 6
+	ldi [hl], a
+	xor a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 6
+	ldi [hl], a
+	xor a
+	ldi [hl], a
+	ld a, 6
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	xor a
+	ldi [hl], a
+	ld a, 6
+	ldi [hl], a
+	xor a
+	ld [hl], a	
+	pop hl
+	pop bc
+	ld a, 1 ;upper middle blank
+	ldi [hl], a	
+.g3x1
+	ld a, [de]
+	bit 6, a ;is 1 marked?
+	jp nz, .marked1
+	ld a, 2 ;upper right corner blank
+	ld [hl], a
+.g1x2	
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 16 ;left middle blank
+	ldi [hl], a
+.g2x2
+	ld a, 17 ;middle blank
+	ldi [hl], a
+.g3x2
+	ld a, 18 ;right middle blank
+	ld [hl], a
+.g1x3	
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, [de]
+	bit 5, a ;is 2 marked?
+	jp nz, .marked2
+	ld a, 32 ;lower left corner blank
+	ldi [hl], a
+.g2x3
+	ld a, 33 ;lower middle blank
+	ldi [hl], a
+.g3x3
+	ld a, [de]
+	bit 4, a ;is 3 marked?
+	jp nz, .marked3
+	ld a, 34 ;lower right corner blank
+	ld [hl], a
+.carddone
+	ld a, [de]
+	bit 3, a
+	jr nz, .highlight
+.finishcard
+	inc de
+	dec c
+	jr z, .rowdone
+	push de
+	ld de, $ffd9
+	add hl, de
+	pop de
+	jp .g1x1
+.highlight
+	push bc
+	push de
+	push hl
+	ld b, 3
+	ld de, $90f
+	add hl, de
+	ld de, $11
+.highlightloopa
+	ld c, 3
+.highlightloopb
+	ld a, [hl]
+	inc a
+	ldi [hl], a
+	dec c
+	jr nz, .highlightloopb
+	add hl, de
+	dec b
+	jr nz, .highlightloopa
+	pop hl
+	pop de
+	pop bc
+	jr .finishcard
+.rowdone
+	dec b
+	jr z, .done
+	ld c, 5
+	push de
+	ld de, $0006
+	add hl, de
+	pop de
+	jp .g1x1
+.done
+	hlcoord 15, 16
+	ld de, .blank
+	call PlaceString
+	inc hl
+	ld de, $c498 ;coins this game
+	ld bc, $0204
+	call PrintNum
+	hlcoord 15, 17
+	ld de, .blank
+	call PlaceString
+	inc hl
+	ld de, wCoins
+	ld bc, $0204
+	jp PrintNum
+
+.coinstring
+	db "COINS@"
+.blank
+	db "    0@"
+
+.flipped
+	and $3
+	jr z, .voltorb
+	ld a, 0
+	ldi [hl], a
+	push bc
+	push hl
+	ld bc, $0938
+	add hl,bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a	
+	pop hl
+	pop bc
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 16
+	ldi [hl], a
+	ld a, [de]
+	and $3
+	add a, 37
+	ldi [hl], a
+	ld a, 18
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 32
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	jp .carddone
+.marked0
+	ld a, 6 ;upper left corner marked
+	ldi [hl], a
+	jp .g2x1
+.marked1
+	ld a, 8 ;upper right corner marked
+	ld [hl], a
+	jp .g1x2
+.marked2
+	ld a, 22 ;lower left corner marked
+	ldi [hl], a
+	jp .g2x3
+.marked3
+	ld a, 24 ;lower right corner marked
+	ld [hl], a
+	jp .carddone
+.voltorb
+	ld a, 3
+	ldi [hl], a
+	dec a
+	push bc
+	push hl
+	ld bc, $0938
+	add hl,bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a	
+	pop hl
+	pop bc
+	inc a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 19
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	push de
+	ld de, $0012
+	add hl, de
+	pop de
+	ld a, 35
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	jp .finishcard ;a voltorb card will never have a highlighted palette
+
+VFRefreshScreen: ;bc is the coordinates to refresh (3x3 tiles)
+	push bc
+	ld a, c
+	ld c, 15
+	call SimpleMultiply
+	ld h, 0
+	ld l, a
+	add hl, hl
+	ld a, b
+	add a
+	add a, b
+	ld b, 0
+	ld c, a
+	add hl, hl
+	add hl, bc
+	pop bc
+	push bc
+	push hl
+	ld de, $c4a0
+	add hl, de
+	push hl
+	ld de, $9800
+	ld a, c
+	ld c, $18
+	call SimpleMultiply
+	ld h, 0
+	ld l, a
+	add hl, hl
+	add hl, hl
+	ld a, b
+	add a
+	add a, b
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, de
+	push hl
+	pop de
+	ld hl, $ff41
+	ld a, 1
+.wait
+	ld a, [hl]
+	and 3
+	cp a,1
+	jr nz, .wait
+	pop hl
+	push de
+	ld b, 3
+.loopa
+	ld c, 3
+.loopb
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loopb
+	push bc
+	ld bc, $1d
+	push hl
+	push de
+	pop hl
+	add hl, bc
+	push hl
+	pop de
+	pop hl
+	ld bc, $11
+	add hl, bc
+	pop bc
+	dec b
+	jr nz, .loopa
+	pop de
+	pop hl
+	ld bc, $cdd9
+	add hl, bc
+	ld a, 1
+	ld [$ff4f], a
+	ld b, 3
+.loopc
+	ld c, 3
+.loopd
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loopd
+	push bc
+	ld bc, $1d
+	push hl
+	push de
+	pop hl
+	add hl, bc
+	push hl
+	pop de
+	pop hl
+	ld bc, $11
+	add hl, bc
+	pop bc
+	dec b
+	jr nz, .loopc
+	xor a
+	ld [$ff4f], a
+	pop bc
+	ret
+	
+VFRefreshScreen1: ;bc is the coordinates to refresh (3x3 tiles)
+	push bc
+	ld a, c
+	ld c, 15
+	call SimpleMultiply
+	ld h, 0
+	ld l, a
+	add hl, hl
+	ld a, b
+	add a
+	add a, b
+	ld b, 0
+	ld c, a
+	add hl, hl
+	add hl, bc
+	pop bc
+	push bc
+	push hl
+	ld de, $c4a0
+	add hl, de
+	push hl
+	ld de, $9800
+	ld a, c
+	ld c, $18
+	call SimpleMultiply
+	ld h, 0
+	ld l, a
+	add hl, hl
+	add hl, hl
+	ld a, b
+	add a
+	add a, b
+	ld b, 0
+	ld c, a
+	add hl, bc
+	add hl, de
+	push hl
+	pop de
+	pop hl
+	push de
+	ld b, 3
+.loopa
+	ld c, 3
+.loopb
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loopb
+	push bc
+	ld bc, $1d
+	push hl
+	push de
+	pop hl
+	add hl, bc
+	push hl
+	pop de
+	pop hl
+	ld bc, $11
+	add hl, bc
+	pop bc
+	dec b
+	jr nz, .loopa
+	pop de
+	pop hl
+	ld bc, $cdd9
+	add hl, bc
+	ld a, 1
+	ld [$ff4f], a
+	ld b, 3
+.loopc
+	ld c, 3
+.loopd
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loopd
+	push bc
+	ld bc, $1d
+	push hl
+	push de
+	pop hl
+	add hl, bc
+	push hl
+	pop de
+	pop hl
+	ld bc, $11
+	add hl, bc
+	pop bc
+	dec b
+	jr nz, .loopc
+	xor a
+	ld [$ff4f], a
+	pop bc
+	ret
+
+VFFlipAnimation:
+	push de
+	ld de, 195 ;flip sound
+	call WaitPlaySFX
+	ld de, 3 ;first frame of the flip
+.flipframe
+	push de
+	ld d, $c4
+	ld a, c
+	add a
+	add a
+	add a, c
+	add a, b
+	ld e, a
+	ld a, c
+	push bc
+	ld c, $3C
+	call SimpleMultiply
+	ld h, 0
+	ld l, a
+	ld a, b
+	add a
+	add a, b
+	ld bc, $c4a0
+	add hl, bc
+	ld b, 0
+	ld c, a
+	add hl, bc
+	pop bc
+	ld a, [de]
+	set 3, a
+	ld [de], a
+	
+	pop de
+	ld a, 48
+	add a, d
+	ldi [hl], a
+	push bc
+	push af
+	push hl
+	ld bc, $0938
+	add hl,bc
+	ld a, 1
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	ld bc, $0012
+	add hl, bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a
+	add hl, bc
+	ldi [hl], a
+	ldi [hl], a
+	ld [hl], a	
+	pop hl
+	pop af
+	
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	add hl, bc
+	ld a, 64
+	add a, d
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	add hl, bc
+	ld a, 80
+	add a, d
+	ldi [hl], a
+	inc a
+	ldi [hl], a
+	inc a
+	ld [hl], a
+	pop bc
+	push de
+	call .finish
+	pop de
+	ld a, d
+	add a, e
+	ld d, a
+	cp a, 12
+	jr z, .switchdir
+	cp a, $fd
+	jp nz, .flipframe
+	pop de
+	ret
+.switchdir
+	ld de, $06fd
+	jp .flipframe
+.finish
+	ld hl, $c41b
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld c, a
+	di
+	push hl
+	call VFRefreshScreen
+	pop hl
+	ei
+	jp DelayFrame
+
+VFBoom:
+	call VFRefreshMap
+	ld hl, $c41b
+	ld a, [hli]
+	ld b, a
+	ld a, [hli]
+	ld c, a
+	di
+	call VFRefreshScreen
+	ei
+	ld de, 91
+	call WaitPlaySFX
+	ld de, 157
+	call WaitPlaySFX
+	ld c, 240 ;4 seconds
+	call DelayFrames
+	ld a, [$c41f]
+	and a
+	jr z, .level0
+.reset
+	ld [$c41a], a
+	jp VFInitLevel
+
+.level0
+	ld a, 1
+	jr .reset
+	
+VFMultiplyCoins:
+	push bc
+	push de
+	push hl
+	push af
+	ld a, [$c498]
+	ld d, a
+	ld a, [$c499]
+	ld e, a
+	pop af
+	cp 2
+	jr z, .coinsound
+	cp 3
+	jr z, .coinsound
+.resume
+	push af
+	ld b, a
+	ld hl, 0
+	and a
+	jr z, .doneadd
+.keepadd
+	add hl, de
+	dec b
+	jr nz, .keepadd
+.doneadd
+	ld a, h
+	cp $27
+	jr nc, .maybecap
+	ld d, l
+	or d
+	jr z, .initcoins
+	pop af
+.updatecoins
+	ld a, h
+	ld [$c498], a
+	ld a, l
+	ld [$c499], a
+	call VFRefreshMap
+	push bc
+	ld bc, $505
+	di
+	call VFRefreshScreen
+	ld bc, $605
+	call VFRefreshScreen
+	ei
+	pop bc
+	pop hl
+	pop de
+	pop bc
+	ret
+.initcoins
+	pop af
+	ld h, 0
+	ld l, a
+	jr .updatecoins
+.coinsound
+	push de
+	ld de, 34
+	call WaitPlaySFX
+	pop de
+	jr .resume
+.maybecap
+	cp $27
+	jr nz, .capcoins
+	ld a, l
+	cp $f
+	jr nc, .capcoins
+	pop af
+	jr .updatecoins
+.capcoins
+	pop af
+	ld hl, $270f
+	jr .updatecoins
+
+VFKeepCoins:
+	ld de, 159 ;level clear
+	call WaitPlaySFX
+	ld c, 120 ;2 seconds
+	call DelayFrames
+	ld a, [$c41f]
+	and a
+	jr z, .fixlevel
+.setlevel
+	ld [$c41a], a
+	ld de, 34
+	call WaitPlaySFX
+	ld hl, $c498
+	ld a, [hli]
+	ld d, a
+	ld a, [hld]
+	ld e, a
+	push hl
+	ld a, [wCoins]
+	ld h, a
+	ld a, [wCoins + 1]
+	ld l, a
+	add hl, de
+	push hl
+	pop de
+	pop hl
+	ld a, d
+	cp $27
+	jr nc, .maybecap
+.totalcoins
+	ld a, d
+	ld [wCoins], a
+	ld a, e
+	ld [wCoins + 1], a
+	jp VFInitLevel
+
+.maybecap
+	cp $27
+	jr nz, .capcoins
+	ld a, e
+	cp $f
+	jr nc, .capcoins
+	jr .totalcoins
+.capcoins
+	ld de, $270f
+	jr .totalcoins
+.fixlevel
+	inc a
+	jr .setlevel
+VFExit:
+	call VFKeepCoins
+	ld a, 1
+	ld [hBGMapMode], a
+	ld a, $f
+	ld [$ffff], a
+	xor a
+	ld [$ffd8], a ;enable sprite update
+	pop af
+	ret

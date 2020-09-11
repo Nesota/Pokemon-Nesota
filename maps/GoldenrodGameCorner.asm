@@ -341,7 +341,7 @@ GoldenrodGameCornerCardFlipMachineScript:
 	closetext
 	end
 
-MapGoldenrodGameCornerSignpost30Script: ; 0x56e2e
+GoldenrodGameCornerVoltorbFlipMachineScript: ; 0x56e2e
 	loadfont
 	checkitem COIN_CASE
 	iffalse .NoCoinCase
@@ -594,19 +594,18 @@ GoldenrodGameCorner_MapEvents:
 
 	db 0 ; coord events
 
-	db 31 ; bg events
+	db 30 ; bg events
 	bg_event  6,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  6,  7, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  6,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  6,  9, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  6, 10, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  6, 11, BGEVENT_RIGHT, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
+	bg_event  7,  6, BGEVENT_READ, GoldenrodGameCornerLuckySlotsMachineScript
 	bg_event  7,  7, BGEVENT_READ, GoldenrodGameCornerLuckySlotsMachineScript
 	bg_event  7,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  7,  9, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event  7, 10, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
-	bg_event  7, 11, BGEVENT_LEFT, GoldenrodGameCornerSlotsMachineScript
 	bg_event 12,  6, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event 12,  7, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
 	bg_event 12,  8, BGEVENT_READ, GoldenrodGameCornerSlotsMachineScript
@@ -625,7 +624,7 @@ GoldenrodGameCorner_MapEvents:
 	bg_event 18,  9, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 18, 10, BGEVENT_READ, GoldenrodGameCornerCardFlipMachineScript
 	bg_event 18, 11, BGEVENT_RIGHT, GoldenrodGameCornerCardFlipMachineScript
-	bg_event 12,  1, BGEVENT_LEFT, MapGoldenrodGameCornerSignpost30Script
+	bg_event 7,  11, BGEVENT_LEFT, GoldenrodGameCornerVoltorbFlipMachineScript
 	
 
 	db 13 ; object events
@@ -641,4 +640,4 @@ GoldenrodGameCorner_MapEvents:
 	object_event  5, 10, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerGentlemanScript, -1
 	object_event  2,  9, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPokefanM2Script, -1
 	object_event 17, 10, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MoveTutorInsideScript, EVENT_GOLDENROD_GAME_CORNER_MOVE_TUTOR
-	object_event 5, 14,  SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodVoltorbFlipGuyScript, -1
+	object_event 5, 11,  SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodVoltorbFlipGuyScript, -1
