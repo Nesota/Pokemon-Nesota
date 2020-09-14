@@ -182,4 +182,5 @@ SpecialsPointers::
 	add_special UnusedFindItemInPCOrBag
 	add_special InitialSetDSTFlag
 	add_special InitialClearDSTFlag
+	add_special MoveReminder
 	add_special DummySpecial_c224

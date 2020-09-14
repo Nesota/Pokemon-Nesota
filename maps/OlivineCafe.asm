@@ -16,7 +16,9 @@ OlivineCafeStrengthSailorScript:
 	writetext OlivineCafeStrengthSailorText
 	promptbutton
 	verbosegiveitem HM_STRENGTH
+	verbosegiveitem CART
 	setevent EVENT_GOT_HM04_STRENGTH
+	setevent EVENT_GOT_CART
 .GotStrength:
 	writetext OlivineCafeStrengthSailorText_GotStrength
 	waitbutton

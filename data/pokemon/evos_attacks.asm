@@ -13,7 +13,7 @@ EvoTypeSizes::
 	db 2 ; EVOLVE_ITEM
 	db 2 ; EVOLVE_HAPPINESS
 	db 3 ; EVOLVE_STAT
-	
+
 BulbasaurEvosAttacks:
 	db EVOLVE_LEVEL, 16, IVYSAUR
 	db 0 ; no more evolutions
@@ -1236,7 +1236,7 @@ PoliwrathEvosAttacks:
 	db 18, RAIN_DANCE
 	db 21, BODY_SLAM
 	db 27, BUBBLEBEAM
-	db 32, MAGNETON
+	db 32, MAGNITUDE
 	db 33, DYNAMICPUNCH
 	db 37, BELLY_DRUM
 	db 43, VITAL_THROW

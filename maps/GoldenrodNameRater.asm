@@ -14,6 +14,15 @@ GoldenrodNameRater:
 	closetext
 	end
 
+
+GoldenrodMoveReminder:
+	faceplayer
+	opentext
+	special MoveReminder
+	waitbutton
+	closetext
+	end
+
 GoldenrodNameRaterBookshelf:
 	jumpstd DifficultBookshelfScript
 
@@ -36,5 +45,6 @@ GoldenrodNameRater_MapEvents:
 	bg_event  1,  1, BGEVENT_READ, GoldenrodNameRaterBookshelf
 	bg_event  7,  1, BGEVENT_READ, GoldenrodNameRaterRadio
 
-	db 1 ; object events
-	object_event  2,  4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodNameRater, -1
+	db 2 ; object events
+	object_event  2,  4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodNameRater, -1
+	object_event  5,  4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodMoveReminder, -1

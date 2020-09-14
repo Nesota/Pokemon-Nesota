@@ -360,7 +360,6 @@ PlacePartyMonEvoStoneCompatibility:
 	jr z, .next
 	push hl
 	ld a, b
-	ld [wCurPartyMon], a
 	ld bc, PARTYMON_STRUCT_LENGTH
 	ld hl, wPartyMon1Species
 	call AddNTimes
@@ -386,7 +385,6 @@ PlacePartyMonEvoStoneCompatibility:
 	ret
 
 .DetermineCompatibility:
-	; Load EvosAttacks pointer for our mon in hl
 	ld de, wStringBuffer1
 	ld a, BANK(EvosAttacksPointers)
 	ld bc, 2
@@ -395,80 +393,28 @@ PlacePartyMonEvoStoneCompatibility:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	
+	ld de, wStringBuffer1
+	ld a, BANK("Evolutions and Attacks")
+	ld bc, 10
+	call FarCopyBytes
+	ld hl, wStringBuffer1
 .loop2
-	; Check for the end of the loop
-	ld a, BANK(EvosAttacksPointers)
-	call GetFarByte
+	ld a, [hli]
 	and a
 	jr z, .nope
-	cp EVOLVE_STAT
-	jr nz, .not_four_bytes
-	inc hl
-	
-	; Determine which subroutine to call
-.not_four_bytes
 	inc hl
 	inc hl
 	cp EVOLVE_ITEM
-		jr z, .item
-	cp EVOLVE_ITEM_GENDER
-	jr z, .item_gender
-
-	; Any other evolution type is skipped
-	call SkipEvo
-	jr c, .loop2
-
-	; An unknown value was used
-	jr .nope
-
-.item
-	ld a, BANK(EvosAttacksPointers)
-	call GetFarByte
-	ld b, a
-
+	jr nz, .loop2
+	dec hl
+	dec hl
 	ld a, [wCurItem]
-	cp b
-	jr nz, .loop2_skip_2
+	cp [hl]
+	inc hl
+	inc hl
+	jr nz, .loop2
 	ld de, .string_able
 	ret
-
-.item_gender
-	; Get mon's gender
-	xor a
-	ld [wMonType], a ; PartyMon
-	push hl
-	call GetGender
-	pop hl
-	jp c, .loop2_skip_3 ; Just ignore this if the mon is genderless
-	ld b, a
-
-	; Get expected gender
-	ld a, BANK(EvosAttacksPointers)
-	call GetFarByte
-
-	; Check gender
-	cp b
-	jp nz, .loop2_skip_3
-
-	; Check item
-	inc hl
-	ld a, BANK(EvosAttacksPointers)
-	call GetFarByte
-	ld b, a
-	ld a, [wCurItem]
-	cp b
-	jp nz, .loop2_skip_2
-
-	ld de, .string_able
-	ret
-
-.loop2_skip_3
-	inc hl
-.loop2_skip_2
-	inc hl
-	inc hl
-	jp .loop2
 
 .nope
 	ld de, .string_not_able
@@ -490,7 +436,7 @@ PlacePartyMonGender:
 	push bc
 	push hl
 	call PartyMenuCheckEgg
-	jp z, .next
+	jr z, .next
 	ld [wCurPartySpecies], a
 	push hl
 	ld a, b
@@ -499,9 +445,9 @@ PlacePartyMonGender:
 	ld [wMonType], a
 	call GetGender
 	ld de, .unknown
-	jp c, .got_gender
+	jr c, .got_gender
 	ld de, .male
-	jp nz, .got_gender
+	jr nz, .got_gender
 	ld de, .female
 
 .got_gender
@@ -515,7 +461,7 @@ PlacePartyMonGender:
 	pop bc
 	inc b
 	dec c
-	jp nz, .loop
+	jr nz, .loop
 	ret
 
 .male
@@ -545,7 +491,7 @@ PlacePartyMonMobileBattleSelection:
 	pop bc
 	inc b
 	dec c
-	jp nz, .loop
+	jr nz, .loop
 	ld a, l
 	ld e, MON_NAME_LENGTH
 	sub e
@@ -565,11 +511,11 @@ PlacePartyMonMobileBattleSelection:
 	hlcoord 12, 1
 .loop3
 	and a
-	jp z, .done
+	jr z, .done
 	ld de, 2 * SCREEN_WIDTH
 	add hl, de
 	dec a
-	jp .loop3
+	jr .loop3
 
 .done
 	ld de, .String_Banme
@@ -593,7 +539,7 @@ PlacePartyMonMobileBattleSelection:
 	inc c
 	dec b
 	ret z
-	jp .loop2
+	jr .loop2
 
 .String_Banme:
 	db "　ばんめ　　@" ; Place
@@ -666,7 +612,7 @@ InitPartyMenuWithCancel:
 ; with cancel
 	xor a
 	ld [wSwitchMon], a
-	ld de, PartyMenuAttributes
+	ld de, PartyMenu2DMenuData
 	call SetMenuAttributes
 	ld a, [wPartyCount]
 	inc a
@@ -691,7 +637,7 @@ InitPartyMenuWithCancel:
 
 InitPartyMenuNoCancel:
 ; no cancel
-	ld de, PartyMenuAttributes
+	ld de, PartyMenu2DMenuData
 	call SetMenuAttributes
 	ld a, [wPartyCount]
 	ld [w2DMenuNumRows], a ; list length
@@ -710,20 +656,12 @@ InitPartyMenuNoCancel:
 	ld [wMenuJoypadFilter], a
 	ret
 
-PartyMenuAttributes:
-; cursor y
-; cursor x
-; num rows
-; num cols
-; bit 6: animate sprites  bit 5: wrap around
-; ?
-; distance between items (hi: y, lo: x)
-; allowed buttons (mask)
-	db 1, 0
-	db 0, 1
-	db $60, $00
-	dn 2, 0
-	db 0
+PartyMenu2DMenuData:
+	db 1, 0 ; cursor start y, x
+	db 0, 1 ; rows, columns
+	db $60, $00 ; flags
+	dn 2, 0 ; cursor offset
+	db 0 ; accepted buttons
 
 PartyMenuSelect:
 ; sets carry if exitted menu.

@@ -2393,7 +2393,7 @@ FaintEnemyPokemon:
 	ld de, SFX_FAINT
 	call PlaySFX
 	hlcoord 1, 0
-	lb bc, 4, 10
+	lb bc, 5, 10
 	call ClearBox
 	ld hl, BattleText_EnemyMonFainted
 	jp StdBattleTextbox
@@ -8346,7 +8346,6 @@ InitEnemyWildmon:
 	hlcoord 12, 0
 	lb bc, 7, 7
 	predef PlaceGraphic	
-	call PrintEnemyDVs
 	ret
 
 Function3f662: ; unreferenced
@@ -9225,6 +9224,7 @@ BattleStartMessage:
 	jr .PlaceBattleStartText
 
 .wild
+	call PrintEnemyDVs
 	call BattleCheckEnemyShininess
 	jr nc, .not_shiny
 
@@ -9286,7 +9286,6 @@ BattleStartMessage:
 
 	ld c, $2 ; start
 	farcall Mobile_PrintOpponentBattleMessage
-
 	ret
 
 PrintEnemyDVs:

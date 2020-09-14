@@ -350,7 +350,9 @@ IlexForestCharcoalMasterScript:
 	writetext Text_CharcoalMasterIntro
 	promptbutton
 	verbosegiveitem HM_CUT
+	verbosegiveitem HATCHET
 	setevent EVENT_GOT_HM01_CUT
+	setevent EVENT_GOT_HATCHET
 	writetext Text_CharcoalMasterOutro
 	waitbutton
 	closetext
@@ -807,6 +809,9 @@ Text_CharcoalMasterOutro:
 
 	para "GYM BADGE from"
 	line "AZALEA to use it."
+
+	para "This HATCHET is"
+	line "like the HM"
 	done
 
 Text_CharcoalMasterTalkAfter:

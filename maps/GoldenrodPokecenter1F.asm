@@ -14,10 +14,9 @@ GoldenrodPokecenter1FNurseScript:
 	jumpstd PokecenterNurseScript
 
 GoldenrodPokecenter1F_GSBallSceneLeft:
-	checkcode VAR_BADGES
-	if_equal 6, .gsball
+	checkevent EVENT_BEAT_CHAMPION_LANCE
 	iftrue .gsball
-	end
+	iffalse .cancel
 
 .gsball
 	checkevent EVENT_GOT_GS_BALL_FROM_POKECOM_CENTER
@@ -46,10 +45,9 @@ GoldenrodPokecenter1F_GSBallSceneLeft:
 	end
 
 GoldenrodPokecenter1F_GSBallSceneRight:
-	checkcode VAR_BADGES
-	if_equal 6, .gsball
+	checkevent EVENT_BEAT_CHAMPION_LANCE
 	iftrue .gsball
-	end
+	iffalse .cancel
 
 .gsball
 	checkevent EVENT_GOT_GS_BALL_FROM_POKECOM_CENTER

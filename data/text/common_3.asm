@@ -1546,3 +1546,69 @@ _MomLostGearBookletText::
 	para "Come back again in"
 	line "a while."
 	prompt
+
+_MoveReminderIntro::
+	text "I'm not just"
+	line "the CHERRYGROVE-"
+	cont "famous GUIDE GENT."
+	
+	para "I'm also the MOVE"
+	line "REMINDER!"
+	
+	para "I can teach your"
+	line "#MON a move"
+	cont "it's learned"
+	cont "if you gimme"
+	cont "a # DOLL."
+	done
+	
+_MoveReminderPrompt::
+	text "Are you"
+	line "interested?"
+	done
+
+_MoveReminderWhichMon::
+	text "Which #MON"
+	next "would you like"
+	cont "to remember a"
+	cont "move?"
+	done
+
+_MoveReminderWhichMove::
+	text "Which move would"
+	next "you like to"
+	cont "remember?"
+	done
+	
+_MoveReminderCancel::
+	text "Come back anytime!"
+	done
+	
+_MoveReminderEgg::
+	text "Hey! What am I"
+	line "supposed to teach"
+	cont "an EGG?"
+	done
+	
+_MoveReminderNoPay::
+	text "Hm. Come back with"
+	line "more money, then"
+	cont "I can teach your"
+	cont "#MON a move."
+	done
+	
+_MoveReminderNoMon::
+	text "You don't have"
+	line "a #MON that can"
+	cont "remember any"
+	cont "moves."
+	done
+	
+_MoveReminderNoMoves::
+	text "There's no"
+	line "moves for this"
+	cont "#MON to learn!"
+	
+	para "It's either young"
+	line "or a good student."
+	done

@@ -2429,7 +2429,7 @@ wScriptTextBank::
 wPriorityScriptAddr::
 wScriptTextAddr::
 	dw
-	ds 1
+wWildBattlePanic:: db
 wWildEncounterCooldown:: db
 wXYComparePointer:: dw
 
@@ -2476,6 +2476,7 @@ wd475:: ds 1
 wd476:: ds 1
 wd477:: ds 1
 wd478:: ds 1
+wd262:: ds 1
 Options:: ; cfcc
 ; bit 0-2: number of frames to delay when printing text
 ;   fast 1; mid 3; slow 5

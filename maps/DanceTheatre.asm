@@ -106,7 +106,9 @@ DanceTheaterSurfGuy:
 	writetext SurfGuyLikeADanceText
 	promptbutton
 	verbosegiveitem HM_SURF
+	verbosegiveitem LAPRAS_TUBE
 	setevent EVENT_GOT_HM03_SURF
+	setevent EVENT_GOT_LAPRAS_TUBE
 	writetext SurfGuySurfExplanationText
 	waitbutton
 	closetext
@@ -283,6 +285,10 @@ SurfGuySurfExplanationText:
 	para "It's a move that"
 	line "lets #MON swim"
 	cont "across water."
+
+	para "You can also"
+	line "float using the"
+	cont "LAPRAS TUBE."
 	done
 
 SurfGuyElegantKimonoGirlsText:

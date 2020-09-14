@@ -564,7 +564,7 @@ VFLoadPalette:
 	ld a, 5
 	ld [rSVBK], a
 	ld bc, $e408
-	ld hl, wBGPals1
+	ld hl, wBGPals2
 	ld de, VoltorbFlipPalette
 	call CopyPals
 	pop af

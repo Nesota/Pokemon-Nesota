@@ -286,7 +286,9 @@ RocketBaseElectrodeScript:
 	writetext RocketBaseLanceElectrodeDoneText
 	promptbutton
 	verbosegiveitem HM_WHIRLPOOL
+	verbosegiveitem PADDLE
 	setevent EVENT_GOT_HM06_WHIRLPOOL
+	setevent EVENT_GOT_PADDLE
 	writetext RocketBaseLanceWhirlpoolText
 	waitbutton
 	closetext
@@ -751,6 +753,12 @@ RocketBaseLanceWhirlpoolText:
 
 	para "with the BADGE"
 	line "from MAHOGANY GYM."
+
+	para "PADDLE can be used"
+	line "in much the same"
+
+	para "way, just without"
+	line "a #MON."
 	done
 
 RocketBaseLanceMonMasterText:

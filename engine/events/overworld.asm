@@ -484,7 +484,14 @@ TrySurfOW::
 
 	ld d, SURF
 	call CheckPartyMove
-	jr c, .quit
+	jr c, .tube
+
+.tube
+	ld a, LAPRAS_TUBE
+	ld [wCurItem], a
+	ld hl, wNumItems
+	call CheckItem
+	jr nc, .quit
 
 	ld hl, wBikeFlags
 	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
@@ -677,7 +684,18 @@ TryWaterfallOW::
 	ld [wCurItem], a
 	ld hl, wNumItems
 	call CheckItem
-	jr nc, .failed
+	jr c, .success
+	jr nc, .party
+
+.party
+	ld d, WATERFALL
+	call CheckPartyMove
+	jr c, .failed
+	ld de, ENGINE_RISINGBADGE
+	call CheckEngineFlag
+	jr c, .failed
+	
+.success
 	call CheckMapCanWaterfall
 	jr c, .failed
 	ld a, BANK(Script_AskWaterfall)
@@ -1025,7 +1043,18 @@ TryStrengthOW:
 	ld [wCurItem], a
 	ld hl, wNumItems
 	call CheckItem
-	jr nc, .nope
+	jr c, .already_using
+	jr nc, .party
+
+.party
+	ld d, STRENGTH
+	call CheckPartyMove
+	jr c, .nope
+
+	ld de, ENGINE_PLAINBADGE
+	call CheckEngineFlag
+	jr c, .nope
+
 	ld hl, wBikeFlags
 	bit BIKEFLAGS_STRENGTH_ACTIVE_F, [hl]
 	jr z, .already_using
@@ -1148,8 +1177,18 @@ TryWhirlpoolOW::
 	ld [wCurItem], a
 	ld hl, wNumItems
 	call CheckItem
-	jr nc, .failed
+	jr c, .success
+	jr nc, .party
+
+.party
+	ld d, WHIRLPOOL
+	call CheckPartyMove
 	jr c, .failed
+	ld de, ENGINE_GLACIERBADGE
+	call CheckEngineFlag
+	jr c, .failed
+
+.success
 	call TryWhirlpoolMenu
 	jr c, .failed
 	ld a, BANK(Script_AskWhirlpoolOW)
@@ -1726,8 +1765,18 @@ TryCutOW::
 	ld [wCurItem], a
 	ld hl, wNumItems
 	call CheckItem
-	jr nc, .cant_cut
+	jr c, .can_cut
+	jr nc, .party
 
+.party
+	ld d, CUT
+	call CheckPartyMove
+	jr c, .cant_cut
+
+	ld de, ENGINE_HIVEBADGE
+	call CheckEngineFlag
+
+.can_cut
 	ld a, BANK(AskCutScript)
 	ld hl, AskCutScript
 	call CallScript

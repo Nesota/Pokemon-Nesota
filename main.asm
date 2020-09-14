@@ -67,11 +67,12 @@ INCLUDE "engine/events/std_collision.asm"
 INCLUDE "engine/events/bug_contest/judging.asm"
 INCLUDE "engine/events/pokerus/apply_pokerus_tick.asm"
 INCLUDE "engine/events/bug_contest/contest_2.asm"
-INCLUDE "engine/pokemon/correct_party_errors.asm"
+
 
 
 SECTION "bank5", ROMX
 
+INCLUDE "engine/pokemon/correct_party_errors.asm"
 INCLUDE "engine/math/get_square_root.asm"
 INCLUDE "engine/rtc/rtc.asm"
 INCLUDE "engine/overworld/overworld.asm"
@@ -146,6 +147,7 @@ INCLUDE "engine/battle/trainer_huds.asm"
 INCLUDE "data/trainers/class_names.asm"
 INCLUDE "engine/battle/ai/redundant.asm"
 INCLUDE "engine/events/move_deleter.asm"
+INCLUDE "engine/events/move_reminder.asm"
 INCLUDE "engine/link/mystery_gift_2.asm"
 INCLUDE "engine/items/tmhm.asm"
 INCLUDE "engine/pokemon/print_move_description.asm"

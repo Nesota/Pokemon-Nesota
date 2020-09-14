@@ -51,6 +51,8 @@ Frozen falls
 
 Mystic casino implement voltorb flip
 
+-VOltorb FLip added
+
 River runs through map, but blocked by events to slow progress
 
 	

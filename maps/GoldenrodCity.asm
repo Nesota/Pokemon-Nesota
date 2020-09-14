@@ -72,21 +72,21 @@ MoveTutorScript:
 	sjump .Incompatible
 
 .Flamethrower:
-	setval MOVETUTOR_FLAMETHROWER
+	setval FLAMETHROWER
 	writetext GoldenrodCityMoveTutorMoveText
 	special MoveTutor
 	ifequal FALSE, .TeachMove
 	sjump .Incompatible
 
 .Thunderbolt:
-	setval MOVETUTOR_THUNDERBOLT
+	setval THUNDERBOLT
 	writetext GoldenrodCityMoveTutorMoveText
 	special MoveTutor
 	ifequal FALSE, .TeachMove
 	sjump .Incompatible
 
 .IceBeam:
-	setval MOVETUTOR_ICE_BEAM
+	setval ICE_BEAM
 	writetext GoldenrodCityMoveTutorMoveText
 	special MoveTutor
 	ifequal FALSE, .TeachMove
