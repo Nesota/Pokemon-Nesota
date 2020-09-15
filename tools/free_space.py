@@ -17,7 +17,7 @@ from mapreader import MapReader
 
 def main():
 	print_bank = 'none'
-	mapfile = 'pokecrystal.map'
+	mapfile = 'pokecrystal11.map'
 
 	if len(sys.argv) >= 2 and sys.argv[1].startswith('BANK='):
 		print_bank = sys.argv[1].split('=', 1)[-1]
