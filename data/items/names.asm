@@ -4,7 +4,7 @@ ItemNames::
 	db "BRIGHTPOWDER@"
 	db "GREAT BALL@"
 	db "# BALL@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "BICYCLE@"
 	db "MOON STONE@"
 	db "ANTIDOTE@"
@@ -43,18 +43,18 @@ ItemNames::
 	db "SUPER REPEL@"
 	db "MAX REPEL@"
 	db "DIRE HIT@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "FRESH WATER@"
 	db "SODA POP@"
 	db "LEMONADE@"
 	db "X ATTACK@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "X DEFEND@"
 	db "X SPEED@"
 	db "X SPECIAL@"
 	db "COIN CASE@"
 	db "ITEMFINDER@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "EXP.SHARE@"
 	db "OLD ROD@"
 	db "GOOD ROD@"
@@ -139,28 +139,28 @@ ItemNames::
 	db "CHARCOAL@"
 	db "BERRY JUICE@"
 	db "SCOPE LENS@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
 	db "METAL COAT@"
 	db "DRAGON FANG@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "LEFTOVERS@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
 	db "MYSTERYBERRY@"
 	db "DRAGON SCALE@"
 	db "BERSERK GENE@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
 	db "SACRED ASH@"
 	db "HEAVY BALL@"
 	db "FLOWER MAIL@"
 	db "LEVEL BALL@"
 	db "LURE BALL@"
 	db "FAST BALL@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "LIGHT BALL@"
 	db "FRIEND BALL@"
 	db "MOON BALL@"
@@ -169,15 +169,15 @@ ItemNames::
 	db "GORGEOUS BOX@"
 	db "SUN STONE@"
 	db "POLKADOT BOW@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "UP-GRADE@"
 	db "BERRY@"
 	db "GOLD BERRY@"
 	db "SQUIRTBOTTLE@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "PARK BALL@"
 	db "RAINBOW WING@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
 	db "BRICK PIECE@"
 	db "SURF MAIL@"
 	db "LITEBLUEMAIL@"
@@ -188,12 +188,13 @@ ItemNames::
 	db "BLUESKY MAIL@"
 	db "MUSIC MAIL@"
 	db "MIRAGE MAIL@"
-	db "TERU-SAMA@"
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
 	db "TM01@"
 	db "TM02@"
 	db "TM03@"
 	db "TM04@"
-	db "TERU-SAMA@"
 	db "TM05@"
 	db "TM06@"
 	db "TM07@"
@@ -218,7 +219,6 @@ ItemNames::
 	db "TM26@"
 	db "TM27@"
 	db "TM28@"
-	db "TERU-SAMA@"
 	db "TM29@"
 	db "TM30@"
 	db "TM31@"
@@ -251,7 +251,7 @@ ItemNames::
 	db "HM05@"
 	db "HM06@"
 	db "HM07@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
-	db "TERU-SAMA@"
-	db "?@"
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
+	db "TERU-SAMA@"										;REPLACABLE
+	db "?@"						   						;REPLACABLE
