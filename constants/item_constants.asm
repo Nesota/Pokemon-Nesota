@@ -11,7 +11,6 @@
 	const BRIGHTPOWDER ; 03
 	const GREAT_BALL   ; 04
 	const POKE_BALL    ; 05
-	const TOWN_MAP     ; 06
 	const BICYCLE      ; 07
 	const MOON_STONE   ; 08
 	const ANTIDOTE     ; 09
@@ -50,18 +49,15 @@
 	const SUPER_REPEL  ; 2a
 	const MAX_REPEL    ; 2b
 	const DIRE_HIT     ; 2c
-	const ITEM_2D      ; 2d
 	const FRESH_WATER  ; 2e
 	const SODA_POP     ; 2f
 	const LEMONADE     ; 30
 	const X_ATTACK     ; 31
-	const ITEM_32      ; 32
 	const X_DEFEND     ; 33
 	const X_SPEED      ; 34
 	const X_SPECIAL    ; 35
 	const COIN_CASE    ; 36
 	const ITEMFINDER   ; 37
-	const POKE_FLUTE   ; 38
 	const EXP_SHARE    ; 39
 	const OLD_ROD      ; 3a
 	const GOOD_ROD     ; 3b
@@ -146,21 +142,12 @@
 	const CHARCOAL     ; 8a
 	const BERRY_JUICE  ; 8b
 	const SCOPE_LENS   ; 8c
-	const ITEM_8D      ; 8d
-	const ITEM_8E      ; 8e
 	const METAL_COAT   ; 8f
 	const DRAGON_FANG  ; 90
-	const ITEM_91      ; 91
 	const LEFTOVERS    ; 92
-	const ITEM_93      ; 93
-	const ITEM_94      ; 94
-	const ITEM_95      ; 95
 	const MYSTERYBERRY ; 96
 	const DRAGON_SCALE ; 97
 	const BERSERK_GENE ; 98
-	const ITEM_99      ; 99
-	const ITEM_9A      ; 9a
-	const ITEM_9B      ; 9b
 	const SACRED_ASH   ; 9c
 	const HEAVY_BALL   ; 9d
 	const FLOWER_MAIL  ; 9e
@@ -276,7 +263,25 @@ ENDM
 	add_tm SPIRIT_BREAK ; f3
 	add_tm PLAY_ROUGH   ; f4
 	add_tm DRAIN_KISS   ; f5
-NUM_TMS EQU __tmhm_value__ - 1
+	add_tm FLAME_CHARGE
+	add_tm FLASH_CANNON
+	add_tm HAIL
+	add_tm THUNDER_WAVE
+	add_tm MOONBLAST
+	add_tm POISON_JAB
+	add_tm STONE_EDGE
+	add_tm WILL_O_WISP
+	add_tm XSCISSOR
+	add_tm DRAGON_CLAW
+	add_tm SCALD
+	add_tm ROCK_SLIDE
+	add_tm SUBSTITUTE
+	add_tm SHADOW_CLAW
+	add_tm PSYCHO_CUT
+	add_tm FALSE_SWIPE
+	add_tm MEAN_LOOK
+
+NUM_TMS EQU const_value - TM01
 
 add_hm: MACRO
 ; Defines three constants:
@@ -330,6 +335,23 @@ ENDM
 	add_mt FLAMETHROWER
 	add_mt THUNDERBOLT
 	add_mt ICE_BEAM
+	add_mt HEX
+	add_mt GUNK_SHOT
+	add_mt WATER_PULSE
+	add_mt DAZZLE_GLEAM
+	add_mt DARK_PULSE
+	add_mt AVALANCHE
+	add_mt IRON_HEAD
+	add_mt AERIAL_ACE
+	add_mt ENERGY_BALL
+	add_mt ZEN_HEADBUTT
+	add_mt BULK_UP
+	add_mt CALM_MIND
+	add_mt DRAGON_DANCE
+	add_mt SWORDS_DANCE
+	add_mt NASTY_PLOT
+	add_mt HONE_CLAWS
+
 NUM_TUTORS = __tmhm_value__ - NUM_TMS - NUM_HMS - 1
 
 NUM_TM_HM_TUTOR EQU __tmhm_value__ - 1

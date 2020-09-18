@@ -60,10 +60,10 @@ MoveTutorScript:
 	yesorno
 	iffalse .Refused
 	special DisplayCoinCaseBalance
-	writetext GoldenrodCityMoveTutorAsk4000CoinsOkayText
+	writetext GoldenrodCityMoveTutorAsk500CoinsOkayText
 	yesorno
 	iffalse .Refused2
-	checkcoins 4000
+	checkcoins 500
 	ifequal HAVE_LESS, .NotEnoughMoney
 	writetext GoldenrodCityMoveTutorWhichMoveShouldITeachText
 	loadmenu .MoveMenuHeader
@@ -72,6 +72,16 @@ MoveTutorScript:
 	ifequal MOVETUTOR_FLAMETHROWER, .Flamethrower
 	ifequal MOVETUTOR_THUNDERBOLT, .Thunderbolt
 	ifequal MOVETUTOR_ICE_BEAM, .IceBeam
+	ifequal MOVETUTOR_HEX, .Hex
+	ifequal MOVETUTOR_GUNK_SHOT, .GunkShot
+	ifequal MOVETUTOR_WATER_PULSE, .WaterPulse
+	ifequal MOVETUTOR_DAZZLE_GLEAM, .DazzleGleam
+	ifequal MOVETUTOR_DARK_PULSE, .DarkPulse
+	ifequal MOVETUTOR_AVALANCHE, .Avalanche
+	ifequal MOVETUTOR_IRON_HEAD, .IronHead
+	ifequal MOVETUTOR_AERIAL_ACE, .AerialAce
+	ifequal MOVETUTOR_ENERGY_BALL, .EnergyBall
+	ifequal MOVETUTOR_ZEN_HEADBUTT, .ZenHeadbutt
 	sjump .Incompatible
 
 .Flamethrower:
@@ -95,6 +105,76 @@ MoveTutorScript:
 	ifequal FALSE, .TeachMove
 	sjump .Incompatible
 
+.Hex:
+	setval HEX
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.GunkShot:
+	setval GUNK_SHOT
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.WaterPulse:
+	setval WATER_PULSE
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.DazzleGleam:
+	setval DAZZLE_GLEAM
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.DarkPulse:
+	setval DARK_PULSE
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.Avalanche:
+	setval AVALANCHE
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.IronHead:
+	setval IRON_HEAD
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.AerialAce:
+	setval AERIAL_ACE
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.EnergyBall:
+	setval ENERGY_BALL
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
+.ZenHeadbutt:
+	setval ZEN_HEADBUTT
+	writetext GoldenrodCityMoveTutorMoveText
+	special MoveTutor
+	ifequal FALSE, .TeachMove
+	sjump .Incompatible
+
 .MoveMenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 0, 2, 15, TEXTBOX_Y - 1
@@ -103,10 +183,20 @@ MoveTutorScript:
 
 .MenuData:
 	db STATICMENU_CURSOR ; flags
-	db 4 ; items
+	db 14 ; items
 	db "FLAMETHROWER@"
 	db "THUNDERBOLT@"
 	db "ICE BEAM@"
+	db "HEX@"
+	db "GUNK SHOT@"
+	db "WATER PULSE@"
+	db "DAZZLE GLEAM@"
+	db "DARK PULSE@"
+	db "AVALANCHE@"
+	db "IRON HEAD@"
+	db "AERIAL ACE@"
+	db "ENERGY BALL@"
+	db "ZEN HEADBUTT"
 	db "CANCEL@"
 
 .Refused:
@@ -124,7 +214,7 @@ MoveTutorScript:
 .TeachMove:
 	writetext GoldenrodCityMoveTutorIfYouUnderstandYouveMadeItText
 	promptbutton
-	takecoins 4000
+	takecoins 500
 	waitsfx
 	playsound SFX_TRANSACTION
 	special DisplayCoinCaseBalance
@@ -501,9 +591,9 @@ GoldenrodCityMoveTutorAskTeachAMoveText:
 	line "new move?"
 	done
 
-GoldenrodCityMoveTutorAsk4000CoinsOkayText:
+GoldenrodCityMoveTutorAsk500CoinsOkayText:
 	text "It will cost you"
-	line "4000 coins. Okay?"
+	line "500 coins. Okay?"
 	done
 
 GoldenrodCityMoveTutorAwwButTheyreAmazingText:

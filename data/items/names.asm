@@ -4,7 +4,6 @@ ItemNames::
 	db "BRIGHTPOWDER@"
 	db "GREAT BALL@"
 	db "# BALL@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "BICYCLE@"
 	db "MOON STONE@"
 	db "ANTIDOTE@"
@@ -43,18 +42,15 @@ ItemNames::
 	db "SUPER REPEL@"
 	db "MAX REPEL@"
 	db "DIRE HIT@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "FRESH WATER@"
 	db "SODA POP@"
 	db "LEMONADE@"
 	db "X ATTACK@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "X DEFEND@"
 	db "X SPEED@"
 	db "X SPECIAL@"
 	db "COIN CASE@"
 	db "ITEMFINDER@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "EXP.SHARE@"
 	db "OLD ROD@"
 	db "GOOD ROD@"
@@ -139,21 +135,12 @@ ItemNames::
 	db "CHARCOAL@"
 	db "BERRY JUICE@"
 	db "SCOPE LENS@"
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
 	db "METAL COAT@"
 	db "DRAGON FANG@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "LEFTOVERS@"
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
 	db "MYSTERYBERRY@"
 	db "DRAGON SCALE@"
 	db "BERSERK GENE@"
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
 	db "SACRED ASH@"
 	db "HEAVY BALL@"
 	db "FLOWER MAIL@"
@@ -177,7 +164,6 @@ ItemNames::
 	db "TERU-SAMA@"										;REPLACABLE
 	db "PARK BALL@"
 	db "RAINBOW WING@"
-	db "TERU-SAMA@"										;REPLACABLE
 	db "BRICK PIECE@"
 	db "SURF MAIL@"
 	db "LITEBLUEMAIL@"
@@ -188,9 +174,6 @@ ItemNames::
 	db "BLUESKY MAIL@"
 	db "MUSIC MAIL@"
 	db "MIRAGE MAIL@"
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
-	db "TERU-SAMA@"										;REPLACABLE
 	db "TM01@"
 	db "TM02@"
 	db "TM03@"
@@ -244,6 +227,23 @@ ItemNames::
 	db "TM51@"
 	db "TM52@"
 	db "TM53@"
+	db "TM54@"										;REPLACABLE
+	db "TM55@"										;REPLACABLE
+	db "TM56@"
+	db "TM57@"										;REPLACABLE
+	db "TM58@"										;REPLACABLE
+	db "TM59@"										;REPLACABLE
+	db "TM60@"										;REPLACABLE
+	db "TM61@"										;REPLACABLE
+	db "TM62@"										;REPLACABLE
+	db "TM63@"										;REPLACABLE
+	db "TM64@"										;REPLACABLE
+	db "TM65@"										;REPLACABLE
+	db "TM66@"										;REPLACABLE
+	db "TM67@"
+	db "TM68@"
+	db "TM69@"
+	db "TM70@"
 	db "HM01@"
 	db "HM02@"
 	db "HM03@"
