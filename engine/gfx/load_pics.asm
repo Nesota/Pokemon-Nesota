@@ -107,16 +107,15 @@ GetFrontpicPointer:
 	cp UNOWN
 	jr z, .unown
 	ld a, [wCurPartySpecies]
-	ld hl, PokemonPicPointers
 	ld d, BANK(PokemonPicPointers)
 	jr .ok
 
 .unown
 	ld a, [wUnownLetter]
-	ld hl, UnownPicPointers
 	ld d, BANK(UnownPicPointers)
 
 .ok
+	ld hl, PokemonPicPointers ; UnownPicPointers
 	dec a
 	ld bc, 6
 	call AddNTimes
@@ -207,13 +206,13 @@ GetMonBackpic:
 	ldh [rSVBK], a
 	push de
 
+	; These are assumed to be at the same address in their respective banks.
+	ld hl, PokemonPicPointers ; UnownPicPointers
 	ld a, b
-	ld hl, PokemonPicPointers
 	ld d, BANK(PokemonPicPointers)
 	cp UNOWN
 	jr nz, .ok
 	ld a, c
-	ld hl, UnownPicPointers
 	ld d, BANK(UnownPicPointers)
 .ok
 	dec a
