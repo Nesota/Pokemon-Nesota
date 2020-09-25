@@ -1548,18 +1548,16 @@ _MomLostGearBookletText::
 	prompt
 
 _MoveReminderIntro::
-	text "I'm not just"
-	line "the CHERRYGROVE-"
-	cont "famous GUIDE GENT."
+	text "I'm not the"
+	line "the NAMERATER"
 	
-	para "I'm also the MOVE"
+	para "I'm the MOVE"
 	line "REMINDER!"
 	
 	para "I can teach your"
 	line "#MON a move"
 	cont "it's learned"
-	cont "if you gimme"
-	cont "a # DOLL."
+	cont "previously"
 	done
 	
 _MoveReminderPrompt::
