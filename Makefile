@@ -15,7 +15,8 @@ engine/overworld/events.o \
 gfx/pics.o \
 gfx/sprites.o \
 gfx/tilesets.o \
-lib/mobile/main.o
+lib/mobile/main.o\
+data/pokemon/tutor_attacks.o
 
 crystal11_obj := $(crystal_obj:.o=11.o)
 crystal_au_obj := $(crystal_obj:.o=_au.o)

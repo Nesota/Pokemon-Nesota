@@ -65,6 +65,7 @@ ROMX $0f
 	"Battle Core"
 ROMX $10
 	"bank10"
+	"Tutor Attacks"
 ROMX $79
 	"bank99"
 	"Evolutions and Attacks"
