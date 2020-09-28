@@ -1616,12 +1616,11 @@ _MoveTutor2Intro::
 	line "the NAMERATER"
 	
 	para "I'm the MOVE"
-	line "REMINDER!"
+	line "Tutor!"
 	
 	para "I can teach your"
-	line "#MON a move"
-	cont "it's learned"
-	cont "previously"
+	line "#MON a special"
+	cont "set of moves!"
 	done
 	
 _MoveTutor2Prompt::
@@ -1632,14 +1631,14 @@ _MoveTutor2Prompt::
 _MoveTutor2WhichMon::
 	text "Which #MON"
 	next "would you like"
-	cont "to remember a"
-	cont "move?"
+	cont "to learn a"
+	cont "new move?"
 	done
 
 _MoveTutor2WhichMove::
 	text "Which move would"
 	next "you like to"
-	cont "remember?"
+	cont "teach?"
 	done
 	
 _MoveTutor2Cancel::
@@ -1662,7 +1661,7 @@ _MoveTutor2NoPay::
 _MoveTutor2NoMon::
 	text "You don't have"
 	line "a #MON that can"
-	cont "remember any"
+	cont "learn any"
 	cont "moves."
 	done
 	
