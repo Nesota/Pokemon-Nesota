@@ -147,7 +147,7 @@ ItemNames::
 	db "LEVEL BALL@"
 	db "LURE BALL@"
 	db "FAST BALL@"
-	db "TERU-SAMA@"										;REPLACABLE
+	db "DUSK BALL@"										;REPLACABLE
 	db "LIGHT BALL@"
 	db "FRIEND BALL@"
 	db "MOON BALL@"
@@ -156,7 +156,7 @@ ItemNames::
 	db "GORGEOUS BOX@"
 	db "SUN STONE@"
 	db "POLKADOT BOW@"
-	db "TERU-SAMA@"										;REPLACABLE
+	db "FOCUS GLASS@"										;REPLACABLE
 	db "UP-GRADE@"
 	db "BERRY@"
 	db "GOLD BERRY@"

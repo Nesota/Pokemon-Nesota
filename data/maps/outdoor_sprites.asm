@@ -30,6 +30,7 @@ OutdoorSprites:
 	dw SaffronGroupSprites
 	dw CherrygroveGroupSprites
 	dw NewBarkParkGroupSprites
+	dw FloralPathGroupSprites
 
 PalletGroupSprites:
 	db SPRITE_SUICUNE
@@ -306,6 +307,7 @@ IndigoGroupSprites:
 	db SPRITE_POKE_BALL
 	db SPRITE_BOULDER
 
+FloralPathGroupSprites:
 NewBarkParkGroupSprites:
 NewBarkGroupSprites:
 	db SPRITE_SUICUNE

@@ -496,5 +496,6 @@ ENDM
 	newgroup													  ; 27
 
 	map_const NEW_BARK_PARK, 10, 9								  ;  1
+	map_const FLORAL_PATH, 10, 27
 
 NUM_MAP_GROUPS EQU const_value ; 27

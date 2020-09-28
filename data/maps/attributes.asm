@@ -96,7 +96,8 @@ endc
 ENDM
 
 
-	map_attributes NewBarkTown, NEW_BARK_TOWN, $05, SOUTH | WEST | EAST
+	map_attributes NewBarkTown, NEW_BARK_TOWN, $05, NORTH | SOUTH | WEST | EAST
+	connection north, FloralPath, FLORAL_PATH, 0
 	connection south, NewBarkPark, NEW_BARK_PARK, 0
 	connection west, Route29, ROUTE_29, 0
 	connection east, Route27, ROUTE_27, 0
@@ -377,6 +378,9 @@ ENDM
 	
 	map_attributes NewBarkPark, NEW_BARK_PARK, $05, NORTH
 	connection north, NewBarkTown, NEW_BARK_TOWN, 0
+
+	map_attributes FloralPath, FLORAL_PATH, $05, SOUTH
+	connection south, NewBarkTown, NEW_BARK_TOWN, 0
 
 	map_attributes Route23, ROUTE_23, $0f, 0
 	map_attributes SproutTower1F, SPROUT_TOWER_1F, $00, 0

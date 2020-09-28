@@ -148,7 +148,7 @@ ItemDescriptions:
 	dw LevelBallDesc
 	dw LureBallDesc
 	dw FastBallDesc
-	dw TeruSama21Desc
+	dw DuskBallDesc ;vvvvvvvvvvvvvvvvvvv
 	dw LightBallDesc
 	dw FriendBallDesc
 	dw MoonBallDesc
@@ -157,12 +157,12 @@ ItemDescriptions:
 	dw GorgeousBoxDesc
 	dw SunStoneDesc
 	dw PolkadotBowDesc
-	dw TeruSama22Desc
+	dw FocusGlassDesc   ;vvvvvvvvvvvvvvvvvvvv
 	dw UpGradeDesc
 	dw BerryDesc
 	dw GoldBerryDesc
 	dw SquirtBottleDesc
-	dw TeruSama23Desc
+	dw TeruSama23Desc   ;vvvvvvvvvvvvvvvvvv
 	dw ParkBallDesc
 	dw RainbowWingDesc
 	dw TeruSama24Desc
@@ -884,8 +884,9 @@ FastBallDesc:
 	db   "A BALL for catch-"
 	next "ing fast #MON.@"
 
-TeruSama21Desc:
-	db   "?@"
+DuskBallDesc:
+	db   "Best used in caves"
+	next "and at night.@"
 
 LightBallDesc:
 	db   "An odd, electrical"
@@ -919,8 +920,9 @@ PolkadotBowDesc:
 	db   "Powers up fairy-"
 	next "type moves. (HOLD)@"
 
-TeruSama22Desc:
-	db   "?@"
+FocusGlassDesc:
+	db   "User can not be"
+	next "Confused (HOLD)@"
 
 UpGradeDesc:
 	db   "A mysterious box"

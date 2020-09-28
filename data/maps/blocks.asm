@@ -1050,3 +1050,6 @@ SECTION "Map Blocks 4", ROMX
 
 NewBarkPark_Blocks:
 	INCBIN "maps/NewBarkPark.blk"
+
+FloralPath_Blocks:
+	INCBIN "maps/FloralPath.blk"
