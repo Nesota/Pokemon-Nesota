@@ -14,7 +14,6 @@ GoldenrodNameRater:
 	closetext
 	end
 
-
 GoldenrodMoveReminder:
 	faceplayer
 	opentext

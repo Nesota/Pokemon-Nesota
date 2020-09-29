@@ -447,10 +447,16 @@ endr
 
 GetIconBank:
 	ld a, [wCurIcon]
-	cp MAGIKARP ; first icon in Icons2
+	cp ALAKAZAM ; first icon in Icons2
 	lb bc, BANK("Mon Icons 1"), 8
 	ret c
-	ld b, BANK("Mon Icons 2")
+	cp MAGIKARP ; first icon in Icons2
+	lb bc, BANK("Mon Icons 2"), 8
+	ret c
+	cp YANMA
+	lb bc, BANK("Mon Icons 3"), 8
+	ret c
+	ld b, BANK("Mon Icons 4")
 	ret
 
 GetGFXUnlessMobile:

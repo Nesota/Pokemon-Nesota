@@ -280,8 +280,7 @@ ENDM
 	add_tm PSYCHO_CUT
 	add_tm FALSE_SWIPE
 	add_tm MEAN_LOOK
-
-NUM_TMS EQU const_value - TM01
+NUM_TMS EQU __tmhm_value__ - 1
 
 add_hm: MACRO
 ; Defines three constants:
@@ -335,23 +334,6 @@ ENDM
 	add_mt FLAMETHROWER
 	add_mt THUNDERBOLT
 	add_mt ICE_BEAM
-	add_mt HEX
-	add_mt GUNK_SHOT
-	add_mt WATER_PULSE
-	add_mt DAZZLE_GLEAM
-	add_mt DARK_PULSE
-	add_mt AVALANCHE
-	add_mt IRON_HEAD
-	add_mt AERIAL_ACE
-	add_mt ENERGY_BALL
-	add_mt ZEN_HEADBUTT
-	add_mt BULK_UP
-	add_mt CALM_MIND
-	add_mt DRAGON_DANCE
-	add_mt SWORDS_DANCE
-	add_mt NASTY_PLOT
-	add_mt HONE_CLAWS
-
 NUM_TUTORS = __tmhm_value__ - NUM_TMS - NUM_HMS - 1
 
 NUM_TM_HM_TUTOR EQU __tmhm_value__ - 1

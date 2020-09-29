@@ -6,26 +6,26 @@ ENDM
 OddEggProbabilities:
 prob_total = 0
 ; Pichu
-	prob 8
-	prob 1
+	prob 7
+	prob 7
 ; Cleffa
-	prob 16
-	prob 3
+	prob 7
+	prob 7
 ; Igglybuff
-	prob 16
-	prob 3
+	prob 7
+	prob 7
 ; Smoochum
-	prob 14
-	prob 2
+	prob 7
+	prob 7
 ; Magby
-	prob 10
-	prob 2
+	prob 7
+	prob 8
 ; Elekid
-	prob 12
-	prob 2
+	prob 7
+	prob 8
 ; Tyrogue
-	prob 10
-	prob 1
+	prob 7
+	prob 7
 
 OddEggs:
 
@@ -66,19 +66,19 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 30, 20, 10, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
 	db 5 ; Level
 	db 0, 0 ; Status
 	bigdw 0 ; HP
-	bigdw 17 ; Max HP
-	bigdw 9 ; Atk
+	bigdw 18 ; Max HP
+	bigdw 10 ; Atk
 	bigdw 7 ; Def
 	bigdw 12 ; Spd
-	bigdw 9 ; SAtk
-	bigdw 9 ; SDef
+	bigdw 10 ; SAtk
+	bigdw 10 ; SDef
 	db "EGG@@@@@@@@"
 
 	db CLEFFA
@@ -118,7 +118,7 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 35, 20, 10, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
@@ -126,11 +126,11 @@ OddEggs:
 	db 0, 0 ; Status
 	bigdw 0 ; HP
 	bigdw 20 ; Max HP
-	bigdw 7 ; Atk
+	bigdw 9 ; Atk
 	bigdw 8 ; Def
 	bigdw 7 ; Spd
-	bigdw 10 ; SAtk
-	bigdw 11 ; SDef
+	bigdw 11 ; SAtk
+	bigdw 12 ; SDef
 	db "EGG@@@@@@@@"
 
 	db IGGLYBUFF
@@ -170,7 +170,7 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 15, 20, 10, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
@@ -178,7 +178,7 @@ OddEggs:
 	db 0, 0 ; Status
 	bigdw 0 ; HP
 	bigdw 24 ; Max HP
-	bigdw 8 ; Atk
+	bigdw 9 ; Atk
 	bigdw 7 ; Def
 	bigdw 7 ; Spd
 	bigdw 10 ; SAtk
@@ -222,19 +222,19 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 35, 30, 10, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
 	db 5 ; Level
 	db 0, 0 ; Status
 	bigdw 0 ; HP
-	bigdw 19 ; Max HP
-	bigdw 8 ; Atk
+	bigdw 20 ; Max HP
+	bigdw 9 ; Atk
 	bigdw 7 ; Def
 	bigdw 12 ; Spd
-	bigdw 14 ; SAtk
-	bigdw 12 ; SDef
+	bigdw 15 ; SAtk
+	bigdw 13 ; SDef
 	db "EGG@@@@@@@@"
 
 	db MAGBY
@@ -274,19 +274,19 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 25, 10, 0, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
 	db 5 ; Level
 	db 0, 0 ; Status
 	bigdw 0 ; HP
-	bigdw 19 ; Max HP
-	bigdw 12 ; Atk
+	bigdw 20 ; Max HP
+	bigdw 14 ; Atk
 	bigdw 9 ; Def
 	bigdw 14 ; Spd
 	bigdw 13 ; SAtk
-	bigdw 11 ; SDef
+	bigdw 12 ; SDef
 	db "EGG@@@@@@@@"
 
 	db ELEKID
@@ -326,19 +326,19 @@ OddEggs:
 	bigdw 0
 	bigdw 0
 	bigdw 0
-	dn 2, 10, 10, 10 ; DVs
+	dn 15, 10, 10, 15 ; DVs
 	db 30, 30, 10, 0 ; PP
 	db 20 ; Step cycles to hatch
 	db 0, 0, 0 ; Pokerus, Caught data
 	db 5 ; Level
 	db 0, 0 ; Status
 	bigdw 0 ; HP
-	bigdw 19 ; Max HP
-	bigdw 11 ; Atk
+	bigdw 20 ; Max HP
+	bigdw 12 ; Atk
 	bigdw 9 ; Def
 	bigdw 15 ; Spd
-	bigdw 12 ; SAtk
-	bigdw 11 ; SDef
+	bigdw 13 ; SAtk
+	bigdw 12 ; SDef
 	db "EGG@@@@@@@@"
 
 	db TYROGUE
@@ -385,10 +385,10 @@ OddEggs:
 	db 5 ; Level
 	db 0, 0 ; Status
 	bigdw 0 ; HP
-	bigdw 18 ; Max HP
-	bigdw 8 ; Atk
+	bigdw 19 ; Max HP
+	bigdw 10 ; Atk
 	bigdw 9 ; Def
 	bigdw 9 ; Spd
-	bigdw 9 ; SAtk
-	bigdw 9 ; SDef
+	bigdw 10 ; SAtk
+	bigdw 10 ; SDef
 	db "EGG@@@@@@@@"

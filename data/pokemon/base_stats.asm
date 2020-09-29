@@ -28,11 +28,11 @@ rept 3 ; TM25-TM48 (24/24)
 	db _tms2 & $ff
 _tms2 = _tms2 >> 8
 endr
-rept 3 ; TM49-TM72 (24/24)
+rept 3 ; TM49-TM70 HM01-HM02 (24/24)
 	db _tms3 & $ff
 _tms3 = _tms3 >> 8
 endr
-rept 3 ; TM73-TM96 (24/24)
+rept 1 ; HM03-HM07, MT1-MT3 (8/24)
 	db _tms4 & $ff
 _tms4 = _tms4 >> 8
 endr

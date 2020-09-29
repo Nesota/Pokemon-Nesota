@@ -1,6 +1,5 @@
 INCLUDE "constants.asm"
 
-
 SECTION "Events", ROMX
 
 OverworldLoop::
@@ -135,11 +134,6 @@ EnterMap:
 	ld [wMapStatus], a
 	ret
 
-UnusedWait30Frames:
-	ld c, 30
-	call DelayFrames
-	ret
-
 HandleMap:
 	call ResetOverworldDelay
 	call HandleMapTimeAndJoypad
@@ -247,8 +241,6 @@ PlayerEvents:
 	ld a, [wScriptRunning]
 	and a
 	ret nz
-
-	call Dummy_CheckScriptFlags3Bit5 ; This is a waste of time
 
 	call CheckTrainerBattle_GetPlayerEvent
 	jr c, .ok
@@ -394,12 +386,6 @@ SetMinTwoStepWildEncounterCooldown:
 	ret nc
 	ld a, 2
 	ld [wWildEncounterCooldown], a
-	ret
-
-Dummy_CheckScriptFlags3Bit5:
-	call CheckBit5_ScriptFlags3
-	ret z
-	call Function2f3e
 	ret
 
 RunSceneScript:
@@ -986,9 +972,6 @@ PlayerEventScriptPointers:
 	dba Invalid_0x96c2d          ; (NUM_PLAYER_EVENTS)
 
 Invalid_0x96c2d:
-	end
-
-; unused
 	end
 
 HatchEggScript:

@@ -110,7 +110,7 @@ ROMX $23
 ROMX $24
 	"bank24"
 ROMX $25
-	"Maps"
+
 ROMX $26
 	"Map Scripts 11"
 ROMX $27
@@ -294,7 +294,7 @@ ROMX $74
 ROMX $75
 	"Voltorb Flip"
 ROMX $76
-	"Events"
+	"Maps"
 ROMX $77
 	"bank77"
 	"Tileset Data 7"
@@ -304,6 +304,7 @@ ROMX $78
 ROMX $79
 	"Map Blocks 4"
 ROMX $7a
+	"Events"
 ROMX $7b
 	"Battle Tower Text"
 ROMX $7c

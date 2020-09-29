@@ -65,6 +65,9 @@ PoliwhirlIcon:	INCBIN "gfx/icons/poliwhirl.2bpp"
 PoliwrathIcon:	INCBIN "gfx/icons/poliwrath.2bpp"
 AbraIcon:		INCBIN "gfx/icons/abra.2bpp"
 KadabraIcon:	INCBIN "gfx/icons/kadabra.2bpp"
+
+SECTION "Mon Icons 2", ROMX
+
 AlakazamIcon:	INCBIN "gfx/icons/alakazam.2bpp"
 MachopIcon:		INCBIN "gfx/icons/machop.2bpp"
 MachokeIcon:	INCBIN "gfx/icons/machoke.2bpp"
@@ -130,7 +133,7 @@ MagmarIcon:		INCBIN "gfx/icons/magmar.2bpp"
 PinsirIcon:		INCBIN "gfx/icons/pinsir.2bpp"
 TaurosIcon:		INCBIN "gfx/icons/tauros.2bpp"
 
-SECTION "Mon Icons 2", ROMX
+SECTION "Mon Icons 3", ROMX
 
 MagikarpIcon:	INCBIN "gfx/icons/magikarp.2bpp"
 GyaradosIcon:	INCBIN "gfx/icons/gyarados.2bpp"
@@ -196,6 +199,9 @@ JumpluffIcon:	INCBIN "gfx/icons/jumpluff.2bpp"
 AipomIcon:		INCBIN "gfx/icons/aipom.2bpp"
 SunkernIcon:	INCBIN "gfx/icons/sunkern.2bpp"
 SunfloraIcon:	INCBIN "gfx/icons/sunflora.2bpp"
+
+SECTION "Mon Icons 4", ROMX
+
 YanmaIcon:		INCBIN "gfx/icons/yanma.2bpp"
 WooperIcon:		INCBIN "gfx/icons/wooper.2bpp"
 QuagsireIcon:	INCBIN "gfx/icons/quagsire.2bpp"

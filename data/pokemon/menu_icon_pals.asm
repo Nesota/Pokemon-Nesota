@@ -257,5 +257,4 @@ MonMenuIconPals:
 	icon_pals GREEN, PINK    ; CELEBI
 	icon_pals BROWN, PURPLE     ; MOOTLE
 	icon_pals RED, BLUE      ; EGG
-	icon_pals RED, BLUE       ; 254
 	
