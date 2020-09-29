@@ -170,8 +170,7 @@
 	const SQUIRTBOTTLE ; af
 	const ITEM_B0      ; b0vvvvvvvvvvvvvvvvvvvvvv
 	const PARK_BALL    ; b1
-	const RAINBOW_WING ; b2
-	const ITEM_B3      ; b3
+	const RAINBOW_WING ; b2 ;const ITEM_B3      ; b3
 	const BRICK_PIECE  ; b4
 	const SURF_MAIL    ; b5
 	const LITEBLUEMAIL ; b6
@@ -182,9 +181,9 @@
 	const BLUESKY_MAIL ; bb
 	const MUSIC_MAIL   ; bc
 	const MIRAGE_MAIL  ; bd
-	const ITEM_BE      ; be
-	const ITEM_C3       ; c3
-	const ITEM_DC       ; dc
+	;const ITEM_BE      ; be
+	;const ITEM_C3       ; c3
+	;const ITEM_DC       ; dc
 
 __tmhm_value__ = 1
 

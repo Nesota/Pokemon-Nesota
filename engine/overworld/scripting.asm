@@ -207,9 +207,9 @@ ScriptCommandTable:
 	dw Script_prioritysjump              ; 8d
 	dw Script_warpcheck                  ; 8e
 	dw Script_stopandsjump               ; 8f
-	dw Script_return                     ; 90
+	dw Script_endcallback                ; 90
 	dw Script_end                        ; 91
-	dw Script_reloadandreturn            ; 92
+	dw Script_reloadend                  ; 92
 	dw Script_endall                     ; 93
 	dw Script_pokemart                   ; 94
 	dw Script_elevator                   ; 95
@@ -454,8 +454,6 @@ Script_verbosegiveitem:
 	ld de, wStringBuffer1
 	ld a, STRING_BUFFER_4
 	call CopyConvertedText
-	ld de, wStringBuffer4 + STRLEN("TM##")
-	call AppendTMHMMoveName
 	ld b, BANK(GiveItemScript)
 	ld de, GiveItemScript
 	jp ScriptCall
@@ -504,8 +502,6 @@ Script_verbosegiveitemvar:
 	ld de, wStringBuffer1
 	ld a, STRING_BUFFER_4
 	call CopyConvertedText
-	ld de, wStringBuffer4 + STRLEN("TM##")
-	call AppendTMHMMoveName
 	ld b, BANK(GiveItemScript)
 	ld de, GiveItemScript
 	jp ScriptCall
@@ -1176,8 +1172,6 @@ Script_reloadmapafterbattle:
 	ld hl, wBattleScriptFlags
 	ld d, [hl]
 	ld [hl], 0
-	ld hl, wWildBattlePanic
-	ld [hl], d
 	ld a, [wBattleResult]
 	and $ff ^ BATTLERESULT_BITMASK
 	cp LOSE
@@ -1243,13 +1237,16 @@ Script_memcall:
 	; fallthrough
 
 ScriptCall:
-	ld hl, wScriptStackSize
-	ld a, [hl]
-	cp 5
-	ret nc
+; Bug: The script stack has a capacity of 5 scripts, yet there is
+; nothing to stop you from pushing a sixth script.  The high part
+; of the script address can then be overwritten by modifications
+; to wScriptDelay, causing the script to return to the rst/interrupt
+; space.
+
 	push de
+	ld hl, wScriptStackSize
+	ld e, [hl]
 	inc [hl]
-	ld e, a
 	ld d, 0
 	ld hl, wScriptStack
 	add hl, de
@@ -2189,7 +2186,7 @@ Script_newloadmap:
 	call StopScript
 	ret
 
-Script_reloadandreturn:
+Script_reloadend:
 	call Script_newloadmap
 	jp Script_end
 
@@ -2268,7 +2265,7 @@ Script_end:
 	call StopScript
 	ret
 
-Script_return:
+Script_endcallback:
 	call ExitScriptSubroutine
 	jr c, .dummy
 .dummy
@@ -2293,7 +2290,7 @@ ExitScriptSubroutine:
 	add hl, de
 	ld a, [hli]
 	ld b, a
-	and " "
+	and $7f
 	ld [wScriptBank], a
 	ld a, [hli]
 	ld e, a
@@ -2363,29 +2360,3 @@ Script_checksave:
 
 .gs_version
 	db GS_VERSION
-	
-AppendTMHMMoveName::
-; a = item ID
-	ld a, [wNamedObjectIndexBuffer]
-	cp TM01
-	ret c
-; save item name buffer
-	push de
-; a = TM/HM number
-	ld c, a
-	farcall GetTMHMNumber
-	ld a, c
-; a = move ID
-	ld [wTempTMHM], a
-	predef GetTMHMMove
-	ld a, [wTempTMHM]
-; wStringBuffer1 = move name
-	ld [wNamedObjectIndexBuffer], a
-	call GetMoveName
-; hl = item name buffer
-	pop hl
-; append wStringBuffer1 to item name buffer
-	ld [hl], " "
-	inc hl
-	ld de, wStringBuffer1
-	jp CopyName2
