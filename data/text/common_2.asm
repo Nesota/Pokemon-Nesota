@@ -319,7 +319,7 @@ _BlindingFlashText::
 	text_end ; unreferenced
 
 _UsedSurfText::
-	text " Now we are"
+	text "Now we are"
 	line "Surfing!"
 	done
 
@@ -387,13 +387,13 @@ _AlreadyUsingStrengthText::
 	prompt
 
 _UseStrengthText::
-	text " Moved Boulder"
+	text "You moved Boulder"
 	line "with STRENGTH!"
 	done
 
 _MoveBoulderText::
-	text_ram wStringBuffer1
-	text " can"
+	;text_ram wStringBuffer1
+	text "You can"
 	line "move boulders."
 	prompt
 
