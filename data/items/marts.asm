@@ -142,11 +142,31 @@ MartGoldenrod4F:
 	db -1 ; end
 
 MartGoldenrod5F:
-	db 4 ; # items
+	db 10 ; # items
 	db TM_THUNDERPUNCH
 	db TM_FIRE_PUNCH
 	db TM_ICE_PUNCH
+	db TM_FLAME_CHARGE
+	db TM_FLASH_CANNON
+	db TM_MOONBLAST
+	db TM_POISON_JAB
+	db TM_STONE_EDGE
+	db TM_SPIRIT_BREAK
+	db TM_PLAY_ROUGH
+	db -1 ; end
+
+MartGoldenrod5F2:
+	db 10 ; # items
+	db TM_DRAIN_KISS
+	db TM_XSCISSOR
+	db TM_DRAGON_CLAW
+	db TM_SCALD
+	db TM_ROCK_SLIDE
+	db TM_SUBSTITUTE
 	db TM_SHADOW_CLAW
+	db TM_PSYCHO_CUT
+	db TM_FALSE_SWIPE
+	db TM_MEAN_LOOK
 	db -1 ; end
 
 MartOlivine:

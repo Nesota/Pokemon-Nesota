@@ -366,7 +366,7 @@ GetSpeciesIcon:
 
 FlyFunction_GetMonIcon:
 	push de
-	ld a, FEAROW
+	ld a, [wTempIconSpecies]
 	call ReadMonMenuIcon
 	ld [wCurIcon], a
 	pop de

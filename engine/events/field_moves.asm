@@ -392,8 +392,8 @@ FlyFunction_InitGFX:
 	ld hl, vTiles0 tile FIELDMOVE_GRASS
 	lb bc, BANK(CutGrassGFX), 4
 	call Request2bpp
-	ld a, FEAROW
-	ld hl, FEAROW
+	ld a, [wCurPartyMon]
+	ld hl, wPartySpecies
 	ld e, a
 	ld d, 0
 	add hl, de

@@ -264,12 +264,12 @@ ENDM
 	add_tm DRAIN_KISS   ; f5
 	add_tm FLAME_CHARGE
 	add_tm FLASH_CANNON
-	add_tm HAIL
-	add_tm THUNDER_WAVE
+	add_tm HAIL ;Give along with Sandstorm TODO
+	add_tm THUNDER_WAVE; ADD to Dark CAVE 
 	add_tm MOONBLAST
 	add_tm POISON_JAB
 	add_tm STONE_EDGE
-	add_tm WILL_O_WISP
+	add_tm WILL_O_WISP ; add to OW
 	add_tm XSCISSOR
 	add_tm DRAGON_CLAW
 	add_tm SCALD
