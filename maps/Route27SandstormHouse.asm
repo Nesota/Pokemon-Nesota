@@ -23,6 +23,9 @@ SandstormHouseWoman:
 	verbosegiveitem TM_SANDSTORM
 	iffalse .Done
 	setevent EVENT_GOT_TM37_SANDSTORM
+	verbosegiveitem TM_HAIL
+	iffalse .Done
+	setevent EVENT_GOT_HAIL
 .AlreadyGotItem:
 	writetext SandstormHouseSandstormDescription
 	waitbutton
@@ -60,22 +63,22 @@ SandstormHouseWomanLoyalText:
 	para "It's nice to see a"
 	line "good trainer."
 
-	para "Here. A gift for"
-	line "your journey."
+	para "Here. Two gifts"
+	line " for your journey."
 	done
 
 SandstormHouseSandstormDescription:
-	text "TM37 happens to be"
-	line "SANDSTORM."
+	text "The TMS are HAIL"
+	line "and SANDSTORM"
 
-	para "It's a move that"
+	para "They both"
 	line "inflicts damage on"
 	cont "both battlers."
 
-	para "It's for advanced"
+	para "They're for elite"
 	line "trainers only."
 
-	para "Use it if you"
+	para "Use them if you"
 	line "dare. Good luck!"
 	done
 
