@@ -5,6 +5,7 @@
 	const VICTORYROAD_POKE_BALL3
 	const VICTORYROAD_POKE_BALL4
 	const VICTORYROAD_POKE_BALL5
+	const VICTORYROAD_POKE_BALL6
 
 VictoryRoad_MapScripts:
 	db 2 ; scene scripts
@@ -108,6 +109,9 @@ VictoryRoadFullHeal:
 
 VictoryRoadHPUp:
 	itemball HP_UP
+
+VictoryRoadTMEarthpower:
+	itemball TM_EARTH_POWER
 
 VictoryRoadHiddenMaxPotion:
 	hiddenitem MAX_POTION, EVENT_VICTORY_ROAD_HIDDEN_MAX_POTION
@@ -259,10 +263,11 @@ VictoryRoad_MapEvents:
 	bg_event  3, 29, BGEVENT_ITEM, VictoryRoadHiddenMaxPotion
 	bg_event  3, 65, BGEVENT_ITEM, VictoryRoadHiddenFullHeal
 
-	db 6 ; object events
+	db 7 ; object events
 	object_event 18, 13, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_VICTORY_ROAD
 	object_event  3, 28, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadTMEarthquake, EVENT_VICTORY_ROAD_TM_EARTHQUAKE
 	object_event 12, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadMaxRevive, EVENT_VICTORY_ROAD_MAX_REVIVE
 	object_event 18, 29, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullRestore, EVENT_VICTORY_ROAD_FULL_RESTORE
 	object_event 15, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullHeal, EVENT_VICTORY_ROAD_FULL_HEAL
 	object_event  7, 38, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadHPUp, EVENT_VICTORY_ROAD_HP_UP
+	object_event  10, 50, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadTMEarthpower, EVENT_VICTORY_ROAD_TM_EARTHPOWER

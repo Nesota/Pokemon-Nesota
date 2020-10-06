@@ -11,6 +11,7 @@ Marts:
 	dw MartGoldenrod3F2
 	dw MartGoldenrod4F
 	dw MartGoldenrod5F
+	dw MartGoldenrod5F2
 	dw MartOlivine
 	dw MartEcruteak
 	dw MartMahogany1

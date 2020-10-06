@@ -213,7 +213,7 @@ ENDM
 	add_tm HEADBUTT     ; c0
 	add_tm CURSE        ; c1
 	add_tm ROLLOUT      ; c2
-	add_tm ROAR         ; c4 ???
+	add_tm ROAR         ; c4
 	add_tm TOXIC        ; c5
 	add_tm ZAP_CANNON   ; c6
 	add_tm ROCK_SMASH   ; c7
@@ -229,7 +229,7 @@ ENDM
 	add_tm RAIN_DANCE   ; d1
 	add_tm GIGA_DRAIN   ; d2
 	add_tm ENDURE       ; d3
-	add_tm EARTH_POWER  ; d4 Frustration
+	add_tm EARTH_POWER  ; d4 ------------------------
 	add_tm SOLARBEAM    ; d5
 	add_tm IRON_TAIL    ; d6
 	add_tm DRAGONBREATH ; d7
@@ -251,7 +251,7 @@ ENDM
 	add_tm DEFENSE_CURL ; e8
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
-	add_tm SIGNAL_BEAM  ; eb DETECT
+	add_tm SIGNAL_BEAM  ; eb ---------------------------
 	add_tm REST         ; ec
 	add_tm ATTRACT      ; ed
 	add_tm THIEF        ; ee
@@ -262,23 +262,23 @@ ENDM
 	add_tm SPIRIT_BREAK ; f3
 	add_tm PLAY_ROUGH   ; f4
 	add_tm DRAIN_KISS   ; f5
-	add_tm FLAME_CHARGE
-	add_tm FLASH_CANNON
-	add_tm HAIL ;Give along with Sandstorm TODO
-	add_tm THUNDER_WAVE; ADD to Dark CAVE 
-	add_tm MOONBLAST
-	add_tm POISON_JAB
-	add_tm STONE_EDGE
-	add_tm WILL_O_WISP ; add to OW
-	add_tm XSCISSOR
-	add_tm DRAGON_CLAW
-	add_tm SCALD
-	add_tm ROCK_SLIDE
-	add_tm SUBSTITUTE
-	add_tm SHADOW_CLAW
-	add_tm PSYCHO_CUT
-	add_tm FALSE_SWIPE
-	add_tm MEAN_LOOK
+	add_tm FLAME_CHARGE ;------------------------------------
+	add_tm FLASH_CANNON ;-------------------------------------
+	add_tm HAIL ;----------------------------------------
+	add_tm THUNDER_WAVE; ----------------------------------
+	add_tm MOONBLAST; -------------------------------------
+	add_tm POISON_JAB; -----------------------------------
+	add_tm STONE_EDGE; ---------------------------------------
+	add_tm WILL_O_WISP ; ----------------------------------
+	add_tm XSCISSOR; ----------------------------------------
+	add_tm DRAGON_CLAW; -------------------------------------
+	add_tm SCALD; -----------------------------------------
+	add_tm ROCK_SLIDE; ------------------------------------
+	add_tm SUBSTITUTE; ------------------------------------
+	add_tm SHADOW_CLAW; ---------------------------------
+	add_tm PSYCHO_CUT; ---------------------------------------
+	add_tm FALSE_SWIPE; -------------------------------------
+	add_tm MEAN_LOOK; ----------------------------------------
 NUM_TMS EQU __tmhm_value__ - 1
 
 add_hm: MACRO

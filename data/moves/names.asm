@@ -23,7 +23,7 @@ MoveNames::
 	db "VINE WHIP@"
 	db "STOMP@"
 	db "DOUBLE KICK@"
-	db "MEGA KICK@"
+	db "FLAME CHARGE@"
 	db "GUNK SHOT@"
 	db "ROLLING KICK@"
 	db "SAND-ATTACK@"
