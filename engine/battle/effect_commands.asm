@@ -5804,13 +5804,16 @@ BattleCommand_Charge:
 	set SUBSTATUS_FLYING, [hl]
 
 .dont_set_digging
-	call CheckUserIsCharging
 	ld a, BATTLE_VARS_LAST_COUNTER_MOVE
 	call GetBattleVarAddr
 	ld [hl], b
 	ld a, BATTLE_VARS_LAST_MOVE
 	call GetBattleVarAddr
 	ld [hl], b
+	call ResetDamage
+	ld hl, .UsedText
+	call BattleTextbox
+	jp EndMoveEffect
 
 .UsedText:
 	text_far Text_BattleUser ; "<USER>"
