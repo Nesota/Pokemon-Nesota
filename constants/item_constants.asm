@@ -229,7 +229,7 @@ ENDM
 	add_tm RAIN_DANCE   ; d1
 	add_tm GIGA_DRAIN   ; d2
 	add_tm ENDURE       ; d3
-	add_tm EARTH_POWER  ; d4 ------------------------
+	add_tm EARTH_POWER  ; d4
 	add_tm SOLARBEAM    ; d5
 	add_tm IRON_TAIL    ; d6
 	add_tm DRAGONBREATH ; d7
@@ -251,7 +251,7 @@ ENDM
 	add_tm DEFENSE_CURL ; e8
 	add_tm THUNDERPUNCH ; e9
 	add_tm DREAM_EATER  ; ea
-	add_tm SIGNAL_BEAM  ; eb ---------------------------
+	add_tm SIGNAL_BEAM  ; eb 
 	add_tm REST         ; ec
 	add_tm ATTRACT      ; ed
 	add_tm THIEF        ; ee
@@ -262,8 +262,8 @@ ENDM
 	add_tm SPIRIT_BREAK ; f3
 	add_tm PLAY_ROUGH   ; f4
 	add_tm DRAIN_KISS   ; f5
-	add_tm FLAME_CHARGE ;------------------------------------
-	add_tm FLASH_CANNON ;-------------------------------------
+	add_tm FLAME_CHARGE ;
+	add_tm FLASH_CANNON ;
 	add_tm HAIL ;----------------------------------------
 	add_tm THUNDER_WAVE; ----------------------------------
 	add_tm MOONBLAST; -------------------------------------
