@@ -382,6 +382,8 @@ ENDM
 	map_attributes FloralPath, FLORAL_PATH, $05, SOUTH
 	connection south, NewBarkTown, NEW_BARK_TOWN, 0
 
+	map_attributes MysticCave, MYSTIC_CAVE, $09, 0
+
 	map_attributes Route23, ROUTE_23, $0f, 0
 	map_attributes SproutTower1F, SPROUT_TOWER_1F, $00, 0
 	map_attributes SproutTower2F, SPROUT_TOWER_2F, $00, 0

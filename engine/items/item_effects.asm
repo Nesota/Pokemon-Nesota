@@ -98,7 +98,7 @@ ItemEffects:
 	dw NoEffect            ; BIG_MUSHROOM
 	dw NoEffect            ; SILVERPOWDER
 	dw NoEffect            ; BLU_APRICORN
-	dw FlyWhistleEffect      ; FLY_WHISTLE
+	;dw FlyWhistleEffect      ; FLY_WHISTLE
 	dw NoEffect            ; AMULET_COIN
 	dw NoEffect            ; YLW_APRICORN
 	dw NoEffect            ; GRN_APRICORN
@@ -2938,11 +2938,11 @@ FlashLightEffect:
 	farcall FlashFunction
 	ret
 
-FlyWhistleEffect:
-	ld a, 1
-	ld [wUsingFieldItem], a
-	farcall FlyFunction
-	ret
+;FlyWhistleEffect:
+	;ld a, 1
+	;ld [wUsingFieldItem], a
+	;farcall FlyFunction
+	;ret
 
 RopeEffect:
 	ld a, 1

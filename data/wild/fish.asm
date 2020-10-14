@@ -212,7 +212,7 @@ FishGroups:
 .Floral_Good:
 	db  35 percent,     MAGIKARP,   20
 	db  70 percent,     KRABBY,     20
-	db  90 percent + 1, KRABBY,     20
+	db  90 percent + 1, DRATINI,     20
 	db 100 percent,     TOTODILE,   15
 .Floral_Super:
 	db  40 percent,     OMANYTE,     30

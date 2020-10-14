@@ -98,10 +98,10 @@ CianwoodCityChucksWife:
 	writetext ChucksWifeGiveHMText
 	promptbutton
 	verbosegiveitem HM_FLY
-	verbosegiveitem FLY_WHISTLE
+	;verbosegiveitem FLY_WHISTLE
 	iffalse .Done
 	setevent EVENT_GOT_HM02_FLY
-	setevent EVENT_GOT_FLY_WHISTLE
+	;setevent EVENT_GOT_FLY_WHISTLE
 	writetext ChucksWifeFlySpeechText
 	promptbutton
 .GotFly:
@@ -215,9 +215,6 @@ ChucksWifeGiveHMText:
 
 	para "Then you should"
 	line "take this HM"
-
-	para "and take this"
-	line "FLY WHISTLE."
 	done
 
 ChucksWifeFlySpeechText:

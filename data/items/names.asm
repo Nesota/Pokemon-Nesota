@@ -84,7 +84,7 @@ ItemNames::
 	db "BIG MUSHROOM@"
 	db "SILVERPOWDER@"
 	db "BLU APRICORN@"
-	db "FLY WHISTLE@"
+	;db "FLY WHISTLE@"
 	db "AMULET COIN@"
 	db "YLW APRICORN@"
 	db "GRN APRICORN@"

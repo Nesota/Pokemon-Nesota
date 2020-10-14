@@ -85,7 +85,7 @@ ItemDescriptions:
 	dw BigMushroomDesc
 	dw SilverPowderDesc
 	dw BluApricornDesc
-	dw FlyWhistleDesc
+	;dw FlyWhistleDesc
 	dw AmuletCoinDesc
 	dw YlwApricornDesc
 	dw GrnApricornDesc
@@ -609,9 +609,9 @@ SilverPowderDesc:
 BluApricornDesc:
 	db   "A blue APRICORN.@"
 
-FlyWhistleDesc:
-	db   "Summon a Fearow"
-	next "to travel.@"
+;FlyWhistleDesc:
+	;db   "Summon a Fearow"
+	;next "to travel.@"
 
 AmuletCoinDesc:
 	db   "Doubles monetary"

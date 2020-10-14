@@ -1053,3 +1053,6 @@ NewBarkPark_Blocks:
 
 FloralPath_Blocks:
 	INCBIN "maps/FloralPath.blk"
+
+MysticCave_Blocks:
+	INCBIN "maps/MysticCave.blk"

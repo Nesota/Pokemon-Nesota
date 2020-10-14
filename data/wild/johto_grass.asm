@@ -1654,26 +1654,53 @@ JohtoGrassWildMons:
 	; morn
 	db 2, PIDGEY
 	db 2, MOOTLE
-	db 3, PIDGEY
-	db 3, SENTRET
-	db 2, RATTATA
 	db 3, MOOTLE
-	db 3, HOPPIP
+	db 3, MAREEP
+	db 2, SUNKERN
+	db 3, EEVEE
+	db 3, BULBASAUR
 	; day
-	db 2, PIDGEY
-	db 2, MOOTLE
-	db 3, PIDGEY
-	db 3, SENTRET
-	db 2, RATTATA
+	db 2, SPEAROW
+	db 2, GIRAFARIG
 	db 3, MOOTLE
-	db 3, HOPPIP
+	db 3, MAREEP
+	db 2, SUNKERN
+	db 3, EEVEE
+	db 3, BULBASAUR
 	; nite
 	db 2, HOOTHOOT
 	db 2, MOOTLE
 	db 3, HOOTHOOT
-	db 3, RATTATA
-	db 2, MOOTLE
-	db 3, HOOTHOOT
-	db 3, HOOTHOOT
+	db 3, GIRAFARIG
+	db 2, SUNKERN
+	db 3, EEVEE
+	db 3, BULBASAUR
+
+	map_id MYSTIC_CAVE
+	db 4 percent, 4 percent, 4 percent ; encounter rates: morn/day/nite
+	; morn
+	db 2, GEODUDE
+	db 2, ZUBAT
+	db 3, ZUBAT
+	db 3, GEODUDE
+	db 2, MANKEY
+	db 3, VULPIX
+	db 3, CHARMANDER
+	; day
+	db 2, GEODUDE
+	db 2, GIRAFARIG
+	db 3, ZUBAT
+	db 3, GEODUDE
+	db 2, MANKEY
+	db 3, VULPIX
+	db 3, CHARMANDER
+	; nite
+	db 2, MANKEY
+	db 2, ZUBAT
+	db 3, VULPIX
+	db 3, GEODUDE
+	db 2, TYROGUE
+	db 3, GIRAFARIG
+	db 3, CHARMANDER
 
 	db -1 ; end
