@@ -268,17 +268,17 @@ ENDM
 	add_tm THUNDER_WAVE; 
 	add_tm MOONBLAST; 
 	add_tm POISON_JAB; 
-	add_tm STONE_EDGE; ---------------------------------------
-	add_tm WILL_O_WISP ; ----------------------------------
-	add_tm XSCISSOR; ----------------------------------------
-	add_tm DRAGON_CLAW; -------------------------------------
-	add_tm SCALD; -----------------------------------------
-	add_tm ROCK_SLIDE; ------------------------------------
-	add_tm SUBSTITUTE; ------------------------------------
-	add_tm SHADOW_CLAW; ---------------------------------
-	add_tm PSYCHO_CUT; ---------------------------------------
-	add_tm FALSE_SWIPE; -------------------------------------
-	add_tm MEAN_LOOK; ----------------------------------------
+	add_tm STONE_EDGE; 
+	add_tm WILL_O_WISP;
+	add_tm XSCISSOR; 
+	add_tm DRAGON_CLAW; 
+	add_tm SCALD; 
+	add_tm ROCK_SLIDE; 
+	add_tm SUBSTITUTE; 
+	add_tm SHADOW_CLAW; 
+	add_tm PSYCHO_CUT; 
+	add_tm FALSE_SWIPE; 
+	add_tm MEAN_LOOK; 
 NUM_TMS EQU __tmhm_value__ - 1
 
 add_hm: MACRO
