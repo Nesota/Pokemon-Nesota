@@ -9,7 +9,7 @@ MysticCave_MapEvents:
 	db 0, 0 ; filler
 
 	db 1 ; warp events
-    warp_event  8, 4, FLORAL_PATH, 1
+    warp_event  3, 25, FLORAL_PATH, 1
 
 	db 0 ; coord events
 

@@ -13,7 +13,6 @@ MysticCaveSign:
 
 FloralPathSignText:
 	text "Floral Path"
-
 	para "Discover Rare"
 	line "Species of"
 	cont "#MON from far"
@@ -22,7 +21,6 @@ FloralPathSignText:
 
 MysticCaveSignText:
 	text "Mystic Cave"
-
 	para "What will you"
 	line "encounter in"
 	cont "the darkness?"

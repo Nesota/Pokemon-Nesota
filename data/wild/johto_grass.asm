@@ -1704,3 +1704,4 @@ JohtoGrassWildMons:
 	db 3, CHARMANDER
 
 	db -1 ; end
+	
