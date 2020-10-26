@@ -18,12 +18,6 @@ PlayersHouse2F_MapScripts:
 .InitializeRoom:
 	special ToggleDecorationsVisibility
 	setevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_8
-	checkevent EVENT_INITIALIZED_EVENTS
-	iftrue .SkipInitialization
-	jumpstd InitializeEventsScript
-	return
-
-.SkipInitialization:
 	return
 
 .SetUpTileDecorations:
