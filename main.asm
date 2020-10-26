@@ -390,6 +390,7 @@ INCLUDE "engine/pokemon/mail_2.asm"
 SECTION "Phone Scripts 2", ROMX
 
 INCLUDE "engine/events/std_scripts.asm"
+INCLUDE "engine/events/init_events.asm"
 INCLUDE "engine/phone/scripts/unused.asm"
 INCLUDE "engine/phone/scripts/mom.asm"
 INCLUDE "engine/phone/scripts/bill.asm"
@@ -511,7 +512,7 @@ INCLUDE "engine/events/play_slow_cry.asm"
 INCLUDE "engine/pokedex/new_pokedex_entry.asm"
 INCLUDE "engine/link/time_capsule_2.asm"
 INCLUDE "engine/pokedex/unown_dex.asm"
-INCLUDE "engine/events/magikarp.asm"
+
 INCLUDE "engine/battle/hidden_power.asm"
 INCLUDE "engine/battle/misc.asm"
 
@@ -521,7 +522,7 @@ SECTION "bank3F", ROMX
 INCLUDE "engine/tilesets/tileset_anims.asm"
 INCLUDE "engine/events/npc_trade.asm"
 INCLUDE "engine/events/mom_phone.asm"
-
+INCLUDE "engine/events/magikarp.asm"
 
 SECTION "mobile40", ROMX
 
@@ -695,9 +696,6 @@ INCLUDE "engine/events/diploma.asm"
 INCLUDE "engine/pokedex/pokedex_3.asm"
 INCLUDE "engine/events/catch_tutorial_input.asm"
 INCLUDE "engine/pokegear/townmap_convertlinebreakcharacters.asm"
-
-PokegearGFX:
-INCBIN "gfx/pokegear/pokegear.2bpp.lz"
 
 INCLUDE "engine/pokemon/european_mail.asm"
 

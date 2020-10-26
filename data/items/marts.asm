@@ -113,7 +113,7 @@ MartGoldenrod2F2:
 	db -1 ; end
 
 MartGoldenrod3F:
-	db 7 ; # items
+	db 8 ; # items
 	db X_SPEED
 	db X_SPECIAL
 	db X_DEFEND
@@ -121,6 +121,7 @@ MartGoldenrod3F:
 	db DIRE_HIT
 	db GUARD_SPEC
 	db X_ACCURACY
+	db FOCUS_GLASS
 	db -1 ; end
 	
 MartGoldenrod3F2:
@@ -134,12 +135,13 @@ MartGoldenrod3F2:
 	db -1 ; end
 
 MartGoldenrod4F:
-	db 5 ; # items
+	db 6 ; # items
 	db PROTEIN
 	db IRON
 	db CARBOS
 	db CALCIUM
 	db HP_UP
+	db EXP_SHARE
 	db -1 ; end
 
 MartGoldenrod5F:

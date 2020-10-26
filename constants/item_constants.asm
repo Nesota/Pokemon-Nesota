@@ -154,7 +154,7 @@
 	const LEVEL_BALL   ; 9f
 	const LURE_BALL    ; a0
 	const FAST_BALL    ; a1
-	const DUSK_BALL      ; a2vvvvvvvvvvvvvvvvvvvvvv
+	const DUSK_BALL      ;                    a2vvvvvvvvvvvvvvvvvvvvvv
 	const LIGHT_BALL   ; a3
 	const FRIEND_BALL  ; a4
 	const MOON_BALL    ; a5
@@ -163,7 +163,7 @@
 	const GORGEOUS_BOX ; a8
 	const SUN_STONE    ; a9
 	const POLKADOT_BOW ; aa
-	const FOCUS_GLASS      ; abvvvvvvvvvvvvvvvvvvvvvvvv
+	const FOCUS_GLASS      ;                      abvvvvvvvvvvvvvvvvvvvvvvvv
 	const UP_GRADE     ; ac
 	const BERRY        ; ad
 	const GOLD_BERRY   ; ae

@@ -117,10 +117,6 @@ Pokegear_LoadGFX:
 	ld de, vTiles2
 	ld a, BANK(TownMapGFX)
 	call FarDecompress
-	ld hl, PokegearGFX
-	ld de, vTiles2 tile $30
-	ld a, BANK(PokegearGFX)
-	call FarDecompress
 	ld hl, PokegearSpritesGFX
 	ld de, vTiles0
 	ld a, BANK(PokegearSpritesGFX)
@@ -336,14 +332,6 @@ InitPokegearTilemap:
 	ld e, 1
 .ok
 	farcall PokegearMap
-	ld a, $07
-	ld bc, SCREEN_WIDTH - 2
-	hlcoord 1, 2
-	call ByteFill
-	hlcoord 0, 2
-	ld [hl], $06
-	hlcoord 19, 2
-	ld [hl], $17
 	ld a, [wPokegearMapCursorLandmark]
 	call PokegearMap_UpdateLandmarkName
 	ret
@@ -1902,24 +1890,6 @@ _TownMap:
 	ld e, KANTO_REGION
 .okay_tilemap
 	farcall PokegearMap
-	ld a, $07
-	ld bc, 6
-	hlcoord 1, 0
-	call ByteFill
-	hlcoord 0, 0
-	ld [hl], $06
-	hlcoord 7, 0
-	ld [hl], $17
-	hlcoord 7, 1
-	ld [hl], $16
-	hlcoord 7, 2
-	ld [hl], $26
-	ld a, $07
-	ld bc, NAME_LENGTH
-	hlcoord 8, 2
-	call ByteFill
-	hlcoord 19, 2
-	ld [hl], $17
 	ld a, [wTownMapCursorLandmark]
 	call PokegearMap_UpdateLandmarkName
 	farcall TownMapPals
@@ -2138,29 +2108,22 @@ TownMapBubble:
 ; Draw the bubble containing the location text in the town map HUD
 
 ; Top-left corner
-	hlcoord 1, 0
+	hlcoord 0, 0
 	ld a, $30
 	ld [hli], a
 ; Top row
-	ld bc, 16
+	ld bc, 18
 	ld a, " "
 	call ByteFill
 ; Top-right corner
 	ld a, $31
-	ld [hl], a
-	hlcoord 1, 1
-
-; Middle row
-	ld bc, SCREEN_WIDTH - 2
-	ld a, " "
-	call ByteFill
+	ld [hli], a
 
 ; Bottom-left corner
-	hlcoord 1, 2
 	ld a, $32
 	ld [hli], a
 ; Bottom row
-	ld bc, 16
+	ld bc, 18
 	ld a, " "
 	call ByteFill
 ; Bottom-right corner
@@ -2168,7 +2131,7 @@ TownMapBubble:
 	ld [hl], a
 
 ; Print "Where?"
-	hlcoord 2, 0
+	hlcoord 1, 0
 	ld de, .Where
 	call PlaceString
 ; Print the name of the default flypoint
@@ -2466,13 +2429,6 @@ Pokedex_GetArea:
 	ld bc, SCREEN_WIDTH
 	ld a, " "
 	call ByteFill
-	hlcoord 0, 1
-	ld a, $06
-	ld [hli], a
-	ld bc, SCREEN_WIDTH - 2
-	ld a, $07
-	call ByteFill
-	ld [hl], $17
 	call GetPokemonName
 	hlcoord 2, 0
 	call PlaceString
@@ -2672,8 +2628,8 @@ TownMapPals:
 ; Current tile
 	ld a, [hli]
 	push hl
-; The palette map covers tiles $00 to $5f; $60 and above use palette 0
-	cp $60
+; The palette map covers tiles $00 to $7e; $7f and above use palette 0
+	cp $7f
 	jr nc, .pal0
 
 ; The palette data is condensed to nybbles, least-significant first.
@@ -2789,7 +2745,7 @@ TownMapPlayerIcon:
 LoadTownMapGFX:
 	ld hl, TownMapGFX
 	ld de, vTiles2
-	lb bc, BANK(TownMapGFX), 48
+	lb bc, BANK(TownMapGFX), 127
 	call DecompressRequest2bpp
 	ret
 
