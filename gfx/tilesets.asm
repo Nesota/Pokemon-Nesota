@@ -242,11 +242,10 @@ INCBIN "gfx/tilesets/traditional_house.2bpp.lz"
 TilesetTraditionalHouseMeta::
 INCBIN "data/tilesets/traditional_house_metatiles.bin"
 
+SECTION "Tileset Data 6", ROMX
+
 TilesetTraditionalHouseColl::
 INCLUDE "data/tilesets/traditional_house_collision.asm"
-
-
-SECTION "Tileset Data 6", ROMX
 
 TilesetForestGFX::
 INCBIN "gfx/tilesets/forest.2bpp.lz"
@@ -296,10 +295,6 @@ INCBIN "data/tilesets/battle_tower_outside_metatiles.bin"
 TilesetBattleTowerOutsideColl::
 INCLUDE "data/tilesets/battle_tower_outside_collision.asm"
 
-TilesetBetaWordRoomMeta::
-INCBIN "data/tilesets/beta_word_room_metatiles.bin"
-
-TilesetBetaWordRoomColl::
 TilesetHoOhWordRoomColl::
 TilesetKabutoWordRoomColl::
 TilesetOmanyteWordRoomColl::
@@ -310,7 +305,6 @@ INCLUDE "data/tilesets/beta_word_room_collision.asm"
 SECTION "Tileset Data 7", ROMX
 
 TilesetRuinsOfAlphGFX::
-TilesetBetaWordRoomGFX::
 TilesetHoOhWordRoomGFX::
 TilesetKabutoWordRoomGFX::
 TilesetOmanyteWordRoomGFX::
